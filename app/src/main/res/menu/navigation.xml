@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/events"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:title="@string/events"
+            app:showAsAction="never"
+    />
+    <item
+            android:id="@+id/orders"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:title="@string/orders"
+            app:showAsAction="never"
+    />
+    <item
+            android:id="@+id/games"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:title="@string/games"
+            app:showAsAction="never"
+    />
+    <item
+            android:id="@+id/music"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:title="@string/music"
+            app:showAsAction="never"
+    />
+    <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:title="@string/profile"
+            app:showAsAction="never"
+    />
+</menu>
