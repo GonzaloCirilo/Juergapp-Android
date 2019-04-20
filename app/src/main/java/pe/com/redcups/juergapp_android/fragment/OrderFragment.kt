@@ -32,7 +32,7 @@ class OrderFragment : Fragment() {
         orderAdapter = OrderAdapter(orders, view.context)
         recycler_view_order.apply {
             adapter = orderAdapter
-            layoutManager = LinearLayoutManager(view.context)
+            layoutManager = LinearLayoutManager(view.context )
         }
     }
 }
