@@ -10,5 +10,5 @@ Juergapp es una aplicación movil nativa de Android y iOS que te ayuda:
 # Colaboradores
 
 - Gonzalo Cirilo [Github](https://github.com/GonzaloCirilo/)
-- Kevin Tito [Github](https://github.com/dreadss/)
+- Kevin Tito [Github](https://github.com/Dreadds/)
 - Franco Rivera [Github](https://github.com/FrancoRivera/)
