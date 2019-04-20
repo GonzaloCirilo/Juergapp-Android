@@ -24,7 +24,7 @@ class OrderAdapter(private val orders: ArrayList<Order>, context: Context): Recy
 
     override fun onBindViewHolder(holder: OrderAdapter.ViewHolder, position: Int) {
         holder.orderImageView.setImageResource(R.mipmap.ic_launcher)
-        holder.orderTextView.text = orders[position].price
+        holder.orderTextView.text = orders[position].price.toString()
     }
 
     inner class ViewHolder(orderView: View): RecyclerView.ViewHolder(orderView){
