@@ -8,18 +8,28 @@ import java.util.*
 
 class AppController: Application() {
 
-    private val requestQueue: RequestQueue? = null
-    private lateinit var mInstance: AppController
-
     override fun onCreate() {
         super.onCreate()
         mInstance = this
     }
-    fun getInstance(): AppController = mInstance
 
-    fun getRequestQueue(): RequestQueue = requestQueue ?: Volley.newRequestQueue(applicationContext)
+    private fun getRequestQueue(): RequestQueue = requestQueue ?: initRequestQueue(Volley.newRequestQueue(applicationContext))
 
     fun <T> addRequest(request: Request<T>) = getRequestQueue().add(request)
 
-    fun cancelRequestWithTag(tag: Objects) = requestQueue?.let { requestQueue.cancelAll(tag) }
+    fun cancelRequestWithTag(tag: Objects) = requestQueue?.let { requestQueue!!.cancelAll(tag) }
+
+    companion object{
+
+        private var mInstance: AppController = AppController()
+
+        private var requestQueue: RequestQueue? = null
+
+        fun getInstance(): AppController = mInstance
+
+        fun initRequestQueue(requestQueue: RequestQueue): RequestQueue {
+            this.requestQueue = requestQueue
+            return this.requestQueue!!
+        }
+    }
 }
