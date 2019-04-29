@@ -1,13 +1,8 @@
 package pe.com.redcups.core
 
 import android.content.Context
-import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import com.android.volley.*
-import com.android.volley.toolbox.BasicNetwork
-import com.android.volley.toolbox.DiskBasedCache
-import com.android.volley.toolbox.HurlStack
-import com.google.gson.reflect.TypeToken
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -15,12 +10,11 @@ import org.junit.Before
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import pe.com.redcups.core.model.Event
+import pe.com.redcups.core.network.AppController
 import pe.com.redcups.core.network.Constants
 import pe.com.redcups.core.network.GsonRequest
-import java.io.File
-import java.util.ArrayList
+import pe.com.redcups.core.network.JuergappAPI
 import java.util.concurrent.CountDownLatch
-import java.util.concurrent.Executors
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -44,12 +38,10 @@ class ExampleUnitTest {
         val signal =  CountDownLatch(1)
         // Given
         var events: Array<Event> = emptyArray()
-        var headers = mapOf("Authorization" to "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1NTY2NDc4MzV9.OS4sAkWylWgRMUT344mlwwlXT4B8lx9CeYRrACtmYiY")
         // Build request
         val request = GsonRequest(
             Constants.eventsURL,
             Array<Event>::class.java,
-            headers.toMutableMap(),
             Request.Method.GET,
             Response.Listener {response ->
                 events = response
@@ -60,6 +52,28 @@ class ExampleUnitTest {
             })
         // When
         queue.add(request)
+        signal.await()
+        // Then
+        assertEquals(1,events[0].id)
+    }
+
+    @Test
+    fun eventRequestFacade(){
+        val signal =  CountDownLatch(1)
+        AppController.getInstance()
+        // Given
+        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(context))
+        var events: Array<Event> = emptyArray()
+        // Make request
+        JuergappAPI.getResource(
+            Array<Event>::class.java,
+            Response.Listener {response ->
+                events = response
+                signal.countDown()
+            },
+            Response.ErrorListener {
+                signal.countDown()
+            })
         signal.await()
         // Then
         assertEquals(1,events[0].id)
