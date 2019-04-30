@@ -43,7 +43,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_events_dest_to_event_detail_dest">
+                            <entry key="get_details_action">
                               <value>
                                 <LayoutPositions />
                               </value>

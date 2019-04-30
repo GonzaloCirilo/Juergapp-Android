@@ -21,8 +21,7 @@ class OrderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        activity?.title = "Mis Pedidos"
-        for (i in 1..5){
+        for (i in 1..15){
             orders.add(Order(i))
         }
         return inflater.inflate(R.layout.fragment_order, container, false)

@@ -52,11 +52,11 @@ class EventAdapter(private val events: ArrayList<Event>, context: Context): Recy
                 }
 
                 eventView.setOnClickListener{
-                    // aca le pasas el argumento del evento
+                    // aca le pasas el argumento del evento por Safe Args
+                    //https://developer.android.com/guide/navigation/navigation-pass-data
                     val action = EventFragmentDirections.getDetailsAction(eventView.event_name.text.toString())
                     eventView.findNavController().navigate(action, options)
                 }
-                    //Navigation.createNavigateOnClickListener(R.id.event_detail_dest))
                 //}
             }
         }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.activity_main.*
 
 import pe.com.redcups.juergapp_android.R
 
@@ -24,7 +25,6 @@ class EventAddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = "Crea un Evento"
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event_add, container, false)
     }

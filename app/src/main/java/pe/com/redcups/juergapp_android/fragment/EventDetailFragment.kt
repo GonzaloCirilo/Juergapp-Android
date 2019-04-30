@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.navArgs
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_event_detail.*
 
 import pe.com.redcups.juergapp_android.R
@@ -17,7 +18,6 @@ class EventDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = "Detalle de Evento"
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event_detail, container, false)
