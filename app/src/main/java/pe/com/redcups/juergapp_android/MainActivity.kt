@@ -27,18 +27,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         val host: NavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment? ?: return
 
         val navController = host.navController
 
-        val drawerLayout : DrawerLayout? = findViewById(R.id.drawer_layout)
         appBarConfiguration = AppBarConfiguration(
             //list all top level destinatino (bottom bar butotns)
             setOf(R.id.orders_dest, R.id.events_dest, R.id.games_dest, R.id.profile_dest, R.id.music_dest),
-            drawerLayout)
+            drawer_layout)
 
         // Set up Action Bar
         setupActionBar(navController, appBarConfiguration)
@@ -62,8 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavMenu(navController: NavController) {
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNav?.setupWithNavController(navController)
+        bottom_navigation?.setupWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -72,16 +69,14 @@ class MainActivity : AppCompatActivity() {
         return findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)
     }
     private fun setupNavigationMenu(navController: NavController) {
-        val sideNavView = findViewById<NavigationView>(R.id.nav_view)
-        sideNavView?.setupWithNavController(navController)
+        nav_view?.setupWithNavController(navController)
     }
     private fun setupActionBar(navController: NavController,
                                appBarConfig : AppBarConfiguration) {
-        // TODO STEP 9.6 - Have NaviVjgationUI handle what your ActionBar displays
+
         // This allows NavigationUI to destinationcide what label to show in the action bar
         // By using appBarConfig, it will also determine whether to
         // show the up arrow or drawer menu icon
         setupActionBarWithNavController(navController, appBarConfig)
-        // TODO END STEP 9.6
     }
 }

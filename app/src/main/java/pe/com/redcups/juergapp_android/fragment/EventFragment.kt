@@ -60,7 +60,7 @@ class EventFragment : Fragment() {
             }
         }
         // adds click listener
-        view?.findViewById<FloatingActionButton>(R.id.event_add_button)?.setOnClickListener{
+        event_add_button.setOnClickListener{
             // Este id dentro de Navigate es del que esta definido en navigation/nav_graph
             findNavController().navigate(R.id.event_add_dest, null, options)
         }
