@@ -12,9 +12,30 @@
               android:label="fragment_music" tools:layout="@layout/fragment_music"/>
     <fragment android:id="@+id/orders_dest" android:name="pe.com.redcups.juergapp_android.fragment.OrderFragment"
               android:label="fragment_order" tools:layout="@layout/fragment_order"/>
+
     <fragment android:id="@+id/event_detail_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.EventDetailFragment"
-              android:label="fragment_event_detail" tools:layout="@layout/fragment_event_detail"/>
+              android:label="fragment_event_detail"
+              tools:layout="@layout/fragment_event_detail">
+        <argument
+                android:name="event_id"
+                app:argType="string"
+                android:defaultValue="3"/>
+    </fragment>
     <fragment android:id="@+id/events_dest" android:name="pe.com.redcups.juergapp_android.fragment.EventFragment"
-              android:label="EventFragment"/>
+              android:label="EventFragment">
+        <action android:id="@+id/get_details_action"
+                app:destination="@id/event_detail_dest">
+            <argument
+                    android:name="event_id"
+                    app:argType="string"
+                    android:defaultValue="10"/>
+
+        </action>
+
+    </fragment>
+
+    <fragment android:id="@+id/event_add_dest"
+              android:name="pe.com.redcups.juergapp_android.fragment.EventAddFragment"
+              android:label="fragment_event_add" tools:layout="@layout/fragment_event_add"/>
 </navigation>

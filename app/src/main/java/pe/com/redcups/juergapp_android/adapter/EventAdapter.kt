@@ -9,11 +9,14 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_event.view.*
 import pe.com.redcups.core.model.Event
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.EventDetailFragment
+import pe.com.redcups.juergapp_android.fragment.EventFragmentDirections
 
 class EventAdapter(private val events: ArrayList<Event>, context: Context): RecyclerView.Adapter<EventAdapter.ViewHolder>(){
 
@@ -38,7 +41,23 @@ class EventAdapter(private val events: ArrayList<Event>, context: Context): Recy
 
         init {
             with(itemView){
-                eventView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.event_detail_dest))
+
+                val options = navOptions {
+                    anim {
+                        enter = R.anim.slide_in_right
+                        exit = R.anim.slide_out_left
+                        popEnter = R.anim.slide_in_left
+                        popExit = R.anim.slide_out_right
+                    }
+                }
+
+                eventView.setOnClickListener{
+                    // aca le pasas el argumento del evento
+                    val action = EventFragmentDirections.getDetailsAction(eventView.event_name.text.toString())
+                    eventView.findNavController().navigate(action, options)
+                }
+                    //Navigation.createNavigateOnClickListener(R.id.event_detail_dest))
+                //}
             }
         }
 

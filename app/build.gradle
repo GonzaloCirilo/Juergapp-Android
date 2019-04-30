@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+//adds safe args
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -39,6 +42,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha04'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha04'
     implementation project(':core')
+
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
