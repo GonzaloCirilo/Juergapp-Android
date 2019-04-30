@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+            app:startDestination="@id/orders_dest">
+
+    <fragment android:id="@+id/games_dest" android:name="pe.com.redcups.juergapp_android.fragment.GameFragment"
+              android:label="fragment_game" tools:layout="@layout/fragment_game"/>
+    <fragment android:id="@+id/profile_dest" android:name="pe.com.redcups.juergapp_android.fragment.ProfileFragment"
+              android:label="fragment_profile" tools:layout="@layout/fragment_profile"/>
+    <fragment android:id="@+id/music_dest" android:name="pe.com.redcups.juergapp_android.fragment.MusicFragment"
+              android:label="fragment_music" tools:layout="@layout/fragment_music"/>
+    <fragment android:id="@+id/orders_dest" android:name="pe.com.redcups.juergapp_android.fragment.OrderFragment"
+              android:label="fragment_order" tools:layout="@layout/fragment_order"/>
+    <fragment android:id="@+id/event_detail_dest"
+              android:name="pe.com.redcups.juergapp_android.fragment.EventDetailFragment"
+              android:label="fragment_event_detail" tools:layout="@layout/fragment_event_detail"/>
+    <fragment android:id="@+id/events_dest" android:name="pe.com.redcups.juergapp_android.fragment.EventFragment"
+              android:label="EventFragment"/>
+</navigation>

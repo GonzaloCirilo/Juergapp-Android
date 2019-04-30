@@ -15,7 +15,7 @@ class EventDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = "Event Detail"
+        activity?.title = "Detalle de Evento"
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event_detail, container, false)
     }

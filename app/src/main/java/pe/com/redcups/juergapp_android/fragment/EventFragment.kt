@@ -22,9 +22,9 @@ class EventFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = "Events"
+        activity?.title = "Mis Eventos"
 
-        for (i in 1..10){
+        for (i in 1..20){
             events.add(Event(i,"Event $i", i))
         }
         return inflater.inflate(R.layout.fragment_event, container, false)

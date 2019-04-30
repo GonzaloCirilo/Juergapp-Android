@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_event.view.*
 import pe.com.redcups.core.model.Event
@@ -31,25 +32,15 @@ class EventAdapter(private val events: ArrayList<Event>, context: Context): Recy
 
     }
 
-    inner class ViewHolder(eventView: View): RecyclerView.ViewHolder(eventView), View.OnClickListener {
+    inner class ViewHolder(eventView: View): RecyclerView.ViewHolder(eventView) {
         val eventTextView: TextView = eventView.event_name
         val eventImageView: ImageView = eventView.event_image
 
         init {
             with(itemView){
-                setOnClickListener(this@ViewHolder)
+                eventView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.event_detail_dest))
             }
         }
 
-        override fun onClick(v: View?) {
-            // TODO pass Event object as bundle or consider using a ViewModel
-            val fragment = EventDetailFragment()
-            (v?.context as AppCompatActivity)
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container,fragment,fragment.javaClass.name)
-                .addToBackStack("EventStack")
-                .commit()
-        }
     }
 }
