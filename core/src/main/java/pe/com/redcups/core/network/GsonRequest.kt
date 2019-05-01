@@ -16,7 +16,8 @@ class GsonRequest<T>(
     private val clazz: Class<T>,
     method: Int,
     private val listener: Response.Listener<T>,
-    errorListener: Response.ErrorListener
+    errorListener: Response.ErrorListener,
+    var dataIn: T? = null
 ): Request<T>(method,url,errorListener) {
 
     private val gson = Gson()
@@ -38,5 +39,9 @@ class GsonRequest<T>(
         } catch (e: JsonSyntaxException){
             Response.error(ParseError(e))
         }
+    }
+
+    override fun getBody(): ByteArray {
+        return gson.toJson(dataIn!!).toByteArray()
     }
 }
