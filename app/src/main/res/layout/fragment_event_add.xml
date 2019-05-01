@@ -3,13 +3,13 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".fragment.EventDetailFragment">
+             android:id="@+id/event_add_fragment"
+             tools:context=".fragment.EventAddFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-            android:id="@+id/event_name_label"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Event Detail Fragment"/>
+            android:text="Agrega un nuevo evento"/>
 
 </FrameLayout>
