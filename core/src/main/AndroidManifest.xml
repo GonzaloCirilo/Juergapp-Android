@@ -1,2 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="pe.com.redcups.core"/>
+          package="pe.com.redcups.core"
+>
+    <uses-permission android:name="android.permission.INTERNET"/>
+</manifest>
