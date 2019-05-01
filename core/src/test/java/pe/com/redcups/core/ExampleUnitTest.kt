@@ -1,6 +1,7 @@
 package pe.com.redcups.core
 
 import android.content.Context
+import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import com.android.volley.*
 import org.junit.Test
@@ -67,11 +68,12 @@ class ExampleUnitTest {
         // Make request
         JuergappAPI.getResource(
             Array<Event>::class.java,
-            Response.Listener {response ->
-                events = response
+            {
+                events = it
                 signal.countDown()
             },
-            Response.ErrorListener {
+            {
+                Log.d("error", it.toString())
                 signal.countDown()
             })
         signal.await()
