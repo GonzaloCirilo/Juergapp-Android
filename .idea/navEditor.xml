@@ -89,6 +89,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="productCategoryFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-196" />
+                            <option name="y" value="360" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="profile_dest">
                     <value>
                       <LayoutPositions>

@@ -52,4 +52,9 @@
               android:name="pe.com.redcups.juergapp_android.fragment.EventAddFragment"
               android:label="Crear un Evento"
               tools:layout="@layout/fragment_event_add"/>
+
+    <fragment android:id="@+id/product_category_dest"
+              android:name="pe.com.redcups.juergapp_android.fragment.ProductCategoryFragment"
+              android:label="Selecciona un tipo de trago"
+              tools:layout="@layout/fragment_product_category"/>
 </navigation>

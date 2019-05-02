@@ -9,7 +9,7 @@
             app:showAsAction="never"
     />
     <item
-            android:id="@+id/orders_dest"
+            android:id="@+id/product_category_dest"
             android:icon="@drawable/ic_shopping_cart_black_24dp"
             android:title="@string/orders"
             app:showAsAction="never"
