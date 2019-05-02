@@ -1,16 +1,17 @@
-package pe.com.redcups.core;
+package pe.com.redcups.core
 
 import android.content.Context
 import android.util.Log
 import androidx.test.core.app.ApplicationProvider
-import com.android.volley.*
-import org.junit.Test
-
-import org.junit.Assert.*
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import org.junit.Assert
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import pe.com.redcups.core.model.ProductCategory
+import pe.com.redcups.core.model.Product
 import pe.com.redcups.core.network.AppController
 import pe.com.redcups.core.network.Constants
 import pe.com.redcups.core.network.GsonRequest
@@ -19,7 +20,7 @@ import java.util.concurrent.CountDownLatch
 
 @RunWith(RobolectricTestRunner::class)
 
-class ProductCategoryUnitTest {
+class ProductUnitTest {
     private lateinit var context: Context
     private lateinit var queue: RequestQueue
 
@@ -34,34 +35,34 @@ class ProductCategoryUnitTest {
         val signal =  CountDownLatch(1)
         // Given
 
-        var categories: Array<ProductCategory> = emptyArray()
+        var products: Array<Product> = emptyArray()
         // Build request
         val request = GsonRequest(
-                Constants.product_categoriesURL,
-                Array<ProductCategory>::class.java,
-                Request.Method.GET,
-                Response.Listener {response ->
-                categories = response
-            signal.countDown()
-        },
-        Response.ErrorListener {
-            signal.countDown()
-        })
+            Constants.productsURL,
+            Array<Product>::class.java,
+            Request.Method.GET,
+            Response.Listener { response ->
+                products = response
+                signal.countDown()
+            },
+            Response.ErrorListener {
+                signal.countDown()
+            })
         // When
         queue.add(request)
         signal.await()
 
         // Then
 
-        assertNotNull(categories)
-        assertNotEquals(categories.size, -1)
+        Assert.assertNotNull(products)
+        Assert.assertNotEquals(products.size, -1)
 
         // NOTE: This test fails if server returns an empty array
-        assertEquals(1, categories[0].id)
+        Assert.assertEquals(1, products[0].id)
 
         // this is the default first item
-        assertEquals("Cerveza", categories[0].name)
-        assertEquals("La vieja confiable", categories[0].name)
+        Assert.assertEquals("Ron Cartavio", products[0].name)
+        Assert.assertEquals("650", products[0].volume_ml)
     }
 
     @Test
@@ -70,30 +71,30 @@ class ProductCategoryUnitTest {
         AppController.getInstance()
         // Given
         AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(context))
-        var categories: Array<ProductCategory> = emptyArray()
+        var products: Array<Product> = emptyArray()
         // Make request
         JuergappAPI.getResource(
-                Array<ProductCategory>::class.java,
-                {
-                        categories = it
-                        signal.countDown()
-                },
-                {
-                        Log.d("error", it.toString())
-                        signal.countDown()
-                })
+            Array<Product>::class.java,
+            {
+                products = it
+                signal.countDown()
+            },
+            {
+                Log.d("error", it.toString())
+                signal.countDown()
+            })
         signal.await()
         // Then
 
-        assertNotNull(categories)
-        assertNotEquals(categories.size, -1)
+        Assert.assertNotNull(products)
+        Assert.assertNotEquals(products.size, -1)
 
         //NOTE: This test fails if server returns an empty array
-        assertEquals(1, categories[0].id)
+        Assert.assertEquals(1, products[0].id)
 
         // this is the default first item
-        assertEquals("Cerveza", categories[0].name)
-        assertEquals("La vieja confiable", categories[0].name)
+        Assert.assertEquals("Ron Cartavio", products[0].name)
+        Assert.assertEquals("650", products[0].volume_ml)
     }
 
 }
