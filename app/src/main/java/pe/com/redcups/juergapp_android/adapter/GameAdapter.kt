@@ -14,7 +14,7 @@ import pe.com.redcups.core.model.Game
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.GameFragmentDirections
 
-class GameAdapter(private val games: ArrayList<Game>, context: Context): RecyclerView.Adapter<GameAdapter.ViewHolder>() {
+class GameAdapter(private val games: Array<Game>, context: Context): RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     private var inflater: LayoutInflater = LayoutInflater.from(context)
 

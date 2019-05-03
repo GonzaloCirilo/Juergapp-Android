@@ -5,21 +5,31 @@
               android:layout_height="match_parent">
 
     <TextView
-            android:id="@+id/game_name_detail"
-            android:padding="@dimen/medium_margin"
-            android:layout_margin="@dimen/medium_margin"
-            android:textSize="30dp"
-            android:textStyle="bold"
+            android:padding="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/medium_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/mock_name_text"/>
+            android:text="Instrucciones de Juego"
+            android:layout_marginTop="34dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+    />
     <TextView
-            android:id="@+id/game_description_detail"
+            android:id="@+id/game_detail_description"
             android:padding="@dimen/small_margin"
             android:layout_margin="@dimen/medium_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/mock_description_text"
-            android:layout_marginTop="24dp"/>
+            android:textSize="20dp"
+            android:layout_marginTop="34dp"/>
+
+    <ImageView
+               android:id="@+id/game_detail_image"
+               android:layout_width="match_parent"
+               android:layout_height="100dp"
+               android:layout_margin="@dimen/medium_margin"
+               android:src="@mipmap/event_image_placeholder"
+    />
 
 </LinearLayout>

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // Esto es para debugging de los destinations
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        /*navController.addOnDestinationChangedListener { _, destination, _ ->
             val dest: String = try {
                 resources.getResourceName(destination.id)
             } catch (e: Resources.NotFoundException) {
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, "Navigated to $dest",
                 Toast.LENGTH_SHORT).show()
             Log.d("NavigationActivity", "Navigated to $dest")
-        }
+        }*/
 
     }
 
