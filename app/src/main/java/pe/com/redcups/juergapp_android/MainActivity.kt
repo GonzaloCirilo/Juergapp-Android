@@ -18,6 +18,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import pe.com.redcups.core.network.AppController
+import pe.com.redcups.core.network.VolleyConfig
 import pe.com.redcups.juergapp_android.fragment.*
 
 class MainActivity : AppCompatActivity() {
@@ -35,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             //list all top level destinatino (bottom bar butotns)
-            setOf(R.id.orders_dest, R.id.events_dest, R.id.games_dest, R.id.profile_dest, R.id.music_dest),
+            setOf(R.id.product_category_dest, R.id.events_dest, R.id.games_dest, R.id.profile_dest, R.id.music_dest),
             drawer_layout)
 
         // Set up Action Bar
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT).show()
             Log.d("NavigationActivity", "Navigated to $dest")
         }
+
     }
 
     private fun setupBottomNavMenu(navController: NavController) {

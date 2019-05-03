@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".fragment.MusicFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".fragment.MusicFragment"
+              android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="100dp"
+                  android:orientation="horizontal"
+                  android:padding="@dimen/small_margin"
+    >
+        <ImageView android:layout_width="150dp"
+                   android:layout_height="match_parent"
+                   android:src="@mipmap/event_image_placeholder"
+        />
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:padding="@dimen/medium_margin"
+                android:textStyle="bold"
+                android:text="Canción 1"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="100dp"
+                  android:orientation="horizontal"
+                  android:padding="@dimen/small_margin"
+    >
+        <ImageView android:layout_width="150dp"
+                   android:layout_height="match_parent"
+                   android:src="@mipmap/event_image_placeholder"
+        />
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:padding="@dimen/medium_margin"
+                android:textStyle="bold"
+                android:text="Canción 2"/>
+    </LinearLayout>
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Music Fragment"/>
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_margin"
+            android:layout_margin="@dimen/medium_margin"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textStyle="italic"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
 
-</FrameLayout>
+</LinearLayout>
