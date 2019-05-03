@@ -15,9 +15,9 @@
                 android:layout_height="match_parent">
             <ImageView
                     android:id="@+id/order_image"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:contentDescription="aea"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:contentDescription="Order Image"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
             <TextView
@@ -27,7 +27,9 @@
                     android:text="@string/mock_name_text"
                     app:layout_constraintStart_toEndOf="@id/order_image"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="16dp"/>
+                    android:textSize="20dp"
+                    android:layout_marginLeft="@dimen/medium_margin"
+                    android:layout_marginTop="25dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

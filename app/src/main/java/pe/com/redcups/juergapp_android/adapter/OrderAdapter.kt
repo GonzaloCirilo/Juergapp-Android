@@ -23,7 +23,7 @@ class OrderAdapter(private val orders: ArrayList<Order>, context: Context): Recy
     override fun getItemCount() = orders.size
 
     override fun onBindViewHolder(holder: OrderAdapter.ViewHolder, position: Int) {
-        holder.orderImageView.setImageResource(R.mipmap.ic_launcher)
+        holder.orderImageView.setImageResource(R.mipmap.event_image_placeholder)
         holder.orderTextView.text = orders[position].price.toString()
     }
 
