@@ -7,9 +7,9 @@ import com.android.volley.VolleyError
 class JuergappAPI {
 
     companion object{
-        private fun <T> buildRequest(clazz: Class<T>, method: Int, response: (T) -> Unit, errorResponse: (VolleyError)-> Unit, body: T? = null){
+        private fun <T> buildRequest(clazz: Class<T>, method: Int, response: (T) -> Unit, errorResponse: (VolleyError)-> Unit, body: T? = null, pathVariables: String? = ""){
             val request = GsonRequest(
-                Constants.map[clazz] ?: "",
+                Constants.map[clazz] + pathVariables ?: "",
                 clazz,
                 method,
                 Response.Listener{
@@ -23,8 +23,8 @@ class JuergappAPI {
             AppController.getInstance().addRequest(request)
         }
 
-        fun <T> getResource(clazz: Class<T>, response: (T) -> Unit, errorResponse: (VolleyError)-> Unit){
-            buildRequest(clazz, Request.Method.GET, response, errorResponse)
+        fun <T> getResource(clazz: Class<T>, response: (T) -> Unit, errorResponse: (VolleyError)-> Unit, pathVariables: String? = ""){
+            buildRequest(clazz, Request.Method.GET, response, errorResponse, pathVariables = pathVariables)
         }
 
         fun <T> postResource(clazz: Class<T>, response: (T) -> Unit, errorResponse: (VolleyError) -> Unit, body: T){

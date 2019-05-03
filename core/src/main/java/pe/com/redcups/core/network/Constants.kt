@@ -36,5 +36,6 @@ object Constants{
         ProductCategory::class.java to product_categoryURL,
         Array<Product>::class.java to productsURL,
         Product::class.java to productURL
+        Event::class.java to eventsURL
     )
 }

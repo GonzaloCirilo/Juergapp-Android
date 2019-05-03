@@ -43,7 +43,6 @@
                 android:name="event_id"
                 app:argType="string"
                 android:defaultValue="10"/>
-
         </action>
         <action android:id="@+id/action_events_dest_to_event_add_dest" app:destination="@id/event_add_dest"/>
 
