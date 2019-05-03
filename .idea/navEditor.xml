@@ -81,7 +81,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_games_dest_to_gameDetailFragment">
+                            <entry key="get_game_detail_action">
                               <value>
                                 <LayoutPositions />
                               </value>

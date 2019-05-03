@@ -31,7 +31,8 @@
                 app:argType="string"
                 android:defaultValue="Evento Chevere"/>
 
-        <deepLink app:uri="www.wemake.pe/juergapp/{event_id}" />
+        <deepLink app:uri="www.wemake.pe/juergapp/{event_id}/{event_name}" />
+
 
     </fragment>
     <fragment android:id="@+id/events_dest"

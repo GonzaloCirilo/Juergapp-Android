@@ -11,7 +11,9 @@ import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_event_detail.*
 import pe.com.redcups.core.model.Event
+import pe.com.redcups.core.network.AppController
 import pe.com.redcups.core.network.JuergappAPI
+import pe.com.redcups.core.network.VolleyConfig
 
 import pe.com.redcups.juergapp_android.R
 import java.util.concurrent.CountDownLatch
@@ -35,6 +37,10 @@ class EventDetailFragment : Fragment() {
         val signal = CountDownLatch(1)
         val safeArgs: EventDetailFragmentArgs by navArgs()
         val eventId = safeArgs.eventId
+
+        //crea el App Controller
+        AppController.getInstance()
+        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
 
 
         JuergappAPI.getResource(
