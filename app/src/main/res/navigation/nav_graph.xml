@@ -39,11 +39,6 @@
               android:label="Mis Eventos">
         <action android:id="@+id/get_details_action"
                 app:destination="@id/event_detail_dest">
-            <argument
-                    android:name="event_id"
-                    app:argType="string"
-                    android:defaultValue="10"/>
-
         </action>
 
     </fragment>

@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:id="@+id/event_add_fragment"
-             tools:context=".fragment.EventAddFragment">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:id="@+id/event_add_fragment"
+                                                   tools:context=".fragment.EventAddFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+            android:id="@+id/event_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Agrega un nuevo evento"/>
+            android:layout_height="wrap_content"
+            android:text="Nombre del evento"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+    />
+    <EditText
+            android:id="@+id/event_name_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/event_name"
+    />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
