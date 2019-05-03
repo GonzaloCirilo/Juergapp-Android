@@ -7,7 +7,7 @@ class TokenManager {
     var expirationDate: Date = Date()
 
 
-    fun getAsMutableMap(): MutableMap<String,String>? = mapOf("Authorization" to "Bearer $token").toMutableMap()
+    fun getAsMutableMap(): MutableMap<String,String>? = mapOf("Authorization" to "Bearer $token", "Content-Type" to "multipart/form-data").toMutableMap()
 
     companion object{
         private var mInstance: TokenManager = TokenManager()

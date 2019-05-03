@@ -15,6 +15,7 @@ import pe.com.redcups.core.network.AppController
 import pe.com.redcups.core.network.Constants
 import pe.com.redcups.core.network.GsonRequest
 import pe.com.redcups.core.network.JuergappAPI
+import java.util.*
 import java.util.concurrent.CountDownLatch
 
 /**
@@ -79,5 +80,31 @@ class ExampleUnitTest {
         signal.await()
         // Then
         assertEquals(1,events[0].id)
+    }
+
+    @Test
+    fun postEvent(){
+        val signal =  CountDownLatch(1)
+        AppController.getInstance()
+        // Given
+        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(context))
+        var event = Event(name = "Event Test",date = Date(), latitude = -12.0801503, longitude = -76.9543997,address = "Jr Los Helechos 140")
+        // Make request
+        JuergappAPI.postResource(
+            Event::class.java,
+            {
+                Log.d("info", "insert successful")
+                event = it
+                signal.countDown()
+            },
+            {
+                Log.d("error", it.toString())
+                signal.countDown()
+            },
+            event
+        )
+        signal.await()
+        // Then
+        assertNotEquals(0,event.id)
     }
 }

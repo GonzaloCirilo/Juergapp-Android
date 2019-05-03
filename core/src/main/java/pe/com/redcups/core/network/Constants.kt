@@ -6,5 +6,8 @@ object Constants{
     private const val baseURL = "https://wemake.pe/juergapp/api/v1"
     var eventsURL = "$baseURL/events"
 
-    val map: Map<Class<*>,String> = mapOf(Array<Event>::class.java to eventsURL)
+    val map: Map<Class<*>,String> = mapOf(
+        Array<Event>::class.java to eventsURL,
+        Event::class.java to eventsURL
+    )
 }
