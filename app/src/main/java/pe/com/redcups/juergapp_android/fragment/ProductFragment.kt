@@ -28,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class ProductFragment : Fragment() {
 
-    private lateinit var product: Product
+    lateinit var product: Product
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +40,7 @@ class ProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val safeArgs: ProductFragmentArgs by navArgs()
         val productId = safeArgs.productId
 
@@ -62,16 +63,20 @@ class ProductFragment : Fragment() {
             {
                 Log.d("error", it.toString())
                 signal.countDown()
-            })
+            },
+            "/$productId"
+        )
         //espera a que retorno el request
         signal.await()
 
-        if (product == null) return
+        if (product.equals(null)) return
+
         //recien actualiza
         // bind product to view
+
         product_name.text = product.name
         product_description.text =  product.description
-        product_alcohol_percentage.text =  product.description
+        product_alcohol_percentage.text =  product.alcohol_percentage.toString()
         product_image.setImageResource(R.mipmap.event_image_placeholder)
 
 

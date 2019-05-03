@@ -7,7 +7,7 @@ import pe.com.redcups.core.model.ProductCategory
 object Constants{
     private const val baseURL = "https://wemake.pe/juergapp/api/v1"
 
-    // Endpoitns
+    // EndPoints
 
     // Events
     var eventsURL = "$baseURL/events"
@@ -19,23 +19,23 @@ object Constants{
     var product_categoriesURL = "$baseURL/product_categories"
 
     // Get one Product Category of products
-    var product_categoryURL = "$baseURL/product_categories/1"
+    var product_categoryURL = "$baseURL/product_categories"
 
     // List of products
-    //var productsURL = "$baseURL/products/"
-    var productsURL = "$baseURL/product_categories/1"
-
-    // Get one product
-    var productURL = "$baseURL/products/1"
+    var productsURL = "$baseURL/products"
+    //var productsURL = "$baseURL/product_categories"
 
     // Mapping endpoints to Classes
 
     val map: Map<Class<*>,String> = mapOf(
+
         Array<Event>::class.java to eventsURL,
+        Event::class.java to eventsURL,
+
         Array<ProductCategory>::class.java to product_categoriesURL,
         ProductCategory::class.java to product_categoryURL,
+
         Array<Product>::class.java to productsURL,
-        Product::class.java to productURL
-        Event::class.java to eventsURL
+        Product::class.java to productsURL
     )
 }

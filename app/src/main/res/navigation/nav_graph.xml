@@ -90,6 +90,10 @@
                     android:name="product_id"
                     app:argType="integer"
                     android:defaultValue="10"/>
+            <argument
+                    android:name="product_name"
+                    app:argType="string"
+                    android:defaultValue="10"/>
         </action>
     </fragment>
 

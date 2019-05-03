@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_product_category.*
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import kotlinx.android.synthetic.main.recycler_view_product_list.*
 import pe.com.redcups.core.model.Product
+import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.core.network.JuergappAPI
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.ProductListAdapter
@@ -59,13 +60,15 @@ class ProductListFragment : Fragment() {
             Array<Product>::class.java,
             {
                 productList = it
+                Log.d("error", "I GOT A PRODUCT")
                 signal.countDown()
-
             },
             {
                 Log.d("error", it.toString())
                 signal.countDown()
-            })
+            }
+            //"/$product_category_id"
+            )
         //espera a que retorno el request
         signal.await()
 

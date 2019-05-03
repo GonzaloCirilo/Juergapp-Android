@@ -6,23 +6,43 @@
 
     <TextView
             android:id="@+id/product_name"
+            android:layout_margin="@dimen/medium_margin"
+            android:padding="@dimen/medium_margin"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:text="@string/hello_blank_fragment"
+            android:textStyle="bold"/>
     <TextView
             android:id="@+id/product_description"
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_margin"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:text="@string/hello_blank_fragment"/>
     <TextView
             android:id="@+id/product_alcohol_percentage"
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_margin"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
             android:text="@string/hello_blank_fragment"/>
     <ImageView
             android:id="@+id/product_image"
+            android:padding="@dimen/small_margin"
             android:layout_width="match_parent"
-               android:layout_height="wrap_content"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"/>
+    <Button
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:text="Comprar"
     />
 
 </LinearLayout>
