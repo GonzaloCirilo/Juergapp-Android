@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".fragment.ProfileFragment">
+             tools:context=".fragment.ProfileFragment"
+              android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="150dp"
+               android:src="@mipmap/event_image_placeholder"
+    />
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Profile Fragment"/>
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_margin"
+            android:layout_margin="@dimen/medium_margin"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:text="Nombre Apellido"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_margin"
+            android:layout_margin="@dimen/medium_margin"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textStyle="italic"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
 
-</FrameLayout>
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cerrar Sesión"
+            android:padding="@dimen/medium_margin"
+            android:layout_margin="@dimen/medium_margin"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white"
+    />
+</LinearLayout>
