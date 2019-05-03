@@ -26,6 +26,7 @@ object Constants{
     val map: Map<Class<*>,String> = mapOf(
         Array<Event>::class.java to eventsURL,
         Array<ProductCategory>::class.java to product_categoriesURL,
-        Array<Product>::class.java to productsURL
+        Array<Product>::class.java to productsURL,
+        Event::class.java to eventsURL
     )
 }
