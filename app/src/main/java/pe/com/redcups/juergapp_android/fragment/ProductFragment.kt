@@ -7,36 +7,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_product_category.*
-import pe.com.redcups.core.model.ProductCategory
+import androidx.navigation.fragment.navArgs
+import kotlinx.android.synthetic.main.fragment_product.*
+import pe.com.redcups.core.model.Product
 import pe.com.redcups.core.network.AppController
 import pe.com.redcups.core.network.JuergappAPI
-import pe.com.redcups.juergapp_android.R
-import pe.com.redcups.juergapp_android.adapter.ProductCategoryAdapter
 import pe.com.redcups.core.network.VolleyConfig
+import pe.com.redcups.juergapp_android.R
 import java.util.concurrent.CountDownLatch
+
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class ProductCategoryFragment : Fragment() {
+class ProductFragment : Fragment() {
 
-
-    private lateinit var productCategories: Array<ProductCategory>
-    private lateinit var productCategoryAdapter: ProductCategoryAdapter
+    private lateinit var product: Product
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_product_category, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_product, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val safeArgs: ProductFragmentArgs by navArgs()
+        val productId = safeArgs.productId
+
+        // Get the product from repository
 
         // Prepara el latch
         val signal =  CountDownLatch(1)
@@ -47,9 +54,9 @@ class ProductCategoryFragment : Fragment() {
 
         // Make request
         JuergappAPI.getResource(
-            Array<ProductCategory>::class.java,
+            Product::class.java,
             {
-                productCategories = it
+                product = it
                 signal.countDown()
             },
             {
@@ -59,15 +66,16 @@ class ProductCategoryFragment : Fragment() {
         //espera a que retorno el request
         signal.await()
 
-        if (productCategories.isNotEmpty()) {
-            //recien actualiza
-            productCategoryAdapter = ProductCategoryAdapter(productCategories, view.context)
-            recycler_view_product_category.apply {
-                adapter = productCategoryAdapter
-                layoutManager = LinearLayoutManager(view.context)
-            }
-        }
+        if (product == null) return
+        //recien actualiza
+        // bind product to view
+        product_name.text = product.name
+        product_description.text =  product.description
+        product_alcohol_percentage.text =  product.description
+        product_image.setImageResource(R.mipmap.event_image_placeholder)
+
 
     }
+
 
 }

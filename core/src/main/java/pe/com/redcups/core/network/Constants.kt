@@ -18,14 +18,23 @@ object Constants{
     // List of Categories
     var product_categoriesURL = "$baseURL/product_categories"
 
+    // Get one Product Category of products
+    var product_categoryURL = "$baseURL/product_categories/1"
+
     // List of products
-    var productsURL = "$baseURL/products"
+    //var productsURL = "$baseURL/products/"
+    var productsURL = "$baseURL/product_categories/1"
+
+    // Get one product
+    var productURL = "$baseURL/products/1"
 
     // Mapping endpoints to Classes
 
     val map: Map<Class<*>,String> = mapOf(
         Array<Event>::class.java to eventsURL,
         Array<ProductCategory>::class.java to product_categoriesURL,
-        Array<Product>::class.java to productsURL
+        ProductCategory::class.java to product_categoryURL,
+        Array<Product>::class.java to productsURL,
+        Product::class.java to productURL
     )
 }
