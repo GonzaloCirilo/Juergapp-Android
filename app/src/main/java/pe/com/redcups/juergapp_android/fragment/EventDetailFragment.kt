@@ -36,7 +36,6 @@ class EventDetailFragment : Fragment() {
         val safeArgs: EventDetailFragmentArgs by navArgs()
         val eventId = safeArgs.eventId
 
-        event_name_label.text = "Evento #" + eventId;
 
         JuergappAPI.getResource(
             Event::class.java,

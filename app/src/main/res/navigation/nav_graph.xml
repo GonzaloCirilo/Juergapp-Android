@@ -24,12 +24,16 @@
 
     <fragment android:id="@+id/event_detail_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.EventDetailFragment"
-              android:label="Evento Detalle"
+              android:label="{event_name}"
               tools:layout="@layout/fragment_event_detail">
         <argument
                 android:name="event_id"
                 app:argType="string"
                 android:defaultValue="3"/>
+        <argument
+                android:name="event_name"
+                app:argType="string"
+                android:defaultValue="Evento Chevere"/>
 
         <deepLink app:uri="www.wemake.pe/juergapp/{event_id}" />
 
@@ -43,6 +47,10 @@
                 android:name="event_id"
                 app:argType="string"
                 android:defaultValue="10"/>
+            <argument
+                    android:name="event_name"
+                    app:argType="string"
+                    android:defaultValue="Evento Chevere"/>
         </action>
         <action android:id="@+id/action_events_dest_to_event_add_dest" app:destination="@id/event_add_dest"/>
 

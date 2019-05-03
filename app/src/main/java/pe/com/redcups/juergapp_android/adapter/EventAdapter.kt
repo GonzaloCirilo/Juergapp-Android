@@ -41,7 +41,7 @@ class EventAdapter(private val events: Array<Event>, context: Context): Recycler
         holder.itemView.setOnClickListener{
             // aca le pasas el argumento del evento por Safe Args
             //https://developer.android.com/guide/navigation/navigation-pass-data
-            val action = EventFragmentDirections.getDetailsAction(events[position].id.toString())
+            val action = EventFragmentDirections.getDetailsAction(events[position].id.toString(), events[position].name)
             it.findNavController().navigate(action, options)
         }
 
