@@ -1,0 +1,56 @@
+package pe.com.redcups.juergapp_android.adapter
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.navigation.findNavController
+import androidx.navigation.navOptions
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.recycler_view_product_category.view.*
+import pe.com.redcups.core.model.ProductCategory
+import pe.com.redcups.juergapp_android.R
+import pe.com.redcups.juergapp_android.fragment.ProductCategoryFragmentDirections
+
+class ProductCategoryAdapter(private val product_categories: Array<ProductCategory>, context: Context): RecyclerView.Adapter<ProductCategoryAdapter.ViewHolder>() {
+
+    private var inflater: LayoutInflater = LayoutInflater.from(context)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductCategoryAdapter.ViewHolder {
+        val view: View = inflater.inflate(R.layout.recycler_view_product_category, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun getItemCount() = product_categories.size
+
+    override fun onBindViewHolder(holder: ProductCategoryAdapter.ViewHolder, position: Int) {
+        val options = navOptions {
+            anim {
+                enter = R.anim.slide_in_right
+                exit = R.anim.slide_out_left
+                popEnter = R.anim.slide_in_left
+                popExit = R.anim.slide_out_right
+            }
+        }
+
+        with(holder){
+            product_categoriesImageView.setImageResource(R.mipmap.event_image_placeholder)
+            product_categories_nameTextView.text = product_categories[position].name.toString()
+            itemView.setOnClickListener{
+                // Le pasas el argumento del producto por Safe Args
+                //https://developer.android.com/guide/navigation/navigation-pass-data
+                val action = ProductCategoryFragmentDirections.getProductListAction(product_categories[position].id, product_categories[position].name )
+                itemView.findNavController().navigate(action, options)
+            }
+            //}
+        }
+    }
+
+    inner class ViewHolder(productCategoryView: View): RecyclerView.ViewHolder(productCategoryView){
+        val product_categoriesImageView: ImageView = productCategoryView.product_category_image
+        var product_categories_nameTextView: TextView = productCategoryView.product_category_name
+
+    }
+}
