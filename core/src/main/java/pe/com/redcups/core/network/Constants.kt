@@ -1,6 +1,7 @@
 package pe.com.redcups.core.network
 
 import pe.com.redcups.core.model.Event
+import pe.com.redcups.core.model.Game
 import pe.com.redcups.core.model.Product
 import pe.com.redcups.core.model.ProductCategory
 
@@ -25,6 +26,9 @@ object Constants{
     var productsURL = "$baseURL/products"
     //var productsURL = "$baseURL/product_categories"
 
+    //
+    var gamesURL = "$baseURL/games"
+
     // Mapping endpoints to Classes
 
     val map: Map<Class<*>,String> = mapOf(
@@ -36,6 +40,10 @@ object Constants{
         ProductCategory::class.java to product_categoryURL,
 
         Array<Product>::class.java to productsURL,
-        Product::class.java to productsURL
+        Product::class.java to productsURL,
+
+        Array<Game>::class.java to gamesURL,
+        Game::class.java to gamesURL
+
     )
 }
