@@ -4,10 +4,6 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
             app:startDestination="@id/product_category_dest">
 
-    <fragment android:id="@+id/games_dest"
-              android:name="pe.com.redcups.juergapp_android.fragment.GameFragment"
-              android:label="Juegos"
-              tools:layout="@layout/fragment_game"/>
 
     <fragment android:id="@+id/profile_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.ProfileFragment"
@@ -118,6 +114,40 @@
                 app:argType="string"
                 android:defaultValue="Ron Cartavio"/>
     </fragment>
-
     <!-- END Products -->
+
+    <!-- Games -->
+    <fragment android:id="@+id/games_dest"
+              android:name="pe.com.redcups.juergapp_android.fragment.GameFragment"
+              android:label="Juegos"
+              tools:layout="@layout/fragment_game">
+        <action android:id="@+id/get_game_detail_action" app:destination="@id/game_dest">
+            <argument
+                    android:name="game_id"
+                    app:argType="integer"
+                    android:defaultValue="1"/>
+            <argument
+                    android:name="game_name"
+                    app:argType="string"
+                    android:defaultValue="Beerpong"/>
+
+        </action>
+    </fragment>
+
+    <fragment android:id="@+id/game_dest"
+              android:name="pe.com.redcups.juergapp_android.fragment.GameDetailFragment"
+              tools:layout="@layout/fragment_game_detail"
+              android:label="{game_name}"
+    >
+        <argument
+                android:name="game_id"
+                app:argType="integer"
+                android:defaultValue="1"/>
+        <argument
+                android:name="game_name"
+                app:argType="string"
+                android:defaultValue="Beerpong"/>
+
+    </fragment>
+
 </navigation>

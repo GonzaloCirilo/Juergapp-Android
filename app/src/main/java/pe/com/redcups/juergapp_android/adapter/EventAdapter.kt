@@ -36,13 +36,17 @@ class EventAdapter(private val events: Array<Event>, context: Context): Recycler
     override fun getItemCount(): Int = events.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.eventTextView.text = events[position].name
-        holder.eventImageView.setImageResource(R.mipmap.event_image_placeholder)
-        holder.itemView.setOnClickListener{
-            // aca le pasas el argumento del evento por Safe Args
-            //https://developer.android.com/guide/navigation/navigation-pass-data
-            val action = EventFragmentDirections.getDetailsAction(events[position].id.toString(), events[position].name)
-            it.findNavController().navigate(action, options)
+
+        with (holder){
+            eventTextView.text = events[position].name
+            eventImageView.setImageResource(R.mipmap.event_image_placeholder)
+            itemView.setOnClickListener{
+                // aca le pasas el argumento del evento por Safe Args
+                //https://developer.android.com/guide/navigation/navigation-pass-data
+                val action = EventFragmentDirections.getDetailsAction(events[position].id.toString(), events[position].name)
+                it.findNavController().navigate(action, options)
+            }
+
         }
 
     }

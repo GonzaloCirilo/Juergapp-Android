@@ -26,7 +26,7 @@ object Constants{
     var productsURL = "$baseURL/products"
     //var productsURL = "$baseURL/product_categories"
 
-    //
+    // List of Games
     var gamesURL = "$baseURL/games"
 
     // Mapping endpoints to Classes
