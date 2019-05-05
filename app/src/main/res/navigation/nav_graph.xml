@@ -6,7 +6,7 @@
 
 
     <fragment android:id="@+id/profile_dest"
-              android:name="pe.com.redcups.juergapp_android.fragment.ProfileFragment"
+              android:name="pe.com.redcups.juergapp_android.fragment.UserProfileFragment"
               android:label="Mi Perfil"
               tools:layout="@layout/fragment_profile"/>
     <fragment android:id="@+id/music_dest"

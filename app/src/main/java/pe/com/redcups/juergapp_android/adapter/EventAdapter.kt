@@ -1,12 +1,14 @@
 package pe.com.redcups.juergapp_android.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.MainThread
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +17,9 @@ import pe.com.redcups.core.model.Event
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.EventFragmentDirections
 
-class EventAdapter(private val events: Array<Event>, context: Context): RecyclerView.Adapter<EventAdapter.ViewHolder>(){
+class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHolder>(){
 
+    private var events: List<Event> = emptyList()
     private var inflater: LayoutInflater = LayoutInflater.from(context)
 
     val options = navOptions {
@@ -28,6 +31,7 @@ class EventAdapter(private val events: Array<Event>, context: Context): Recycler
         }
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = inflater.inflate(R.layout.recycler_view_event, parent, false)
         return ViewHolder(view)
@@ -38,12 +42,14 @@ class EventAdapter(private val events: Array<Event>, context: Context): Recycler
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with (holder){
-            eventTextView.text = events[position].name
+            var event  = events[position]
+            eventTextView.text = event.name
             eventImageView.setImageResource(R.mipmap.event_image_placeholder)
+
             itemView.setOnClickListener{
                 // aca le pasas el argumento del evento por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data
-                val action = EventFragmentDirections.getDetailsAction(events[position].id.toString(), events[position].name)
+                val action = EventFragmentDirections.getDetailsAction(event.id.toString(), event.name)
                 it.findNavController().navigate(action, options)
             }
 
@@ -54,5 +60,13 @@ class EventAdapter(private val events: Array<Event>, context: Context): Recycler
     inner class ViewHolder(eventView: View): RecyclerView.ViewHolder(eventView) {
         val eventTextView: TextView = eventView.event_name
         val eventImageView: ImageView = eventView.event_image
+    }
+
+    // updates Events Array
+
+    fun setEvents(events: List<Event>){
+        this.events = events
+        this.notifyDataSetChanged()
+        Log.d("Set Event", "Data Set Changed")
     }
 }

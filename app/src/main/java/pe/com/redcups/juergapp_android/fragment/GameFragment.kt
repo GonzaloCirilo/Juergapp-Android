@@ -35,7 +35,6 @@ class GameFragment : Fragment() {
         // Prepara el latch
         val signal =  CountDownLatch(1)
 
-        AppController.getInstance()
         AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
 
         JuergappAPI.getResource(
