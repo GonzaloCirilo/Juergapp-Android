@@ -26,6 +26,7 @@ class EventViewModel(application: Application) : AndroidViewModel(application){
     }
 
     fun insert(event: Event) = viewModelScope.launch(Dispatchers.IO) {
+        //for debugging
         Log.d("Inserting", event.id.toString())
         Log.d("Inserting", event.name)
         repository.insert(event)

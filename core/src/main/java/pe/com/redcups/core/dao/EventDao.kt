@@ -18,8 +18,7 @@ interface EventDao{
     @Query("SELECT * FROM event_table WHERE id = :id")
     fun getEvent(id: String): Event
 
-    //@Insert(onConflict = REPLACE)
-    @Insert
+    @Insert(onConflict = REPLACE)
     suspend fun insert(event: Event)
 
     @Delete

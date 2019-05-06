@@ -9,16 +9,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pe.com.redcups.core.dao.EventDao
+import pe.com.redcups.core.dao.ProductCategoryDao
 import pe.com.redcups.core.dao.UserDao
 import pe.com.redcups.core.model.Event
+import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.core.model.User
 
-@Database(entities = [User::class, Event::class], version = 1)
+@Database(entities = [User::class, Event::class, ProductCategory::class], version = 1)
 abstract class JuergappDatabase: RoomDatabase() {
 
     // Declare dao
     abstract fun userDao(): UserDao
     abstract fun eventDao(): EventDao
+    abstract fun productCategoryDao(): ProductCategoryDao
 
     // singleton for database
     companion object {
@@ -35,6 +38,7 @@ abstract class JuergappDatabase: RoomDatabase() {
                     JuergappDatabase::class.java,
                     "Juergapp_database"
                 ).addCallback(WordDatabaseCallback(scope))
+                    .fallbackToDestructiveMigration()
                  .build()
                  INSTANCE = instance
                 instance
