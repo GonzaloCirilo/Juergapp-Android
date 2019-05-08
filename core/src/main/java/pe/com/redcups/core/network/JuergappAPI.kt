@@ -9,7 +9,7 @@ import java.lang.Exception
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class JuergappAPI constructor(flag: Context) {
+class JuergappAPI constructor(context: Context) {
 
     companion object {
         @Volatile
