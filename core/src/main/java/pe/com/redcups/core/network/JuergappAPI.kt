@@ -49,7 +49,7 @@ class JuergappAPI constructor(context: Context) {
         }
     }
 
-    suspend fun <T> getResource(clazz: Class<T>, pathVariable: String?): T =
+    suspend fun <T> getResource(clazz: Class<T>, pathVariable: String? = ""): T =
         buildRequest(clazz, Request.Method.GET, pathVariable = pathVariable)
 
 
@@ -57,7 +57,7 @@ class JuergappAPI constructor(context: Context) {
         buildRequest(clazz, Request.Method.POST, body)
 
 
-    suspend fun <T> deleteResurce(clazz: Class<T>, pathVariable: String?): T =
+    suspend fun <T> deleteResurce(clazz: Class<T>, pathVariable: String? = ""): T =
         buildRequest(clazz, Request.Method.DELETE, pathVariable = pathVariable)
 
 }
