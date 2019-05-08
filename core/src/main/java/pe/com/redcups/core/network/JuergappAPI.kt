@@ -1,11 +1,13 @@
 package pe.com.redcups.core.network
 
 import android.content.Context
+import android.util.Log
 import com.android.volley.Request
-import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
-import org.jetbrains.annotations.TestOnly
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.lang.Exception
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 class JuergappAPI constructor(flag: Context) {
 
@@ -21,38 +23,38 @@ class JuergappAPI constructor(flag: Context) {
                 }
     }
 
-    private fun <T> buildRequest(
+    private suspend fun <T> buildRequest(
         clazz: Class<T>,
         method: Int,
-        response: (T) -> Unit,
-        errorResponse: (VolleyError) -> Unit,
         body: T? = null
-    ) {
+    ): T = suspendCancellableCoroutine {continuation ->
+
         val request = GsonRequest(
             Constants.map[clazz] ?: "",
             clazz,
             method,
             Response.Listener {
-                response(it)
+                continuation.resume(it)
             },
             Response.ErrorListener {
-                errorResponse(it)
+                Log.d("Error", it.toString())
+                continuation.resumeWithException(Exception(it.cause))
             },
             body
         )
         AppController.getInstance().addRequest(request)
+
+        continuation.invokeOnCancellation {
+            request.cancel()
+        }
     }
 
-    fun <T> getResource(clazz: Class<T>, response: (T) -> Unit, errorResponse: (VolleyError) -> Unit) {
-        buildRequest(clazz, Request.Method.GET, response, errorResponse)
-    }
+    suspend fun <T> getResource(clazz: Class<T>): T = buildRequest(clazz, Request.Method.GET)
 
-    fun <T> postResource(clazz: Class<T>, response: (T) -> Unit, errorResponse: (VolleyError) -> Unit, body: T) {
-        buildRequest(clazz, Request.Method.POST, response, errorResponse, body)
-    }
 
-    fun <T> deleteResurce(clazz: Class<T>, response: (T) -> Unit, errorResponse: (VolleyError) -> Unit) {
-        buildRequest(clazz, Request.Method.DELETE, response, errorResponse)
-    }
+    suspend fun <T> postResource(clazz: Class<T>, body: T): T = buildRequest(clazz, Request.Method.POST, body)
+
+
+    suspend fun <T> deleteResurce(clazz: Class<T>): T = buildRequest(clazz, Request.Method.DELETE)
 
 }
