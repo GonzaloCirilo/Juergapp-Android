@@ -26,11 +26,11 @@ class JuergappAPI constructor(flag: Context) {
     private suspend fun <T> buildRequest(
         clazz: Class<T>,
         method: Int,
-        body: T? = null
+        body: T? = null,
+        pathVariable: String? = ""
     ): T = suspendCancellableCoroutine {continuation ->
-
         val request = GsonRequest(
-            Constants.map[clazz] ?: "",
+            Constants.map[clazz] + pathVariable ?: "",
             clazz,
             method,
             Response.Listener {
@@ -49,12 +49,15 @@ class JuergappAPI constructor(flag: Context) {
         }
     }
 
-    suspend fun <T> getResource(clazz: Class<T>): T = buildRequest(clazz, Request.Method.GET)
+    suspend fun <T> getResource(clazz: Class<T>, pathVariable: String?): T =
+        buildRequest(clazz, Request.Method.GET, pathVariable = pathVariable)
 
 
-    suspend fun <T> postResource(clazz: Class<T>, body: T): T = buildRequest(clazz, Request.Method.POST, body)
+    suspend fun <T> postResource(clazz: Class<T>, body: T): T =
+        buildRequest(clazz, Request.Method.POST, body)
 
 
-    suspend fun <T> deleteResurce(clazz: Class<T>): T = buildRequest(clazz, Request.Method.DELETE)
+    suspend fun <T> deleteResurce(clazz: Class<T>, pathVariable: String?): T =
+        buildRequest(clazz, Request.Method.DELETE, pathVariable = pathVariable)
 
 }
