@@ -24,7 +24,7 @@ import java.util.concurrent.CountDownLatch
  * @see [Testing documentation](http://d.android.com/tools/testing)
  */
 @RunWith(RobolectricTestRunner::class)
-class ExampleUnitTest {
+class EventUnitTest {
 
     private lateinit var context: Context
     private lateinit var queue: RequestQueue
@@ -33,41 +33,16 @@ class ExampleUnitTest {
     fun setup() {
         context = ApplicationProvider.getApplicationContext()
         queue = VolleyConfig.newVolleyRequestQueueForTest(context)
+        AppController.getInstance(context).setRequestQueue(queue)
+
     }
 
     @Test
-    fun eventRequest(){
+    fun getEvent(){
         val signal =  CountDownLatch(1)
-        // Given
-        var events: Array<Event> = emptyArray()
-        // Build request
-        val request = GsonRequest(
-            Constants.eventsURL,
-            Array<Event>::class.java,
-            Request.Method.GET,
-            Response.Listener {response ->
-                events = response
-                signal.countDown()
-            },
-            Response.ErrorListener {
-                signal.countDown()
-            })
-        // When
-        queue.add(request)
-        signal.await()
-        // Then
-        assertEquals(1,events[0].id)
-    }
-
-    @Test
-    fun eventRequestFacade(){
-        val signal =  CountDownLatch(1)
-        AppController.getInstance()
-        // Given
-        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(context))
         var events: Array<Event> = emptyArray()
         // Make request
-        JuergappAPI.getResource(
+        JuergappAPI.getInstance(context).getResource(
             Array<Event>::class.java,
             {
                 events = it
@@ -85,12 +60,9 @@ class ExampleUnitTest {
     @Test
     fun postEvent(){
         val signal =  CountDownLatch(1)
-        AppController.getInstance()
-        // Given
-        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(context))
         var event = Event(name = "Event Test",date = Date(), latitude = -12.0801503, longitude = -76.9543997,address = "Jr Los Helechos 140")
         // Make request
-        JuergappAPI.postResource(
+        JuergappAPI.getInstance(context).postResource(
             Event::class.java,
             {
                 Log.d("info", "insert successful")
