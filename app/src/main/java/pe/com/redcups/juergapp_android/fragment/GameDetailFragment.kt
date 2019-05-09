@@ -2,63 +2,58 @@ package pe.com.redcups.juergapp_android.fragment
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_event_detail.*
-import pe.com.redcups.core.model.Event
+import kotlinx.android.synthetic.main.fragment_game_detail.*
+import pe.com.redcups.core.model.Game
 import pe.com.redcups.core.network.AppController
 import pe.com.redcups.core.network.JuergappAPI
 import pe.com.redcups.core.network.VolleyConfig
-
 import pe.com.redcups.juergapp_android.R
 import java.util.concurrent.CountDownLatch
 
-class EventDetailFragment : Fragment() {
+class GameDetailFragment : Fragment() {
 
-    lateinit var event: Event
+    lateinit var game: Game
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_detail, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_game_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val safeArgs: GameDetailFragmentArgs by navArgs()
+        val gameId = safeArgs.gameId
+
         val signal = CountDownLatch(1)
-        val safeArgs: EventDetailFragmentArgs by navArgs()
-        val eventId = safeArgs.eventId
 
         //crea el App Controller
         AppController.getInstance()
         AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
 
+        // Make request
+
 
         JuergappAPI.getResource(
-            Event::class.java,
+            Game::class.java,
             {
-                event = it
+                game = it
                 signal.countDown()
             },
             {
                 Log.d("error", it.toString())
                 signal.countDown()
             },
-            "/$eventId"
+            "/$gameId"
         )
 
         signal.await()
 
-        event_address.text = event.address
-
+        game_detail_description.text =  game.description
+        game_detail_image.setImageResource(R.mipmap.event_image_placeholder)
     }
 }

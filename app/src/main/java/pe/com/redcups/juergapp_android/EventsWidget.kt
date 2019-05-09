@@ -39,7 +39,8 @@ class EventsWidget : AppWidgetProvider() {
 
             val args= Bundle()
 
-            args.putString("event_id", "Evento desde el Widget")
+            args.putString("event_id", "1")
+            args.putString("event_name", "Nombre del Evento")
 
             val pendingIntent = NavDeepLinkBuilder(context)
                 .setGraph(R.navigation.nav_graph)

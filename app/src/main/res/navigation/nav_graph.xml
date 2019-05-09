@@ -2,12 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
-            app:startDestination="@id/orders_dest">
+            app:startDestination="@id/product_category_dest">
 
-    <fragment android:id="@+id/games_dest"
-              android:name="pe.com.redcups.juergapp_android.fragment.GameFragment"
-              android:label="Juegos"
-              tools:layout="@layout/fragment_game"/>
 
     <fragment android:id="@+id/profile_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.ProfileFragment"
@@ -24,14 +20,19 @@
 
     <fragment android:id="@+id/event_detail_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.EventDetailFragment"
-              android:label="Evento Detalle"
+              android:label="{event_name}"
               tools:layout="@layout/fragment_event_detail">
         <argument
                 android:name="event_id"
                 app:argType="string"
                 android:defaultValue="3"/>
+        <argument
+                android:name="event_name"
+                app:argType="string"
+                android:defaultValue="Evento Chevere"/>
 
-        <deepLink app:uri="www.wemake.pe/juergapp/{event_id}" />
+        <deepLink app:uri="www.wemake.pe/juergapp/{event_id}/{event_name}" />
+
 
     </fragment>
     <fragment android:id="@+id/events_dest"
@@ -39,12 +40,16 @@
               android:label="Mis Eventos">
         <action android:id="@+id/get_details_action"
                 app:destination="@id/event_detail_dest">
+        <argument
+                android:name="event_id"
+                app:argType="string"
+                android:defaultValue="10"/>
             <argument
-                    android:name="event_id"
+                    android:name="event_name"
                     app:argType="string"
-                    android:defaultValue="10"/>
-
+                    android:defaultValue="Evento Chevere"/>
         </action>
+        <action android:id="@+id/action_events_dest_to_event_add_dest" app:destination="@id/event_add_dest"/>
 
     </fragment>
 
@@ -52,4 +57,98 @@
               android:name="pe.com.redcups.juergapp_android.fragment.EventAddFragment"
               android:label="Crear un Evento"
               tools:layout="@layout/fragment_event_add"/>
+
+    <!-- Products -->
+
+    <fragment android:id="@+id/product_category_dest"
+              android:name="pe.com.redcups.juergapp_android.fragment.ProductCategoryFragment"
+              android:label="Selecciona un tipo de trago"
+              tools:layout="@layout/fragment_product_category">
+
+        <action android:id="@+id/get_product_list_action"
+                app:destination="@id/product_list_dest">
+
+            <argument
+                    android:name="product_category_id"
+                    app:argType="integer"
+                    android:defaultValue="10"/>
+
+        </action>
+    </fragment>
+
+    <fragment android:id="@+id/product_list_dest"
+              android:name="pe.com.redcups.juergapp_android.fragment.ProductListFragment"
+              android:label="{product_category_name}"
+              tools:layout="@layout/fragment_product_list">
+        <argument
+                android:name="product_category_name"
+                app:argType="string"
+                android:defaultValue="Ron"/>
+        <argument
+                android:name="product_category_id"
+                app:argType="integer"
+                android:defaultValue="10"/>
+
+        <action android:id="@+id/get_product_action"
+                app:destination="@id/product_dest">
+            <argument
+                    android:name="product_id"
+                    app:argType="integer"
+                    android:defaultValue="10"/>
+            <argument
+                    android:name="product_name"
+                    app:argType="string"
+                    android:defaultValue="10"/>
+        </action>
+    </fragment>
+
+    <fragment android:id="@+id/product_dest"
+              android:name="pe.com.redcups.juergapp_android.fragment.ProductFragment"
+              android:label="{product_name}"
+              tools:layout="@layout/fragment_product" >
+        <argument
+                android:name="product_id"
+                app:argType="integer"
+                android:defaultValue="10"/>
+        <argument
+                android:name="product_name"
+                app:argType="string"
+                android:defaultValue="Ron Cartavio"/>
+    </fragment>
+    <!-- END Products -->
+
+    <!-- Games -->
+    <fragment android:id="@+id/games_dest"
+              android:name="pe.com.redcups.juergapp_android.fragment.GameFragment"
+              android:label="Juegos"
+              tools:layout="@layout/fragment_game">
+        <action android:id="@+id/get_game_detail_action" app:destination="@id/game_dest">
+            <argument
+                    android:name="game_id"
+                    app:argType="integer"
+                    android:defaultValue="1"/>
+            <argument
+                    android:name="game_name"
+                    app:argType="string"
+                    android:defaultValue="Beerpong"/>
+
+        </action>
+    </fragment>
+
+    <fragment android:id="@+id/game_dest"
+              android:name="pe.com.redcups.juergapp_android.fragment.GameDetailFragment"
+              tools:layout="@layout/fragment_game_detail"
+              android:label="{game_name}"
+    >
+        <argument
+                android:name="game_id"
+                app:argType="integer"
+                android:defaultValue="1"/>
+        <argument
+                android:name="game_name"
+                app:argType="string"
+                android:defaultValue="Beerpong"/>
+
+    </fragment>
+
 </navigation>

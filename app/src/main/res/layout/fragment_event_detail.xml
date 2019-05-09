@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".fragment.EventDetailFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              tools:context=".fragment.EventDetailFragment"
+              android:orientation="vertical"
+             >
     <TextView
             android:id="@+id/event_name_label"
+            android:padding="@dimen/medium_margin"
+            android:layout_margin="@dimen/medium_margin"
+            android:textSize="30dp"
+            android:textStyle="bold"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Event Detail Fragment"/>
+            android:layout_height="wrap_content"
+            android:text="Event Detail Fragment"
+    />
+    <TextView
+            android:id="@+id/event_address"
+            android:padding="@dimen/small_margin"
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Address"
+            android:layout_marginTop="24dp"/>
 
-</FrameLayout>
+</LinearLayout>

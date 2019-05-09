@@ -1,6 +1,7 @@
 package pe.com.redcups.juergapp_android.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,34 +15,47 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_event.*
 import pe.com.redcups.core.model.Event
+import pe.com.redcups.core.network.AppController
+import pe.com.redcups.core.network.JuergappAPI
+import pe.com.redcups.core.network.VolleyConfig
 
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.EventAdapter
+import java.util.concurrent.CountDownLatch
 
 class EventFragment : Fragment() {
 
-    private var events = ArrayList<Event>()
+    private lateinit var events: Array<Event>
     private lateinit var eventAdapter: EventAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View? = inflater.inflate(R.layout.fragment_event, container, false)
 
-        // reseteo la lista porque sino Cuando regresas se
-        // vuelven a agregar 20 eventos
-        // y en total hay 40
-        events =  ArrayList<Event>();
-        for (i in 1..20){
-            events.add(Event(i,"Event $i", i))
-        }
-
-
-        return inflater.inflate(R.layout.fragment_event, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Prepara el latch
+        val signal =  CountDownLatch(1)
+
+        AppController.getInstance()
+        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
+
+        JuergappAPI.getResource(
+            Array<Event>::class.java,
+            {
+                events = it
+                signal.countDown()
+            },
+            {
+                Log.d("error", it.toString())
+                signal.countDown()
+            }
+        )
+
+        signal.await()
 
         eventAdapter = EventAdapter(events,view.context)
         recycler_view_event.apply{

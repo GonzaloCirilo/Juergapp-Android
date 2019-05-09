@@ -1,5 +1,6 @@
 package pe.com.redcups.juergapp_android.fragment
 
+
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,26 +8,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_game.*
-import pe.com.redcups.core.model.Game
+import kotlinx.android.synthetic.main.fragment_product_category.*
+import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.core.network.AppController
 import pe.com.redcups.core.network.JuergappAPI
-import pe.com.redcups.core.network.VolleyConfig
-
 import pe.com.redcups.juergapp_android.R
-import pe.com.redcups.juergapp_android.adapter.GameAdapter
+import pe.com.redcups.juergapp_android.adapter.ProductCategoryAdapter
+import pe.com.redcups.core.network.VolleyConfig
 import java.util.concurrent.CountDownLatch
 
-class GameFragment : Fragment() {
+/**
+ * A simple [Fragment] subclass.
+ *
+ */
+class ProductCategoryFragment : Fragment() {
 
-    private lateinit var games: Array<Game>
-    private lateinit var gameAdapter: GameAdapter
+
+    private lateinit var productCategories: Array<ProductCategory>
+    private lateinit var productCategoryAdapter: ProductCategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_game, container, false)
+
+        return inflater.inflate(R.layout.fragment_product_category, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,27 +41,33 @@ class GameFragment : Fragment() {
         // Prepara el latch
         val signal =  CountDownLatch(1)
 
+        //crea el App Controller
         AppController.getInstance()
         AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
 
+        // Make request
         JuergappAPI.getResource(
-            Array<Game>::class.java,
+            Array<ProductCategory>::class.java,
             {
-                games = it
+                productCategories = it
                 signal.countDown()
             },
             {
                 Log.d("error", it.toString())
                 signal.countDown()
-            }
-        )
-
+            })
+        //espera a que retorno el request
         signal.await()
 
-        gameAdapter = GameAdapter(games, view.context)
-        recycler_view_game.apply {
-            adapter = gameAdapter
-            layoutManager = LinearLayoutManager(view.context)
+        if (productCategories.isNotEmpty()) {
+            //recien actualiza
+            productCategoryAdapter = ProductCategoryAdapter(productCategories, view.context)
+            recycler_view_product_category.apply {
+                adapter = productCategoryAdapter
+                layoutManager = LinearLayoutManager(view.context)
+            }
         }
+
     }
+
 }

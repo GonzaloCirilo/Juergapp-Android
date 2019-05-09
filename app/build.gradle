@@ -46,4 +46,10 @@ dependencies {
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+
+
+    // Networwing
+    implementation "com.android.volley:volley:1.1.1"
+    implementation 'com.google.code.gson:gson:2.8.5'
+
 }
