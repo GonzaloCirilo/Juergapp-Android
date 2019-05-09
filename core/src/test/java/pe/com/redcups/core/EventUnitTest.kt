@@ -40,8 +40,8 @@ class EventUnitTest {
 
     @Test
     fun getEvent(){
-        val events: Array<Event> =  runBlocking { JuergappAPI.getInstance(context).getResource(
-            Array<Event>::class.java)
+        val events: Array<Event> =  runBlocking { JuergappAPI.getInstance(context)
+            .getResource(Array<Event>::class.java)
         }
         // Then
         assertEquals(1,events[0].id)
@@ -52,10 +52,7 @@ class EventUnitTest {
         var event = Event(name = "Event Test",date = Date(), latitude = -12.0801503, longitude = -76.9543997,address = "Jr Los Helechos 140")
         // Make request
         event = runBlocking {
-            JuergappAPI.getInstance(context).postResource(
-                Event::class.java,
-                event
-            )
+            JuergappAPI.getInstance(context).postResource(event)
         }
         // Then
         assertNotEquals(0,event.id)
