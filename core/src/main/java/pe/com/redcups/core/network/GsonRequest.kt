@@ -36,12 +36,9 @@ class GsonRequest<T>(
                 HttpHeaderParser.parseCacheHeaders(response))
         } catch (e: UnsupportedEncodingException){
             Response.error(ParseError(e))
-        } catch (e: JsonSyntaxException){
-            Response.error(ParseError(e))
         }
     }
 
-    override fun getBody(): ByteArray {
-        return gson.toJson(dataIn!!).toByteArray()
-    }
+    override fun getBody(): ByteArray = gson.toJson(dataIn!!).toByteArray()
+
 }

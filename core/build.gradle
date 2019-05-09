@@ -40,8 +40,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.volley:volley:1.1.1"
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
     testImplementation 'org.robolectric:robolectric:4.3-alpha-2'
-    testImplementation 'androidx.test:core:1.2.0-alpha04'
+    testImplementation 'androidx.test:core:1.2.0-alpha05'
     testImplementation 'org.apache.httpcomponents:httpclient:4.5.8'
 }
 repositories {
