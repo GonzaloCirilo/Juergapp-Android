@@ -14,6 +14,6 @@ interface ProductCategoryDao{
     fun getAllProductCategories(): LiveData<List<ProductCategory>>
 
     @Insert(onConflict = REPLACE)
-    fun insert(productCategory: ProductCategory)
+    suspend fun insert(productCategory: ProductCategory)
 
 }

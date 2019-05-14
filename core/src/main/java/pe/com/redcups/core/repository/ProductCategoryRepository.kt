@@ -15,7 +15,6 @@ class ProductCategoryRepository(private val productCategoryDao: ProductCategoryD
 
     }
 
-
     fun fetchProductCategories(){
         allProductCategories = productCategoryDao.getAllProductCategories()
     }

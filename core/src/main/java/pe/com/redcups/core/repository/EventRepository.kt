@@ -20,18 +20,7 @@ class EventRepository(private val eventDao: EventDao){
         allEvents = eventDao.getAllEvents()
 
         //some logic to see if its been fetched recently
+        // Fetch from datasource
         //JuergappAPI.getInstance(context).getResource(Array<Event>::class.java)
-
     }
-        // AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
-
-        //JuergappAPI.getResource(
-        //    Array<Event>::class.java,
-        //   {
-        //        viewModel.setEvents(it)
-        //    },
-        //   {
-        //      Log.d("error", it.toString())
-        // }
-        // )
 }

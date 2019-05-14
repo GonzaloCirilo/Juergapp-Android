@@ -14,7 +14,6 @@ interface GameDao{
     @Query("SELECT * from game_table ORDER BY id ASC")
     fun getAllGames(): LiveData<List<Game>>
 
-
     @Query("SELECT * FROM game_table WHERE id = :id")
     fun getGame(id: String): Game
 
