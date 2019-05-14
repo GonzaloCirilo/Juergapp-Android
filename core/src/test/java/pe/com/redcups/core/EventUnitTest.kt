@@ -12,7 +12,6 @@ import org.junit.Before
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import pe.com.redcups.core.model.Event
-import pe.com.redcups.core.model.Game
 import pe.com.redcups.core.network.AppController
 import pe.com.redcups.core.network.JuergappAPI
 import java.util.*
@@ -37,14 +36,14 @@ class EventUnitTest {
         AppController.getInstance(context).setRequestQueue(queue)
     }
 
-    /**
-     * Don't use runBlocking on UI thread, use CoroutineScope instead
-     */
 
     /**
      *  GET all the events
      */
 
+    /**
+     * Don't use runBlocking on UI thread, use CoroutineScope instead
+     */
     @Test
     fun getEvents(){
         val events: Array<Event> =  runBlocking { JuergappAPI.getInstance(context)
@@ -128,19 +127,19 @@ class EventUnitTest {
         // Then
         assertNotEquals(0,event.id)
 
-        var message: JSONObject = JSONObject()
 
         // Delete event created
 
-        // when
+        var message: JSONObject = JSONObject()
+
+        // When
         // Make request
         runBlocking {
             message = JuergappAPI.getInstance(context).deleteResource(Event::class.java, event.id.toString())
         }
-        // then
+        // Then
         assertEquals("OK", message["status"])
         assertEquals("event deleted successfully", message["message"])
-
 
     }
 
