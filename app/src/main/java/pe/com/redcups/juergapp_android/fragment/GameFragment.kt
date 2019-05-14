@@ -32,25 +32,7 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Prepara el latch
-        val signal =  CountDownLatch(1)
-
-        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
-
-        JuergappAPI.getResource(
-            Array<Game>::class.java,
-            {
-                games = it
-                signal.countDown()
-            },
-            {
-                Log.d("error", it.toString())
-                signal.countDown()
-            }
-        )
-
-        signal.await()
-
+        //TODO: get viewmodel
         gameAdapter = GameAdapter(games, view.context)
         recycler_view_game.apply {
             adapter = gameAdapter

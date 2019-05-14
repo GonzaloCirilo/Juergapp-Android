@@ -31,25 +31,8 @@ class GameDetailFragment : Fragment() {
 
         val signal = CountDownLatch(1)
 
-        //crea el App Controller
-        AppController.getInstance()
-        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
-
         // Make request
 
-
-        JuergappAPI.getResource(
-            Game::class.java,
-            {
-                game = it
-                signal.countDown()
-            },
-            {
-                Log.d("error", it.toString())
-                signal.countDown()
-            },
-            "/$gameId"
-        )
 
         signal.await()
 

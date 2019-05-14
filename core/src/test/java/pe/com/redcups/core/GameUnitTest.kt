@@ -8,6 +8,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -34,11 +35,9 @@ class GameUnitTest {
     @Test
     fun gameRequest(){
 
-        val signal =  CountDownLatch(1)
         AppController.getInstance()
 
         // Given
-        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(context))
         var game: Game? = null
 
         // Get Game with id =  1
@@ -46,19 +45,9 @@ class GameUnitTest {
 
         // When
         // Make request
-        JuergappAPI.getResource(
-            Game::class.java,
-            {
-                game = it
-                signal.countDown()
-            },
-            {
-                Log.d("error", it.toString())
-                signal.countDown()
-            },
-            "/$game_id/"
-            )
-        signal.await()
+        runBlocking {
+            JuergappAPI.getInstance(context).getResource(Game::class.java, "/$game_id/")
+        }
 
         // Then
 
@@ -73,23 +62,13 @@ class GameUnitTest {
 
     @Test
     fun gameListRequest(){
-        val signal =  CountDownLatch(1)
         AppController.getInstance()
         // Given
-        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(context))
         var games: Array<Game> = emptyArray()
         // Make request
-        JuergappAPI.getResource(
-            Array<Game>::class.java,
-            {
-                games = it
-                signal.countDown()
-            },
-            {
-                Log.d("error", it.toString())
-                signal.countDown()
-            })
-        signal.await()
+        runBlocking {
+         JuergappAPI.getInstance(context).getResource( Array<Game>::class.java)
+        }
         // Then
 
         Assert.assertNotNull(games)

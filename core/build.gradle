@@ -43,15 +43,20 @@ dependencies {
     // Network
     implementation "com.android.volley:volley:1.1.1"
     implementation 'com.google.code.gson:gson:2.8.5'
+    testImplementation 'org.apache.httpcomponents:httpclient:4.5.8'
 
+    //courutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+
+    //Testing
     testImplementation 'org.robolectric:robolectric:4.3-alpha-2'
     testImplementation 'androidx.test:core:1.2.0-alpha05'
-    testImplementation 'org.apache.httpcomponents:httpclient:4.5.8'
+
 
 
     // ViewModel and LiveData
      implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
     // ViewModel Kotlin support
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 

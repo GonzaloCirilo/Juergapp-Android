@@ -29,11 +29,12 @@ class GsonRequest<T>(
     override fun parseNetworkResponse(response: NetworkResponse?): Response<T> {
         return try {
             val json = String(
-                    response?.data ?: ByteArray(0),
-                    Charset.forName(HttpHeaderParser.parseCharset(response?.headers)))
+                response?.data ?: ByteArray(0),
+                Charset.forName(HttpHeaderParser.parseCharset(response?.headers)))
             Response.success(
-                gson.fromJson(json,clazz),
-                HttpHeaderParser.parseCacheHeaders(response))
+                gson.fromJson(json, clazz),
+                HttpHeaderParser.parseCacheHeaders(response)
+            )
         } catch (e: UnsupportedEncodingException){
             Response.error(ParseError(e))
         }

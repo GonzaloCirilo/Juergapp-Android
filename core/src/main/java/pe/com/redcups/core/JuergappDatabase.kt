@@ -9,19 +9,22 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pe.com.redcups.core.dao.EventDao
+import pe.com.redcups.core.dao.GameDao
 import pe.com.redcups.core.dao.ProductCategoryDao
 import pe.com.redcups.core.dao.UserDao
 import pe.com.redcups.core.model.Event
+import pe.com.redcups.core.model.Game
 import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.core.model.User
 
-@Database(entities = [User::class, Event::class, ProductCategory::class], version = 1)
+@Database(entities = [User::class, Event::class, ProductCategory::class, Game::class], version = 1)
 abstract class JuergappDatabase: RoomDatabase() {
 
     // Declare dao
     abstract fun userDao(): UserDao
     abstract fun eventDao(): EventDao
     abstract fun productCategoryDao(): ProductCategoryDao
+    abstract fun gameDao(): GameDao
 
     // singleton for database
     companion object {

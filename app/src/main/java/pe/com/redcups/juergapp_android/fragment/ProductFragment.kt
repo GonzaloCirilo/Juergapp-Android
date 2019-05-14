@@ -44,34 +44,12 @@ class ProductFragment : Fragment() {
         val safeArgs: ProductFragmentArgs by navArgs()
         val productId = safeArgs.productId
 
-        // Get the product from repository
-
-        // Prepara el latch
-        val signal =  CountDownLatch(1)
-
-        //crea el App Controller
-        AppController.getInstance()
-        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
-
         // Make request
-        JuergappAPI.getResource(
-            Product::class.java,
-            {
-                product = it
-                signal.countDown()
-            },
-            {
-                Log.d("error", it.toString())
-                signal.countDown()
-            },
-            "/$productId"
-        )
-        //espera a que retorno el request
-        signal.await()
+
+        // JuergappAPI.getResource(Product::class.java, "/$productId")
 
         if (product.equals(null)) return
 
-        //recien actualiza
         // bind product to view
 
         product_name.text = product.name

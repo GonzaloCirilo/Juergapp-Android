@@ -54,19 +54,9 @@ class ProductCategoryFragment : Fragment() {
             adapter.notifyDataSetChanged()
         })
 
-        //crea el App Controller
-        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
-
         // Make request
-        JuergappAPI.getResource(
-            Array<ProductCategory>::class.java,
-            {
-                viewModel.setProductCategories(it)
-            },
-            {
-                Log.d("error", it.toString())
-            })
-
+        // TODO: Get from viewmodel
+        //JuergappAPI.getInstance(view.context).getResource(Array<ProductCategory>::class.java)
     }
 
 }

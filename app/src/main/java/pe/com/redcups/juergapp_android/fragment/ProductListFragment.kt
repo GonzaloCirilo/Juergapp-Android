@@ -49,28 +49,11 @@ class ProductListFragment : Fragment() {
         //get the Product Category ID
         val safeArgs: ProductListFragmentArgs by navArgs()
 
-        val signal = CountDownLatch(1)
-
-        // Get the Product List from repository
-        // Make request
-
         var product_category_id = safeArgs.productCategoryId
 
-        JuergappAPI.getResource(
-            Array<Product>::class.java,
-            {
-                productList = it
-                Log.d("error", "I GOT A PRODUCT")
-                signal.countDown()
-            },
-            {
-                Log.d("error", it.toString())
-                signal.countDown()
-            }
-            //"/$product_category_id"
-            )
-        //espera a que retorno el request
-        signal.await()
+        // Get the Product List from repository
+        //TODO: Get from Viewmodel
+        //JuergappAPI.getResource( Array<Product>::class.java, //"/$product_category_id" )
 
         if (productList.isNotEmpty()) {
             //recien actualiza

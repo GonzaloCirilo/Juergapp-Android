@@ -47,6 +47,9 @@ class EventFragment : Fragment() {
             adapter.setEvents(events)
         })
 
+        //fetch new events
+        viewModel.getEvents(view.context);
+
         //Animation option (change to slide from below)
         val options = navOptions {
             anim {
@@ -64,17 +67,6 @@ class EventFragment : Fragment() {
         }
 
 
-         AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(view.context))
-
-        JuergappAPI.getResource(
-            Array<Event>::class.java,
-           {
-                viewModel.setEvents(it)
-            },
-           {
-              Log.d("error", it.toString())
-         }
-         )
 
     }
 
