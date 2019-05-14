@@ -1,12 +1,12 @@
 package pe.com.redcups.core
 
+import org.junit.Assert.*
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.android.volley.RequestQueue
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import pe.com.redcups.core.model.Game
@@ -33,7 +33,6 @@ class GameUnitTest {
         AppController.getInstance(context).setRequestQueue(queue)
     }
 
-
     /**
      *  GET all the games
      */
@@ -47,15 +46,15 @@ class GameUnitTest {
             .getResource(Array<Game>::class.java)
         }
         // Then
-        Assert.assertNotNull(games)
-        Assert.assertNotEquals(games.size, -1)
+        assertNotNull(games)
+        assertNotEquals(games.size, -1)
 
         //NOTE: This test fails if server returns an empty array
-        Assert.assertEquals(1, games[0].id)
+        assertEquals(1, games[0].id)
 
         // this is the default first item
-        Assert.assertEquals("Alberto Grimes Sr.", games[0].name)
-        Assert.assertEquals("Illum recusandae perspiciatis. Error architecto iusto. Et suscipit adipisci. Autem molestiae eaque. Impedit non numquam. Et molestiae dignissimos. Earum est corporis. Eos quam molestias. Eum explicabo quia. Quis eos nemo. Illo iusto adipisci. Rem accusamus doloremque.", games[0].description)
+        assertEquals("Alberto Grimes Sr.", games[0].name)
+        assertEquals("Illum recusandae perspiciatis. Error architecto iusto. Et suscipit adipisci. Autem molestiae eaque. Impedit non numquam. Et molestiae dignissimos. Earum est corporis. Eos quam molestias. Eum explicabo quia. Quis eos nemo. Illo iusto adipisci. Rem accusamus doloremque.", games[0].description)
     }
 
     /**
@@ -75,21 +74,11 @@ class GameUnitTest {
         }
 
         // Then
-        Assert.assertNotNull(game)
+        assertNotNull(game)
 
         // this is the default first item
-        Assert.assertEquals(1, game!!.id)
-        Assert.assertEquals("Alberto Grimes Sr.", game!!.name)
-        Assert.assertEquals("Illum recusandae perspiciatis. Error architecto iusto. Et suscipit adipisci. Autem molestiae eaque. Impedit non numquam. Et molestiae dignissimos. Earum est corporis. Eos quam molestias. Eum explicabo quia. Quis eos nemo. Illo iusto adipisci. Rem accusamus doloremque.", game!!.description)
-    }
-
-    @Test
-    fun gameListRequest(){
-        // Given
-        var games: Array<Game> = emptyArray()
-        // Make request
-        runBlocking {
-            JuergappAPI.getInstance(context).getResource( Array<Game>::class.java)
-        }
+        assertEquals(1, game!!.id)
+        assertEquals("Alberto Grimes Sr.", game!!.name)
+        assertEquals("Illum recusandae perspiciatis. Error architecto iusto. Et suscipit adipisci. Autem molestiae eaque. Impedit non numquam. Et molestiae dignissimos. Earum est corporis. Eos quam molestias. Eum explicabo quia. Quis eos nemo. Illo iusto adipisci. Rem accusamus doloremque.", game!!.description)
     }
 }

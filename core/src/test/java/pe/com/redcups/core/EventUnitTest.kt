@@ -21,6 +21,7 @@ import java.util.*
  *
  * @see [Testing documentation](http://d.android.com/tools/testing)
  */
+
 @RunWith(RobolectricTestRunner::class)
 class EventUnitTest {
 
