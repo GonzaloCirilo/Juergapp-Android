@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pe.com.redcups.core.JuergappDatabase
 import pe.com.redcups.core.model.Event
-import pe.com.redcups.core.network.JuergappAPI
 import pe.com.redcups.core.repository.EventRepository
 
 class EventViewModel(application: Application) : AndroidViewModel(application){
@@ -20,7 +19,7 @@ class EventViewModel(application: Application) : AndroidViewModel(application){
 
     init {
         val eventsDao = JuergappDatabase.getDatabase(application, viewModelScope).eventDao()
-        repository = EventRepository(eventsDao)
+        repository = EventRepository(eventsDao, application.applicationContext)
         repository.fetchEvents()
         allEvents = repository.allEvents
         Log.d("size of repository all events", allEvents.value?.size.toString())
@@ -41,12 +40,10 @@ class EventViewModel(application: Application) : AndroidViewModel(application){
         for (event in events){
             insert(event)
         }
-
     }
-     fun  getEvents(context: Context): LiveData<List<Event>> {
+     fun  getEvents() {
          // Get events from repository
          repository.fetchEvents()
-        return allEvents
     }
 
 }

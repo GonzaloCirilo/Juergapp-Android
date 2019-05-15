@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import pe.com.redcups.core.dao.*
 import pe.com.redcups.core.model.*
 
-@Database(entities = [User::class, Event::class, ProductCategory::class, Product::class, Game::class], version = 1)
+@Database(entities = [User::class, Event::class, ProductCategory::class, Product::class, Game::class], version = 2)
 abstract class JuergappDatabase: RoomDatabase() {
 
     // Declare dao

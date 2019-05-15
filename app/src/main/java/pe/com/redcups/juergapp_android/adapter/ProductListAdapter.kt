@@ -13,9 +13,11 @@ import kotlinx.android.synthetic.main.recycler_view_product_list.view.*
 import pe.com.redcups.core.model.Product
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.ProductListFragmentDirections
+import pe.com.redcups.juergapp_android.options
 
-class ProductListAdapter(private val products: Array<Product>, context: Context): RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
+class ProductListAdapter(context: Context): RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
+    private var products: List<Product> = emptyList()
     private var inflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductListAdapter.ViewHolder {
@@ -26,15 +28,6 @@ class ProductListAdapter(private val products: Array<Product>, context: Context)
     override fun getItemCount() = products.size
 
     override fun onBindViewHolder(holder: ProductListAdapter.ViewHolder, position: Int) {
-
-        val options = navOptions {
-            anim {
-                enter = R.anim.slide_in_right
-                exit = R.anim.slide_out_left
-                popEnter = R.anim.slide_in_left
-                popExit = R.anim.slide_out_right
-            }
-        }
 
         with(holder){
             productImageView.setImageResource(R.mipmap.event_image_placeholder)
@@ -51,4 +44,10 @@ class ProductListAdapter(private val products: Array<Product>, context: Context)
         val productImageView: ImageView = productListView.product_list_image
         var productNameTextView: TextView = productListView.product_list_name
     }
+
+    fun setProducts(products: List<Product>){
+        this.products = products
+        notifyDataSetChanged()
+    }
+
 }

@@ -55,4 +55,7 @@ dependencies {
     // Architecture components
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 
+    //courutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+
 }

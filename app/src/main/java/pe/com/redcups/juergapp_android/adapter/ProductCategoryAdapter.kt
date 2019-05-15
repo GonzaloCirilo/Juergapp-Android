@@ -7,39 +7,32 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_product_category.view.*
 import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.ProductCategoryFragmentDirections
+import pe.com.redcups.juergapp_android.options
 
 class ProductCategoryAdapter(context: Context): RecyclerView.Adapter<ProductCategoryAdapter.ViewHolder>() {
 
     private var productCategories: List<ProductCategory> = emptyList()
     private var inflater: LayoutInflater = LayoutInflater.from(context)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductCategoryAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = inflater.inflate(R.layout.recycler_view_product_category, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount() = productCategories.size
 
-    override fun onBindViewHolder(holder: ProductCategoryAdapter.ViewHolder, position: Int) {
-        val options = navOptions {
-            anim {
-                enter = R.anim.slide_in_right
-                exit = R.anim.slide_out_left
-                popEnter = R.anim.slide_in_left
-                popExit = R.anim.slide_out_right
-            }
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with(holder){
             var product_category = productCategories[position]
             product_categoriesImageView.setImageResource(R.mipmap.event_image_placeholder)
             product_categories_nameTextView.text = product_category.name
+
             itemView.setOnClickListener{
                 // Le pasas el argumento del producto por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data

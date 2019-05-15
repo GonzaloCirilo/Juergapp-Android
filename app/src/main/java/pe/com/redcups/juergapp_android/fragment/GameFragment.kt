@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_game.*
 import pe.com.redcups.core.model.Game
 import pe.com.redcups.core.network.AppController
 import pe.com.redcups.core.network.JuergappAPI
 import pe.com.redcups.core.network.VolleyConfig
+import pe.com.redcups.core.viewmodel.GameViewModel
 
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.GameAdapter
@@ -19,8 +22,8 @@ import java.util.concurrent.CountDownLatch
 
 class GameFragment : Fragment() {
 
-    private lateinit var games: Array<Game>
-    private lateinit var gameAdapter: GameAdapter
+    private lateinit var adapter: GameAdapter
+    private lateinit var viewModel:  GameViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,11 +35,21 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //TODO: get viewmodel
-        gameAdapter = GameAdapter(games, view.context)
+        adapter = GameAdapter(view.context)
+
         recycler_view_game.apply {
-            adapter = gameAdapter
+            adapter = adapter
             layoutManager = LinearLayoutManager(view.context)
         }
+
+        // Get a new or existing ViewModel from the ViewModelProvider.
+        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
+
+        viewModel.allGames.observe(this, Observer { games ->
+            adapter.setGames(games)
+        })
+
+        //fetch new events
+        viewModel.getGames(view.context);
     }
 }

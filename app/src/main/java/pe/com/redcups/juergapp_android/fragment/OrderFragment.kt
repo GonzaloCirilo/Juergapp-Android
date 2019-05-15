@@ -29,7 +29,7 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        orderAdapter = OrderAdapter(orders, view.context)
+        orderAdapter = OrderAdapter(view.context)
         recycler_view_order.apply {
             adapter = orderAdapter
             layoutManager = LinearLayoutManager(view.context )

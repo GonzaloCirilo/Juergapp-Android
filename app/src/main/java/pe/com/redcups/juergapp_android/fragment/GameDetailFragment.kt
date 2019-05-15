@@ -29,12 +29,8 @@ class GameDetailFragment : Fragment() {
         val safeArgs: GameDetailFragmentArgs by navArgs()
         val gameId = safeArgs.gameId
 
-        val signal = CountDownLatch(1)
 
-        // Make request
-
-
-        signal.await()
+        // get from viewModel
 
         game_detail_description.text =  game.description
         game_detail_image.setImageResource(R.mipmap.event_image_placeholder)

@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,24 +19,17 @@ import kotlinx.android.synthetic.main.recycler_view_product_list.*
 import pe.com.redcups.core.model.Product
 import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.core.network.JuergappAPI
+import pe.com.redcups.core.viewmodel.ProductViewModel
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.ProductListAdapter
 import java.util.concurrent.CountDownLatch
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class ProductListFragment : Fragment() {
 
     private lateinit var productList: Array<Product>
-    private lateinit var productListAdapter: ProductListAdapter
+    private lateinit var adapter: ProductListAdapter
+    private lateinit var viewModel: ProductViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,18 +46,25 @@ class ProductListFragment : Fragment() {
 
         var product_category_id = safeArgs.productCategoryId
 
+        //set adapter
+        adapter = ProductListAdapter(view.context)
+
+        //set viewmodel
+        viewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
+
+        viewModel.allProducts.observe(this, Observer { products ->
+            adapter.setProducts(products)
+
+        })
         // Get the Product List from repository
-        //TODO: Get from Viewmodel
         //JuergappAPI.getResource( Array<Product>::class.java, //"/$product_category_id" )
 
-        if (productList.isNotEmpty()) {
-            //recien actualiza
-            productListAdapter = ProductListAdapter(productList, view.context)
-            recycler_view_product_list.apply {
-                adapter = productListAdapter
-                layoutManager = LinearLayoutManager(view.context)
-            }
+        recycler_view_product_list.apply {
+            adapter = adapter
+            layoutManager = LinearLayoutManager(view.context)
         }
+
+
     }
 
 }

@@ -16,21 +16,12 @@ import kotlinx.android.synthetic.main.recycler_view_event.view.*
 import pe.com.redcups.core.model.Event
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.EventFragmentDirections
+import pe.com.redcups.juergapp_android.options
 
 class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHolder>(){
 
     private var events: List<Event> = emptyList()
     private var inflater: LayoutInflater = LayoutInflater.from(context)
-
-    val options = navOptions {
-        anim {
-            enter = R.anim.slide_in_right
-            exit = R.anim.slide_out_left
-            popEnter = R.anim.slide_in_left
-            popExit = R.anim.slide_out_right
-        }
-    }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = inflater.inflate(R.layout.recycler_view_event, parent, false)
@@ -52,9 +43,7 @@ class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHold
                 val action = EventFragmentDirections.getDetailsAction(event.id.toString(), event.name)
                 it.findNavController().navigate(action, options)
             }
-
         }
-
     }
 
     inner class ViewHolder(eventView: View): RecyclerView.ViewHolder(eventView) {
