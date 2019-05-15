@@ -46,7 +46,6 @@ class EventFragment : Fragment() {
 
         AppController.getInstance(view.context)
         viewModel.allEvents.observe(this, Observer { events ->
-            Log.d("NOTIFICATION", "GODDAMIT")
             adapter.setEvents(events)
         })
 

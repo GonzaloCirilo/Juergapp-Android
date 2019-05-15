@@ -37,10 +37,8 @@ class GameFragment : Fragment() {
 
         adapter = GameAdapter(view.context)
 
-        recycler_view_game.apply {
-            adapter = adapter
-            layoutManager = LinearLayoutManager(view.context)
-        }
+        recycler_view_game.adapter = adapter
+        recycler_view_game.layoutManager = LinearLayoutManager(view.context)
 
         // Get a new or existing ViewModel from the ViewModelProvider.
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
@@ -50,6 +48,6 @@ class GameFragment : Fragment() {
         })
 
         //fetch new events
-        viewModel.getGames(view.context);
+        viewModel.getGames()
     }
 }

@@ -1,18 +1,14 @@
 package pe.com.redcups.core.viewmodel
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import pe.com.redcups.core.JuergappDatabase
 import pe.com.redcups.core.model.Game
-import pe.com.redcups.core.network.JuergappAPI
-import pe.com.redcups.core.repository.EventRepository
 import pe.com.redcups.core.repository.GameRepository
 
 class GameViewModel(application: Application) : AndroidViewModel(application) {
@@ -22,8 +18,8 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     init{
         val gameDao = JuergappDatabase.getDatabase(application, viewModelScope).gameDao()
-        repository = GameRepository(gameDao)
-        repository.fetchGames(application.applicationContext)
+        repository = GameRepository(gameDao, application.applicationContext)
+        repository.fetchGames()
         allGames = repository.allGames
     }
 
@@ -36,13 +32,13 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         for (game in games){
             insert(game)
         }
-
-    }
-    fun getGames(context: Context) {
-
     }
 
-    fun getGame(eventId: Int){
+    fun getGames(){
+        repository.fetchGames()
+    }
+    fun getGame(gameId: String): Game{
+        return repository.getGame(gameId)
+    }
 
     }
-}

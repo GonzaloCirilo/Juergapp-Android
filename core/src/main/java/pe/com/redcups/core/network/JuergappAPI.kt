@@ -24,6 +24,7 @@ import kotlin.coroutines.CoroutineContext
 
 class JuergappAPI constructor(context: Context) {
 
+    var context = context
     companion object {
         @Volatile
         private var INSTANCE: JuergappAPI? = null
@@ -55,7 +56,7 @@ class JuergappAPI constructor(context: Context) {
             },
             body
         )
-        AppController.getInstance().addRequest(request)
+        AppController.getInstance(context).addRequest(request)
 
         continuation.invokeOnCancellation {
             request.cancel()

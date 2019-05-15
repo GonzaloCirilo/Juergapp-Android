@@ -19,7 +19,7 @@ class ProductCategoryViewModel(application: Application): AndroidViewModel(appli
 
     init {
         val productCategoryDao = JuergappDatabase.getDatabase(application, viewModelScope).productCategoryDao()
-        repository = ProductCategoryRepository(productCategoryDao)
+        repository = ProductCategoryRepository(productCategoryDao, application.applicationContext)
         allProductCategories = repository.allProductCategories
     }
 
@@ -28,6 +28,10 @@ class ProductCategoryViewModel(application: Application): AndroidViewModel(appli
         Log.d("Inserting", productCategory.id.toString())
         Log.d("Inserting", productCategory.name)
         repository.insert(productCategory)
+    }
+
+    fun getProductCategories(){
+        repository.fetchProductCategories()
     }
     fun setProductCategories(productCategories: Array<ProductCategory>){
         for (productCategory in productCategories){

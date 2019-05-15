@@ -1,24 +1,17 @@
 package pe.com.redcups.juergapp_android.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_product_category.*
-import pe.com.redcups.core.model.ProductCategory
-import pe.com.redcups.core.network.AppController
-import pe.com.redcups.core.network.JuergappAPI
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.ProductCategoryAdapter
-import pe.com.redcups.core.network.VolleyConfig
 import pe.com.redcups.core.viewmodel.ProductCategoryViewModel
-import java.util.concurrent.CountDownLatch
 
 /**
  * A simple [Fragment] subclass.
@@ -53,10 +46,9 @@ class ProductCategoryFragment : Fragment() {
             adapter.setProductCategories(productCategories)
             adapter.notifyDataSetChanged()
         })
+        //fetch new product categories
+        viewModel.getProductCategories()
 
-        // Make request
-        // TODO: Get from viewmodel
-        //JuergappAPI.getInstance(view.context).getResource(Array<ProductCategory>::class.java)
     }
 
 }
