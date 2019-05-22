@@ -4,21 +4,29 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import pe.com.redcups.core.JuergappDatabase
 import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.core.repository.ProductCategoryRepository
 
-class ProductCategoryViewModel(application: Application): AndroidViewModel(application){
+class ProductCategoryViewModel internal constructor(productCategoryRepository: ProductCategoryRepository): ViewModel(){
 
-    private val repository: ProductCategoryRepository
-    val allProductCategories: LiveData<List<ProductCategory>>
+    val allProductCategories: LiveData<List<ProductCategory>> = productCategoryRepository.getAllProductCategories()
 
+    @ExperimentalCoroutinesApi
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel()
+    }
 
+/*
     init {
-        val productCategoryDao = JuergappDatabase.getDatabase(application, viewModelScope).productCategoryDao()
+        val productCategoryDao = JuergappDatabase.getDatabase(application,viewModelScope).productCategoryDao()
         repository = ProductCategoryRepository(productCategoryDao, application.applicationContext)
         allProductCategories = repository.allProductCategories
     }
@@ -39,6 +47,7 @@ class ProductCategoryViewModel(application: Application): AndroidViewModel(appli
         }
 
     }
+*/
 
 
 }
