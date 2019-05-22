@@ -16,4 +16,7 @@ interface ProductDao{
     @Insert(onConflict = REPLACE)
     suspend fun insert(product: Product)
 
+    @Query("SELECT * FROM product_table WHERE id = :id")
+    fun getProduct(id: String): LiveData<Product>
+
 }

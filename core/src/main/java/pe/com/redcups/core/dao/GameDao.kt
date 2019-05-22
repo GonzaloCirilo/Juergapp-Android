@@ -15,7 +15,7 @@ interface GameDao{
     fun getAllGames(): LiveData<List<Game>>
 
     @Query("SELECT * FROM game_table WHERE id = :id")
-    fun getGame(id: String): Game
+    fun getGame(id: String): LiveData<Game>
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(game: Game)
