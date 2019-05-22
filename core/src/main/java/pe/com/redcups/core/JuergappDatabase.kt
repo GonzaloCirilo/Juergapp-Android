@@ -26,54 +26,23 @@ abstract class JuergappDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: JuergappDatabase? = null
 
-        fun getDatabase(context: Context,
-                        scope: CoroutineScope
-        ): JuergappDatabase {
+        fun getInstance(context: Context): JuergappDatabase {
             return INSTANCE ?: synchronized(this) {
-                // Create database here
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    JuergappDatabase::class.java,
-                    "Juergapp_database"
-                ).addCallback(WordDatabaseCallback(scope))
-                    .fallbackToDestructiveMigration()
-                 .build()
-                 INSTANCE = instance
-                instance
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
         }
-        private class WordDatabaseCallback(
-            private val scope: CoroutineScope
-        ) : RoomDatabase.Callback() {
-            /**
-             * Override the onOpen method to populate the database.
-             * For this sample, we clear the database every time it is created or opened.
-             */
-            override fun onOpen(db: SupportSQLiteDatabase) {
-                super.onOpen(db)
-                // If you want to keep the data through app restarts,
-                // comment out the following line.
-                INSTANCE?.let { database ->
-                    scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.eventDao())
+
+        private fun buildDatabase(context: Context): JuergappDatabase{
+            return Room.databaseBuilder(context,JuergappDatabase::class.java,"Juergapp_database")
+                .addCallback(object: RoomDatabase.Callback(){
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        // see android sunshine for more details
+                        /*val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
+                        WorkManager.getInstance(context).enqueue(request)*/
                     }
-                }
-            }
-        }
-
-        /**
-         * Populate the database in a new coroutine.
-         * If you want to start with more words, just add them.
-         */
-        suspend fun populateDatabase(eventDao: EventDao) {
-            // Start the app with a clean database every time.
-            // Not needed if you only populate on creation.
-            //eventDao.deleteAll()
-
-            //var word = Event("Hello")
-            //wordDao.insert(word)
-            //word = Word("World!")
-            //wordDao.insert(word)
+                })
+                .build()
         }
     }
 }

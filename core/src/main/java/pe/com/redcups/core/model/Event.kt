@@ -8,7 +8,7 @@ import java.util.Date
 @TypeConverters(DateConverter::class)
 data class Event(
     @PrimaryKey
-    var id: Int = 0,
+     var id: Int = 0,
      var name: String,
      var user: Int,
      var date: Date = Date(),
