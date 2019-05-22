@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
@@ -19,16 +20,17 @@ import kotlinx.android.synthetic.main.recycler_view_product_list.*
 import pe.com.redcups.core.model.Product
 import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.core.network.JuergappAPI
+import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.ProductViewModel
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.ProductListAdapter
 import java.util.concurrent.CountDownLatch
 
 class ProductListFragment : Fragment() {
-
-    private lateinit var productList: Array<Product>
     private lateinit var adapter: ProductListAdapter
-    private lateinit var viewModel: ProductViewModel
+    private val viewModel: ProductViewModel by viewModels{
+        InjectorUtils.provideProductViewModelFactory(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +51,6 @@ class ProductListFragment : Fragment() {
         //set adapter
         adapter = ProductListAdapter(view.context)
 
-        //set viewmodel
-        viewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
 
         viewModel.allProducts.observe(this, Observer { products ->
             adapter.setProducts(products)

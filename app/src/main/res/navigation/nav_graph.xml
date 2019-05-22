@@ -138,8 +138,7 @@
     <fragment android:id="@+id/game_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.GameDetailFragment"
               tools:layout="@layout/fragment_game_detail"
-              android:label="{game_name}"
-    >
+              android:label="{game_name}">
         <argument
                 android:name="game_id"
                 app:argType="integer"

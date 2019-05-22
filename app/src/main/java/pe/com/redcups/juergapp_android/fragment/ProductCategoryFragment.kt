@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_product_category.*
+import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.ProductCategoryAdapter
 import pe.com.redcups.core.viewmodel.ProductCategoryViewModel
@@ -21,7 +23,9 @@ class ProductCategoryFragment : Fragment() {
 
 
     private lateinit var adapter: ProductCategoryAdapter
-    private lateinit var viewModel: ProductCategoryViewModel
+    private val viewModel: ProductCategoryViewModel by viewModels {
+        InjectorUtils.provideProductCategoryViewModelFactory(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,15 +43,11 @@ class ProductCategoryFragment : Fragment() {
         recycler_view_product_category.adapter = adapter
         recycler_view_product_category.layoutManager = LinearLayoutManager(view.context)
 
-        // Get a new or existing ViewModel from the ViewModelProvider.
-        viewModel = ViewModelProviders.of(this).get(ProductCategoryViewModel::class.java)
 
         viewModel.allProductCategories.observe(this, Observer { productCategories ->
             adapter.setProductCategories(productCategories)
             adapter.notifyDataSetChanged()
         })
-        //fetch new product categories
-        viewModel.getProductCategories()
 
     }
 

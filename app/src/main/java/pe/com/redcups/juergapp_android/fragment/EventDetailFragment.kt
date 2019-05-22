@@ -1,23 +1,27 @@
 package pe.com.redcups.juergapp_android.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_event_detail.*
-import pe.com.redcups.core.model.Event
-import pe.com.redcups.core.viewmodel.EventViewModel
+import pe.com.redcups.core.utilities.InjectorUtils
+import pe.com.redcups.core.viewmodel.EventDetailViewModel
 
 import pe.com.redcups.juergapp_android.R
 
 class EventDetailFragment : Fragment() {
 
-    lateinit var event: Event
-    private lateinit var viewModel:  EventViewModel
+    private val safeArgs: EventDetailFragmentArgs by navArgs()
+
+    private val viewModel:  EventDetailViewModel by viewModels{
+        InjectorUtils.provideEventDetailViewModelFactory(requireActivity(),safeArgs.eventId)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,13 +35,18 @@ class EventDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val safeArgs: EventDetailFragmentArgs by navArgs()
+
         val eventId = safeArgs.eventId
 
-        // Get a new or existing ViewModel from the ViewModelProvider.
-        viewModel = ViewModelProviders.of(this).get(EventViewModel::class.java)
+        Log.d("EventDetailFragment", eventId)
 
-        event = viewModel.getEvent(eventId.toInt())
+        viewModel.event.observe(this, Observer {
+            it?.also { e ->
+                event_name_label.text = e.name
+                event_address.text = e.address
+            }
+        })
+
 
     }
 }
