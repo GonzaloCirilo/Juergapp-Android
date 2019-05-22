@@ -10,12 +10,20 @@ import pe.com.redcups.core.dao.ProductCategoryDao
 import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.core.network.JuergappAPI
 
-class ProductCategoryRepository(private val productCategoryDao: ProductCategoryDao, context: Context): CoroutineScope by MainScope(){
+class ProductCategoryRepository private constructor(private val productCategoryDao: ProductCategoryDao){
 
-    var context = context
-    var allProductCategories: LiveData<List<ProductCategory>> = productCategoryDao.getAllProductCategories()
+    fun getAllProductCategories() = productCategoryDao.getAllProductCategories()
 
-    @WorkerThread
+    companion object {
+        @Volatile private var instance: ProductCategoryRepository? = null
+
+        fun getInstance(productCategoryDao: ProductCategoryDao) =
+                instance ?: synchronized(this){
+                    instance ?: ProductCategoryRepository(productCategoryDao).also { instance = it }
+                }
+    }
+
+    /*@WorkerThread
     suspend fun insert(productCategory: ProductCategory){
         productCategoryDao.insert(productCategory)
 
@@ -28,5 +36,5 @@ class ProductCategoryRepository(private val productCategoryDao: ProductCategoryD
             productCategoryDao.insert(pc)
         }
     }
-
+*/
 }

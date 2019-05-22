@@ -22,9 +22,9 @@ import com.android.volley.VolleyError
 import kotlin.coroutines.CoroutineContext
 
 
-class JuergappAPI constructor(context: Context) {
+class JuergappAPI constructor(private val context: Context) {
 
-    var context = context
+
     companion object {
         @Volatile
         private var INSTANCE: JuergappAPI? = null
@@ -44,7 +44,7 @@ class JuergappAPI constructor(context: Context) {
         pathVariable: String? = ""
     ): T = suspendCancellableCoroutine {continuation ->
         val request = GsonRequest(
-            Constants.map[clazz] + "/" + pathVariable ?: "",
+            Constants.map[clazz] + "/" + pathVariable,
             clazz,
             method,
             Response.Listener {
@@ -68,7 +68,7 @@ class JuergappAPI constructor(context: Context) {
         pathVariable:String
     ): JSONObject = suspendCancellableCoroutine { continuation ->
 
-        var request = RequestWithHeaders(
+        val request = RequestWithHeaders(
             Request.Method.DELETE,
             Constants.map[clazz] + "/" + pathVariable, null,
             Response.Listener { response ->
