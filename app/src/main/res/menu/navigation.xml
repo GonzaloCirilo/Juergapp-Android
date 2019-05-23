@@ -10,8 +10,8 @@
     />
     <item
             android:id="@+id/product_category_dest"
-            android:icon="@drawable/ic_shopping_cart_black_24dp"
-            android:title="@string/orders"
+            android:icon="@drawable/ic_local_bar_black_24dp"
+            android:title="@string/drinks"
             app:showAsAction="never"
     />
     <item

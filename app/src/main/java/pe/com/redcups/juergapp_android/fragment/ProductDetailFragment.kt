@@ -19,6 +19,7 @@ import pe.com.redcups.juergapp_android.R
 class ProductDetailFragment : Fragment() {
 
     private val safeArgs: ProductDetailFragmentArgs by navArgs()
+
     private val viewModel: ProductDetailViewModel by viewModels{
         InjectorUtils.provideProductDetailViewModelFactory(requireContext(), safeArgs.productId)
     }

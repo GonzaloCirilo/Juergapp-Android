@@ -1,16 +1,29 @@
 package pe.com.redcups.core.repository
 
-import androidx.annotation.WorkerThread
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import pe.com.redcups.core.dao.ProductDao
 import pe.com.redcups.core.model.Product
+import pe.com.redcups.core.network.JuergappAPI
 
-class ProductRepository private constructor(private val productDao: ProductDao){
+class ProductRepository private constructor(private val productDao: ProductDao, private val context: Context): CoroutineScope by MainScope(){
 
-    fun getAllProducts() = productDao.getAllProducts()
-    fun getAllProductsWithCategory(productCategoryId: String) = productDao.getAllProductsWithCategory(productCategoryId)
+    fun getAllProducts(): LiveData<List<Product>> {
+        fetchProducts()
+      return productDao.getAllProducts()
+    }
+    fun getAllProductsWithCategory(productCategoryId: String): LiveData<List<Product>>{
+        fetchProducts()
+        Log.d("Category ID", productCategoryId)
+        return productDao.getAllProductsWithCategory(productCategoryId)
+    }
 
     fun getProduct(id: String) = productDao.getProduct(id)
+
     suspend fun insertProduct(product: Product){
         productDao.insert(product)
     }
@@ -18,23 +31,21 @@ class ProductRepository private constructor(private val productDao: ProductDao){
     companion object {
         @Volatile private var instance: ProductRepository? = null
 
-        fun getInstance(productDao: ProductDao) =
+        fun getInstance(productDao: ProductDao, context: Context) =
                 instance ?: synchronized(this){
-                    instance ?: ProductRepository(productDao).also { instance = it }
+                    instance ?: ProductRepository(productDao, context).also { instance = it }
                 }
     }
 
-    /*@WorkerThread
-    suspend fun insert(product: Product) {
-        productDao.insert(product)
-    }
 
-    fun fetchProducts(){
-        allProducts = productDao.getAllProducts()
+    fun fetchProducts() = launch{
+        //allProducts = productDao.getAllProducts()
 
         //some logic to see if its been fetched recently
         // Fetch from datasource
-        //JuergappAPI.getInstance(context).getResource(Array<Event>::class.java)
-    }*/
+        for (c in JuergappAPI.getInstance(context).getResource(Array<Product>::class.java)){
+            insertProduct(c)
+        }
+    }
 
 }

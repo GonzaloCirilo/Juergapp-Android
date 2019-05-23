@@ -42,12 +42,8 @@ class ProductListFragment : Fragment() {
             adapter.setProducts(products)
         })
 
-        recycler_view_product_list.apply {
-            adapter = adapter
-            layoutManager = LinearLayoutManager(view.context)
-        }
-
-
+        recycler_view_product_list.adapter = adapter
+        recycler_view_product_list.layoutManager = LinearLayoutManager(view.context)
     }
 
 }

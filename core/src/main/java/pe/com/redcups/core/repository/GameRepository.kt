@@ -8,29 +8,26 @@ import pe.com.redcups.core.dao.GameDao
 import pe.com.redcups.core.model.Game
 import pe.com.redcups.core.network.JuergappAPI
 
-class GameRepository private constructor(private val gameDao: GameDao){
+class GameRepository private constructor(private val gameDao: GameDao, private val context: Context): CoroutineScope by MainScope(){
 
-    fun getAllGames() = gameDao.getAllGames()
+    fun getAllGames(): LiveData<List<Game>> {
+        fetchGames()
+        return gameDao.getAllGames()
+    }
     fun getGame(gameId: String) = gameDao.getGame(gameId)
 
     companion object {
         @Volatile private var instance: GameRepository? = null
 
-        fun getInstance(gameDao: GameDao) =
+        fun getInstance(gameDao: GameDao, context: Context) =
                 instance ?: synchronized(this){
-                    instance ?: GameRepository(gameDao).also { instance = it }
+                    instance ?: GameRepository(gameDao, context).also { instance = it }
                 }
     }
 
-    /*@WorkerThread
     suspend fun insert(game: Game) {
         gameDao.insert(game)
     }
-
-    fun getGame(gameId: String): Game{
-        return gameDao.getGame(gameId)
-    }
-
     fun fetchGames() = launch {
         //database
 
@@ -40,5 +37,5 @@ class GameRepository private constructor(private val gameDao: GameDao){
             gameDao.insert(game)
         }
 
-    }*/
+    }
 }

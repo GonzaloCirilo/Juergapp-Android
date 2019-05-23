@@ -17,30 +17,30 @@ object InjectorUtils{
 
     private fun getEventRepository(context: Context): EventRepository{
         return EventRepository.getInstance(
-            JuergappDatabase.getInstance(context.applicationContext).eventDao()
+            JuergappDatabase.getInstance(context.applicationContext).eventDao(), context
         )
     }
 
     private fun getProductRepository(context: Context): ProductRepository{
         return ProductRepository.getInstance(
-            JuergappDatabase.getInstance(context.applicationContext).productDao()
+            JuergappDatabase.getInstance(context.applicationContext).productDao(), context
         )
     }
 
     private fun getProductCategoryRepository(context: Context): ProductCategoryRepository{
         return ProductCategoryRepository.getInstance(
-            JuergappDatabase.getInstance(context.applicationContext).productCategoryDao()
+            JuergappDatabase.getInstance(context.applicationContext).productCategoryDao(), context
         )
     }
 
     private fun getGameRepository(context: Context): GameRepository{
         return GameRepository.getInstance(
-            JuergappDatabase.getInstance(context.applicationContext).gameDao()
+            JuergappDatabase.getInstance(context.applicationContext).gameDao(), context
         )
     }
     private fun getUserRepository(context: Context): UserRepository{
         return UserRepository.getInstance(
-            JuergappDatabase.getInstance(context.applicationContext).userDao()
+            JuergappDatabase.getInstance(context.applicationContext).userDao(), context
         )
     }
 

@@ -1,15 +1,21 @@
 package pe.com.redcups.core.repository
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import pe.com.redcups.core.dao.EventDao
 import pe.com.redcups.core.model.Event
 import pe.com.redcups.core.network.JuergappAPI
-import kotlin.coroutines.coroutineContext
 
 
-class EventRepository private constructor(private val eventDao: EventDao){
+class EventRepository private constructor(private val eventDao: EventDao, private val context: Context): CoroutineScope by MainScope(){
 
-    fun getAllEvents() = eventDao.getAllEvents()
+    fun getAllEvents(): LiveData<List<Event>> {
+        fetchEvents()
+      return eventDao.getAllEvents()
+    }
     fun getEvent(id: String) = eventDao.getEvent(id)
 
     suspend fun insertEvent(event: Event){
@@ -19,13 +25,13 @@ class EventRepository private constructor(private val eventDao: EventDao){
     companion object {
         @Volatile private var instance: EventRepository? = null
 
-        fun getInstance(eventDao: EventDao)=
+        fun getInstance(eventDao: EventDao, context: Context)=
                 instance ?: synchronized(this){
-                    instance ?: EventRepository(eventDao).also { instance = it }
+                    instance ?: EventRepository(eventDao, context).also { instance = it }
                 }
     }
 
-    /*
+
     fun fetchEvents() = launch{
 
         //allEvents = eventDao.getAllEvents()
@@ -37,10 +43,10 @@ class EventRepository private constructor(private val eventDao: EventDao){
     }
 
     fun fetchEventById(id: Int) = launch {
-        event.postValue(eventDao.getEvent(id.toString()).value)
+        //event.postValue(eventDao.getEvent(id.toString()).value)
 
-        if (event.value == null){
-            //event.value = JuergappAPI.getInstance(context).getResource(Event::class.java,id.toString())
-        }
-    }*/
+        //if (event.value == null){
+            ////event.value = JuergappAPI.getInstance(context).getResource(Event::class.java,id.toString())
+        //}
+    }
 }
