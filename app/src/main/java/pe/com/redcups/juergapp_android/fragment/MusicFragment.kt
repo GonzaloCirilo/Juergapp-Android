@@ -12,6 +12,7 @@ import com.spotify.android.appremote.api.Connector
 
 import pe.com.redcups.juergapp_android.R
 import com.spotify.android.appremote.api.SpotifyAppRemote
+import com.spotify.protocol.types.Artist
 import com.spotify.protocol.types.ImageUri
 import kotlinx.android.synthetic.main.fragment_music.*
 
@@ -20,9 +21,25 @@ class MusicFragment : Fragment() {
     private val REDIRECT_URI = "juergapp://callback"
     private lateinit var mSpotifyAppRemote: SpotifyAppRemote
 
-    var isPlaying = false
-    var canSkipNext = false
-    var canSkipPrev = false
+    private var isPlaying = false
+    private var canSkipNext = false
+    private var canSkipPrev = false
+
+    fun List<Artist>.toCustomString(): String{
+        val size = this.size
+        if (size == 1){
+            return this[0].name
+        }
+        if (size == 2){
+            return "${this[0].name} & ${this[1].name}"
+        }
+        var s = ""
+        for (i in 0 until (size - 2)){
+            s ="$s${this[i].name}, "
+        }
+        s = "$s${this[size-2].name} & ${this[size-1].name}"
+        return s
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -106,12 +123,8 @@ class MusicFragment : Fragment() {
                 val track = playerState.track
                 val duration = milisToMMSS(track.duration)
                 track?.let {t ->
-                    Toast.makeText(
-                        context,
-                        "${t.name}",
-                        Toast.LENGTH_SHORT).show()
                     song_text_view.text = t.name
-                    artists_text_view.text = t.artist.name
+                    artists_text_view.text = t.artists.toCustomString()
                     setArtwork(t.imageUri)
                     track_length_text_view.text = duration
                 }
@@ -123,7 +136,7 @@ class MusicFragment : Fragment() {
             }
     }
 
-    fun setArtwork(imageUri: ImageUri){
+    private fun setArtwork(imageUri: ImageUri){
         mSpotifyAppRemote.imagesApi.getImage(imageUri).setResultCallback {
             artwork_image_view.setImageBitmap(it)
         }

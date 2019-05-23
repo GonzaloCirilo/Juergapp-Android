@@ -49,7 +49,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:indeterminateTint="@color/colorPrimary"
                     android:layout_weight="1"
                     android:progress="10"/>
             <TextView android:id="@+id/track_length_text_view"
