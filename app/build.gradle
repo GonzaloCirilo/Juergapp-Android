@@ -58,4 +58,7 @@ dependencies {
     //courutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
 
+    // Spotify App Remote
+    implementation project(':spotify-app-remote')
+
 }
