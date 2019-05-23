@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_event.*
 import pe.com.redcups.core.network.AppController
 import pe.com.redcups.core.utilities.InjectorUtils
-import pe.com.redcups.core.viewmodel.EventViewModel
+import pe.com.redcups.core.viewmodel.events.EventViewModel
 
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.EventAdapter
@@ -40,7 +40,7 @@ class EventFragment : Fragment() {
         recycler_view_event.layoutManager= LinearLayoutManager(view.context)
 
 
-        AppController.getInstance(view.context)
+        //AppController.getInstance(view.context)
         viewModel.allEvents.observeForever{
             adapter.setEvents(it)
         }

@@ -2,11 +2,16 @@ package pe.com.redcups.core.utilities
 
 import android.content.Context
 import pe.com.redcups.core.JuergappDatabase
-import pe.com.redcups.core.repository.EventRepository
-import pe.com.redcups.core.repository.GameRepository
-import pe.com.redcups.core.repository.ProductCategoryRepository
-import pe.com.redcups.core.repository.ProductRepository
-import pe.com.redcups.core.viewmodel.*
+import pe.com.redcups.core.repository.*
+import pe.com.redcups.core.viewmodel.UserProfileViewModel
+import pe.com.redcups.core.viewmodel.UserProfileViewModelFactory
+import pe.com.redcups.core.viewmodel.events.EventDetailViewModelFactory
+import pe.com.redcups.core.viewmodel.events.EventViewModelFactory
+import pe.com.redcups.core.viewmodel.games.GameDetailViewModelFactory
+import pe.com.redcups.core.viewmodel.games.GameViewModelFactory
+import pe.com.redcups.core.viewmodel.products.ProductCategoryViewModelFactory
+import pe.com.redcups.core.viewmodel.products.ProductDetailViewModelFactory
+import pe.com.redcups.core.viewmodel.products.ProductViewModelFactory
 
 object InjectorUtils{
 
@@ -33,37 +38,54 @@ object InjectorUtils{
             JuergappDatabase.getInstance(context.applicationContext).gameDao()
         )
     }
+    private fun getUserRepository(context: Context): UserRepository{
+        return UserRepository.getInstance(
+            JuergappDatabase.getInstance(context.applicationContext).userDao()
+        )
+    }
+
 
     fun provideGameDetailViewModelFactory(
         context: Context,
-        gameId: String): GameDetailViewModelFactory{
+        gameId: String): GameDetailViewModelFactory {
         val repository = getGameRepository(context)
         return GameDetailViewModelFactory(repository, gameId)
     }
 
-    fun provideGameViewModelFactory(context: Context): GameViewModelFactory{
+    fun provideGameViewModelFactory(context: Context): GameViewModelFactory {
         val repository = getGameRepository(context)
         return GameViewModelFactory(repository)
     }
 
-    fun provideProductCategoryViewModelFactory(context: Context): ProductCategoryViewModelFactory{
+    fun provideProductCategoryViewModelFactory(context: Context): ProductCategoryViewModelFactory {
         val repository = getProductCategoryRepository(context)
         return ProductCategoryViewModelFactory(repository)
     }
-
-    fun provideProductViewModelFactory(context: Context): ProductViewModelFactory{
+    fun provideProductDetailViewModelFactory(context: Context,
+                                             productId: String): ProductDetailViewModelFactory {
         val repository = getProductRepository(context)
-        return  ProductViewModelFactory(repository)
+        return ProductDetailViewModelFactory(repository, productId)
     }
 
-    fun provideEventViewModelFactory(context: Context): EventViewModelFactory{
+    fun provideProductViewModelFactory(context: Context, productCategoryId: String): ProductViewModelFactory {
+        val repository = getProductRepository(context)
+        return ProductViewModelFactory(repository, productCategoryId)
+    }
+
+    fun provideEventViewModelFactory(context: Context): EventViewModelFactory {
         val repository = getEventRepository(context)
         return EventViewModelFactory(repository)
     }
 
     fun provideEventDetailViewModelFactory(
         context: Context,
-        eventId: String): EventDetailViewModelFactory{
+        eventId: String): EventDetailViewModelFactory {
         return EventDetailViewModelFactory(getEventRepository(context), eventId)
+    }
+
+    fun provideUserViewModelFactory(context: Context,
+                                    userId: String): UserProfileViewModelFactory {
+        val repository = getUserRepository(context)
+        return UserProfileViewModelFactory(repository, userId)
     }
 }

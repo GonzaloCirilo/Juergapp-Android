@@ -1,4 +1,4 @@
-package pe.com.redcups.core.viewmodel
+package pe.com.redcups.core.viewmodel.games
 
 import android.app.Application
 import android.util.Log

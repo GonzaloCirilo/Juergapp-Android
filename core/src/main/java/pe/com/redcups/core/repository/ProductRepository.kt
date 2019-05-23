@@ -8,6 +8,8 @@ import pe.com.redcups.core.model.Product
 class ProductRepository private constructor(private val productDao: ProductDao){
 
     fun getAllProducts() = productDao.getAllProducts()
+    fun getAllProductsWithCategory(productCategoryId: String) = productDao.getAllProductsWithCategory(productCategoryId)
+
     fun getProduct(id: String) = productDao.getProduct(id)
     suspend fun insertProduct(product: Product){
         productDao.insert(product)

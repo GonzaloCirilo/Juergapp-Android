@@ -13,6 +13,9 @@ interface UserDao{
     @Query("SELECT * from user_table ORDER BY id ASC")
     fun getAllUsers(): LiveData<List<User>>
 
+    @Query("SELECT * FROM user_table WHERE id = :id")
+    fun getUser(id: String): LiveData<User>
+
     @Insert
     suspend fun insert(user: User)
 

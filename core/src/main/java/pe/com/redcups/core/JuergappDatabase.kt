@@ -11,7 +11,13 @@ import kotlinx.coroutines.launch
 import pe.com.redcups.core.dao.*
 import pe.com.redcups.core.model.*
 
-@Database(entities = [User::class, Event::class, ProductCategory::class, Product::class, Game::class], version = 2)
+@Database(entities = [
+    User::class,
+    Event::class,
+    ProductCategory::class,
+    Product::class,
+    Game::class],
+    version = 3)
 abstract class JuergappDatabase: RoomDatabase() {
 
     // Declare dao
@@ -42,6 +48,9 @@ abstract class JuergappDatabase: RoomDatabase() {
                         WorkManager.getInstance(context).enqueue(request)*/
                     }
                 })
+                    // this is so that database migrations can work without harm
+                .fallbackToDestructiveMigration()
+                // rebuild database
                 .build()
         }
     }

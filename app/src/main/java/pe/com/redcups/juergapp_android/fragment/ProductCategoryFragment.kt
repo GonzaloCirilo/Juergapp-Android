@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_product_category.*
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.ProductCategoryAdapter
-import pe.com.redcups.core.viewmodel.ProductCategoryViewModel
+import pe.com.redcups.core.viewmodel.products.ProductCategoryViewModel
 
 /**
  * A simple [Fragment] subclass.

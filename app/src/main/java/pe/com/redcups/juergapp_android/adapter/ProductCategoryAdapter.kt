@@ -36,7 +36,7 @@ class ProductCategoryAdapter(context: Context): RecyclerView.Adapter<ProductCate
             itemView.setOnClickListener{
                 // Le pasas el argumento del producto por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data
-                val action = ProductCategoryFragmentDirections.getProductListAction(product_category.id, product_category.name )
+                val action = ProductCategoryFragmentDirections.getProductListAction(product_category.id.toString(), product_category.name )
                 itemView.findNavController().navigate(action, options)
             }
             //}

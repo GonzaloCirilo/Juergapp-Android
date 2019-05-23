@@ -13,6 +13,9 @@ interface ProductDao{
     @Query("SELECT * FROM product_table")
     fun getAllProducts(): LiveData<List<Product>>
 
+    @Query("SELECT * FROM product_table WHERE product_category_id = :product_category_id")
+    fun getAllProductsWithCategory(product_category_id: String): LiveData<List<Product>>
+
     @Insert(onConflict = REPLACE)
     suspend fun insert(product: Product)
 

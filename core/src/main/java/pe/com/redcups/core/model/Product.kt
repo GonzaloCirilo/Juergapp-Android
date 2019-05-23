@@ -1,10 +1,14 @@
 package pe.com.redcups.core.model
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity(tableName = "product_table")
+@Entity(tableName = "product_table", foreignKeys = [
+    ForeignKey(
+        entity = ProductCategory::class,
+        parentColumns = ["id"],
+        childColumns = ["product_category_id"],
+        onDelete= ForeignKey.CASCADE )
+    ])
 data class Product(
     @PrimaryKey
     var id: Int = 0,
@@ -13,6 +17,5 @@ data class Product(
     var volume_ml: String =  "volume_in_millileters",
     var picture: String =  "url to picture",
     var alcohol_percentage: Double  =  0.3,
-    @Ignore
-    var productCategory: ProductCategory? = null
+    var product_category_id: Int = 0
 )

@@ -1,4 +1,4 @@
-package pe.com.redcups.core.viewmodel
+package pe.com.redcups.core.viewmodel.events
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -25,9 +25,5 @@ class EventViewModel internal constructor(eventRepository: EventRepository) : Vi
             insert(event)
         }
     }
-     /*fun  getEvents() {
-         // Get events from repository
-         repository.fetchEvents()
-    }*/
 
 }

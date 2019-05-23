@@ -1,28 +1,21 @@
 package pe.com.redcups.core.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import pe.com.redcups.core.model.User
+import pe.com.redcups.core.repository.UserRepository
 
-class UserProfileViewModel : ViewModel() {
-    private var userId: String? = null
-    val user: User? = null
+class UserProfileViewModel internal constructor(userRepository: UserRepository, userId: String) : ViewModel() {
+    val user: LiveData<User> = userRepository.getUser(userId)
 
-    fun init(userId: String) {
-        this.userId = userId
+    @ExperimentalCoroutinesApi
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel()
     }
-    // init {
-        // val wordsDao = WordRoomDatabase.getDatabase(application).wordDao()
-        // repository = WordRepository(wordsDao)
-        // allWords = repository.allWords
-    // }
-
-    // private val repository: WordRepository
-    // val allWords: LiveData<List<Word>>
-
-
-    // fun insert(word: Word) = viewModelScope.launch(Dispatchers.IO) {
-        // repository.insert(word)
-    // }
 }
 
 

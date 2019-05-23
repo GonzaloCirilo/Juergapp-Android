@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProviders
 
 class UserProfileFragment : Fragment() {
     private var viewModel: UserProfileViewModel? = null
-    private val UID_KEY = "uid"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,9 +24,7 @@ class UserProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val userId = arguments!!.getString(UID_KEY)
-        viewModel = ViewModelProviders.of(this).get(UserProfileViewModel::class.java)
-        viewModel!!.init(userId!!)
+        //viewModel = ViewModelProviders.of(this).get(UserProfileViewModel::class.java)
     }
 }
 

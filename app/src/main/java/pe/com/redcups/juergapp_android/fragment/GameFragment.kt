@@ -1,31 +1,24 @@
 package pe.com.redcups.juergapp_android.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_game.*
-import pe.com.redcups.core.model.Game
-import pe.com.redcups.core.network.AppController
-import pe.com.redcups.core.network.JuergappAPI
-import pe.com.redcups.core.network.VolleyConfig
 import pe.com.redcups.core.utilities.InjectorUtils
-import pe.com.redcups.core.viewmodel.GameViewModel
+import pe.com.redcups.core.viewmodel.games.GameViewModel
 
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.GameAdapter
-import java.util.concurrent.CountDownLatch
 
 class GameFragment : Fragment() {
 
     private lateinit var adapter: GameAdapter
-    private val viewModel:  GameViewModel by viewModels {
+    private val viewModel: GameViewModel by viewModels {
         InjectorUtils.provideGameViewModelFactory(requireContext())
     }
 

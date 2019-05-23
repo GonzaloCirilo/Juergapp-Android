@@ -31,11 +31,11 @@ class ProductListAdapter(context: Context): RecyclerView.Adapter<ProductListAdap
 
         with(holder){
             productImageView.setImageResource(R.mipmap.event_image_placeholder)
-            productNameTextView.text = products[position].name.toString()
+            productNameTextView.text = products[position].name
             itemView.setOnClickListener{
                 // aca le pasas el argumento del evento por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data
-                val action = ProductListFragmentDirections.getProductAction(products[position].id, products[position].name)
+                val action = ProductListFragmentDirections.getProductAction(products[position].id.toString(), products[position].name)
                 holder.itemView.findNavController().navigate(action, options)
             }
         }

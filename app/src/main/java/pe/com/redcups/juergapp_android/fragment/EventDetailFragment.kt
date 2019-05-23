@@ -1,7 +1,6 @@
 package pe.com.redcups.juergapp_android.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_event_detail.*
 import pe.com.redcups.core.utilities.InjectorUtils
-import pe.com.redcups.core.viewmodel.EventDetailViewModel
+import pe.com.redcups.core.viewmodel.events.EventDetailViewModel
 
 import pe.com.redcups.juergapp_android.R
 
@@ -19,8 +18,8 @@ class EventDetailFragment : Fragment() {
 
     private val safeArgs: EventDetailFragmentArgs by navArgs()
 
-    private val viewModel:  EventDetailViewModel by viewModels{
-        InjectorUtils.provideEventDetailViewModelFactory(requireActivity(),safeArgs.eventId)
+    private val viewModel: EventDetailViewModel by viewModels{
+        InjectorUtils.provideEventDetailViewModelFactory(requireActivity(), safeArgs.eventId)
     }
 
     override fun onCreateView(
@@ -34,11 +33,6 @@ class EventDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        val eventId = safeArgs.eventId
-
-        Log.d("EventDetailFragment", eventId)
 
         viewModel.event.observe(this, Observer {
             it?.also { e ->

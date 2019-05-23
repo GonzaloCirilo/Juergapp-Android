@@ -7,11 +7,19 @@ import pe.com.redcups.core.model.User
 
 class UserRepository(private val userDao: UserDao) {
 
-    val allUsers: LiveData<List<User>> = userDao.getAllUsers()
-
-    @WorkerThread
-    suspend fun insert(user: User) {
+    fun getAllUsers() = userDao.getAllUsers()
+    fun getUser(id: String) = userDao.getUser(id)
+    suspend fun insertEvent(user: User){
         userDao.insert(user)
+    }
+
+    companion object {
+        @Volatile private var instance: UserRepository? = null
+
+        fun getInstance(userDao: UserDao)=
+            instance ?: synchronized(this){
+                instance ?: UserRepository(userDao).also { instance = it }
+            }
     }
 
 }

@@ -35,7 +35,7 @@ class GameAdapter(context: Context): RecyclerView.Adapter<GameAdapter.ViewHolder
             itemView.setOnClickListener{
                 // Le pasas el argumento del producto por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data
-                val action = GameFragmentDirections.getGameDetailAction(games[position].id, games[position].name )
+                val action = GameFragmentDirections.getGameDetailAction(games[position].id.toString(), games[position].name )
                 itemView.findNavController().navigate(action, options)
             }
             //}

@@ -1,22 +1,17 @@
 package pe.com.redcups.core.repository
 
 import android.content.Context
-import android.util.Log
-import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import pe.com.redcups.core.dao.EventDao
 import pe.com.redcups.core.model.Event
 import pe.com.redcups.core.network.JuergappAPI
+import kotlin.coroutines.coroutineContext
 
 
 class EventRepository private constructor(private val eventDao: EventDao){
 
     fun getAllEvents() = eventDao.getAllEvents()
     fun getEvent(id: String) = eventDao.getEvent(id)
+
     suspend fun insertEvent(event: Event){
         eventDao.insert(event)
     }
@@ -30,19 +25,15 @@ class EventRepository private constructor(private val eventDao: EventDao){
                 }
     }
 
-   /* @WorkerThread
-    suspend fun insert(event: Event) {
-        eventDao.insert(event)
-    }*/
-
-    /*fun fetchEvents() = launch{
+    /*
+    fun fetchEvents() = launch{
 
         //allEvents = eventDao.getAllEvents()
         //some logic to see if its been fetched recently
         // Fetch from datasource
-        *//*for (event in JuergappAPI.getInstance(context).getResource(Array<Event>::class.java)){
+        for (event in JuergappAPI.getInstance(context).getResource(Array<Event>::class.java)){
             eventDao.insert(event)
-        }*//*
+        }
     }
 
     fun fetchEventById(id: Int) = launch {
