@@ -6,7 +6,7 @@
 
 
     <fragment android:id="@+id/profile_dest"
-              android:name="pe.com.redcups.juergapp_android.fragment.ProfileFragment"
+              android:name="pe.com.redcups.juergapp_android.fragment.UserProfileFragment"
               android:label="Mi Perfil"
               tools:layout="@layout/fragment_profile"/>
     <fragment android:id="@+id/music_dest"
@@ -70,7 +70,7 @@
 
             <argument
                     android:name="product_category_id"
-                    app:argType="integer"
+                    app:argType="string"
                     android:defaultValue="10"/>
 
         </action>
@@ -86,14 +86,14 @@
                 android:defaultValue="Ron"/>
         <argument
                 android:name="product_category_id"
-                app:argType="integer"
+                app:argType="string"
                 android:defaultValue="10"/>
 
         <action android:id="@+id/get_product_action"
                 app:destination="@id/product_dest">
             <argument
                     android:name="product_id"
-                    app:argType="integer"
+                    app:argType="string"
                     android:defaultValue="10"/>
             <argument
                     android:name="product_name"
@@ -103,12 +103,12 @@
     </fragment>
 
     <fragment android:id="@+id/product_dest"
-              android:name="pe.com.redcups.juergapp_android.fragment.ProductFragment"
+              android:name="pe.com.redcups.juergapp_android.fragment.ProductDetailFragment"
               android:label="{product_name}"
               tools:layout="@layout/fragment_product" >
         <argument
                 android:name="product_id"
-                app:argType="integer"
+                app:argType="string"
                 android:defaultValue="10"/>
         <argument
                 android:name="product_name"
@@ -125,7 +125,7 @@
         <action android:id="@+id/get_game_detail_action" app:destination="@id/game_dest">
             <argument
                     android:name="game_id"
-                    app:argType="integer"
+                    app:argType="string"
                     android:defaultValue="1"/>
             <argument
                     android:name="game_name"
@@ -138,11 +138,10 @@
     <fragment android:id="@+id/game_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.GameDetailFragment"
               tools:layout="@layout/fragment_game_detail"
-              android:label="{game_name}"
-    >
+              android:label="{game_name}">
         <argument
                 android:name="game_id"
-                app:argType="integer"
+                app:argType="string"
                 android:defaultValue="1"/>
         <argument
                 android:name="game_name"

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -12,6 +13,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
 
     }
 
@@ -38,13 +44,37 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Network
     implementation "com.android.volley:volley:1.1.1"
     implementation 'com.google.code.gson:gson:2.8.5'
+    testImplementation 'org.apache.httpcomponents:httpclient:4.5.8'
 
+    //courutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+
+    //Testing
     testImplementation 'org.robolectric:robolectric:4.3-alpha-2'
     testImplementation 'androidx.test:core:1.2.0-alpha05'
-    testImplementation 'org.apache.httpcomponents:httpclient:4.5.8'
+
+
+
+    // ViewModel and LiveData
+     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    // ViewModel Kotlin support
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+
+    // optional - Test helpers for LiveData
+    // testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
 }
 repositories {
     mavenCentral()

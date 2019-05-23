@@ -1,6 +1,7 @@
 package pe.com.redcups.juergapp_android.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,9 @@ import kotlinx.android.synthetic.main.recycler_view_order.view.*
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.core.model.Order
 
-class OrderAdapter(private val orders: ArrayList<Order>, context: Context): RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
+class OrderAdapter(context: Context): RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
+
+    private var orders: List<Order> = emptyList();
 
     private var inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -30,5 +33,11 @@ class OrderAdapter(private val orders: ArrayList<Order>, context: Context): Recy
     inner class ViewHolder(orderView: View): RecyclerView.ViewHolder(orderView){
         val orderImageView: ImageView = orderView.order_image
         var orderTextView: TextView = orderView.order_name
+    }
+    // updates Orders Array
+    fun setOrders(orders: List<Order>){
+        this.orders = orders
+        this.notifyDataSetChanged()
+        Log.d("Set Orders", "Data Set Changed")
     }
 }

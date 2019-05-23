@@ -1,100 +1,85 @@
 package pe.com.redcups.core
 
 import android.content.Context
-import android.util.Log
 import androidx.test.core.app.ApplicationProvider
-import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.Response
-import org.junit.Assert
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import pe.com.redcups.core.model.Product
 import pe.com.redcups.core.network.AppController
-import pe.com.redcups.core.network.Constants
-import pe.com.redcups.core.network.GsonRequest
 import pe.com.redcups.core.network.JuergappAPI
-import java.util.concurrent.CountDownLatch
+
+/**
+ * Product unit test, which will execute on the development machine (host).
+ *
+ * @see [Testing documentation](http://d.android.com/tools/testing)
+ */
 
 @RunWith(RobolectricTestRunner::class)
-
 class ProductUnitTest {
+
     private lateinit var context: Context
     private lateinit var queue: RequestQueue
 
     @Before
     fun setup() {
         context = ApplicationProvider.getApplicationContext()
+
+        //These parameters are just necessary for the test context
         queue = VolleyConfig.newVolleyRequestQueueForTest(context)
+        AppController.getInstance(context).setRequestQueue(queue)
     }
 
+    /**
+     *  GET all the products
+     */
+
+    /**
+     * Don't use runBlocking on UI thread, use CoroutineScope instead
+     */
     @Test
-    fun productsRequest(){
-        val signal =  CountDownLatch(1)
-        // Given
-
-        var products: Array<Product> = emptyArray()
-        // Build request
-        val request = GsonRequest(
-            Constants.productsURL,
-            Array<Product>::class.java,
-            Request.Method.GET,
-            Response.Listener { response ->
-                products = response
-                signal.countDown()
-            },
-            Response.ErrorListener {
-                signal.countDown()
-            })
-        // When
-        queue.add(request)
-        signal.await()
-
+    fun getProducts(){
+        val products: Array<Product> =  runBlocking { JuergappAPI.getInstance(context)
+            .getResource(Array<Product>::class.java)
+        }
         // Then
 
-        Assert.assertNotNull(products)
-        Assert.assertNotEquals(products.size, -1)
-
-        // NOTE: This test fails if server returns an empty array
-        Assert.assertEquals(1, products[0].id)
-
-        // this is the default first item
-        Assert.assertEquals("Ron Cartavio", products[0].name)
-        Assert.assertEquals("650", products[0].volume_ml)
-    }
-
-    @Test
-    fun productsRequestFacade(){
-        val signal =  CountDownLatch(1)
-        AppController.getInstance()
-        // Given
-        AppController.initRequestQueue(VolleyConfig.newVolleyRequestQueueForTest(context))
-        var products: Array<Product> = emptyArray()
-        // Make request
-        JuergappAPI.getResource(
-            Array<Product>::class.java,
-            {
-                products = it
-                signal.countDown()
-            },
-            {
-                Log.d("error", it.toString())
-                signal.countDown()
-            })
-        signal.await()
-        // Then
-
-        Assert.assertNotNull(products)
-        Assert.assertNotEquals(products.size, -1)
+        assertNotNull(products)
+        assertNotEquals(products.size, -1)
 
         //NOTE: This test fails if server returns an empty array
-        Assert.assertEquals(1, products[0].id)
+        assertEquals(1, products[0].id)
 
         // this is the default first item
-        Assert.assertEquals("Ron Cartavio", products[0].name)
-        Assert.assertEquals("650", products[0].volume_ml)
+        assertEquals("Ron Cartavio", products[0].name)
+        assertEquals("650", products[0].volume_ml)
     }
 
+    /**
+     *  GET  a single product
+     */
+
+    @Test
+    fun getProduct(){
+        // Given
+        // Get Product with id =  1
+        val productId: Int = 1
+
+        // When
+        // Make request
+        val product: Product =  runBlocking {
+            JuergappAPI.getInstance(context).getResource(Product::class.java, productId.toString())
+        }
+
+        // Then
+        assertNotNull(product)
+
+        // this is the default first item
+        assertEquals("Ron Cartavio", product.name)
+        assertEquals("650", product.volume_ml)
+    }
 }
