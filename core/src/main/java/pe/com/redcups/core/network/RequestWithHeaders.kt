@@ -1,5 +1,6 @@
 package pe.com.redcups.core.network
 
+import android.content.Context
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
@@ -12,8 +13,5 @@ class RequestWithHeaders(
     errorListener: Response.ErrorListener?
 ) : JsonObjectRequest(method, url, jsonRequest, listener, errorListener) {
 
-    override fun getHeaders(): MutableMap<String, String> {
-        return TokenManager.getInstance().getAsMutableMap()!!
-    }
 
 }

@@ -149,5 +149,7 @@
                 android:defaultValue="Beerpong"/>
 
     </fragment>
+    <fragment android:id="@+id/loginFragment" android:name="pe.com.redcups.juergapp_android.LoginFragment"
+              android:label="fragment_login" tools:layout="@layout/fragment_login"/>
 
 </navigation>

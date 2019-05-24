@@ -46,6 +46,7 @@ class JuergappAPI constructor(private val context: Context) {
         val request = GsonRequest(
             Constants.map[clazz] + "/" + pathVariable,
             clazz,
+            context,
             method,
             Response.Listener {
                 continuation.resume(it)

@@ -1,5 +1,6 @@
 package pe.com.redcups.core.network
 
+import android.content.Context
 import com.android.volley.NetworkResponse
 import com.android.volley.ParseError
 import com.android.volley.Request
@@ -14,6 +15,7 @@ import java.nio.charset.Charset
 class GsonRequest<T>(
     url: String,
     private val clazz: Class<T>,
+    private val context: Context,
     method: Int,
     private val listener: Response.Listener<T>,
     errorListener: Response.ErrorListener,
@@ -22,7 +24,7 @@ class GsonRequest<T>(
 
     private val gson = Gson()
 
-    override fun getHeaders(): MutableMap<String, String> = TokenManager.getInstance().getAsMutableMap() ?: super.getHeaders()
+    override fun getHeaders(): MutableMap<String, String> = TokenManager.getInstance(context).getAsMutableMap() ?: super.getHeaders()
 
     override fun deliverResponse(response: T) = listener.onResponse(response)
 

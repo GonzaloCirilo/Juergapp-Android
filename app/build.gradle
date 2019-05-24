@@ -39,6 +39,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.fragment:fragment-ktx:1.1.0-alpha09"
 
+    implementation 'androidx.annotation:annotation:1.0.2'
     testImplementation 'junit:junit:4.13-beta-2'
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha04'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha04'

@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         setupNavigationMenu(navController)
         setupBottomNavMenu(navController)
 
+
+
     }
 
     private fun setupBottomNavMenu(navController: NavController) {
