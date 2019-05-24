@@ -62,4 +62,7 @@ dependencies {
     // Spotify App Remote
     implementation project(':spotify-app-remote')
 
+    // Maps
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+
 }

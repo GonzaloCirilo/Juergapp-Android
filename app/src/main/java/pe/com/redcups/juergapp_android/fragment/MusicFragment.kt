@@ -105,7 +105,7 @@ class MusicFragment : Fragment() {
         SpotifyAppRemote.connect(context, connectionParams,
             object: Connector.ConnectionListener{
                 override fun onFailure(throwable: Throwable) {
-                    Toast.makeText(context,"Error!",Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context,"Error!",Toast.LENGTH_LONG).show()
                     Log.e("MyActivity", throwable.message, throwable)
                 }
 
