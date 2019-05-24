@@ -1,6 +1,7 @@
 package pe.com.redcups.juergapp_android.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,11 @@ import kotlinx.android.synthetic.main.recycler_view_game.view.*
 import pe.com.redcups.core.model.Game
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.GameFragmentDirections
+import pe.com.redcups.juergapp_android.options
 
-class GameAdapter(private val games: Array<Game>, context: Context): RecyclerView.Adapter<GameAdapter.ViewHolder>() {
+class GameAdapter(context: Context): RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
+    private var games: List<Game> = emptyList()
     private var inflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameAdapter.ViewHolder {
@@ -26,22 +29,13 @@ class GameAdapter(private val games: Array<Game>, context: Context): RecyclerVie
     override fun getItemCount() = games.size
 
     override fun onBindViewHolder(holder: GameAdapter.ViewHolder, position: Int) {
-        val options = navOptions {
-            anim {
-                enter = R.anim.slide_in_right
-                exit = R.anim.slide_out_left
-                popEnter = R.anim.slide_in_left
-                popExit = R.anim.slide_out_right
-            }
-        }
-
         with(holder){
             gameImageView.setImageResource(R.mipmap.event_image_placeholder)
             gameTextView.text = games[position].name
             itemView.setOnClickListener{
                 // Le pasas el argumento del producto por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data
-                val action = GameFragmentDirections.getGameDetailAction(games[position].id, games[position].name )
+                val action = GameFragmentDirections.getGameDetailAction(games[position].id.toString(), games[position].name )
                 itemView.findNavController().navigate(action, options)
             }
             //}
@@ -53,6 +47,12 @@ class GameAdapter(private val games: Array<Game>, context: Context): RecyclerVie
         val gameTextView: TextView = gameView.game_name
 
 
+    }
+    // updates Games Array
+    fun setGames(games: List<Game>){
+        this.games = games
+        this.notifyDataSetChanged()
+        Log.d("Set Games", "Data Set Changed")
     }
 
 }

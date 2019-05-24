@@ -37,7 +37,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha5'
     implementation 'com.google.android.material:material:1.1.0-alpha05'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.fragment:fragment-ktx:1.1.0-alpha09"
 
+    implementation 'androidx.annotation:annotation:1.0.2'
     testImplementation 'junit:junit:4.13-beta-2'
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha04'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha04'
@@ -48,8 +50,20 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
 
 
-    // Networwing
+    // Networwking
     implementation "com.android.volley:volley:1.1.1"
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    // Architecture components
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+
+    //courutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+
+    // Spotify App Remote
+    implementation project(':spotify-app-remote')
+
+    // Maps
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
 
 }

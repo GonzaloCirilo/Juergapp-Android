@@ -13,7 +13,6 @@ object Constants{
     // Events
     var eventsURL = "$baseURL/events"
 
-
     // Products
 
     // List of Categories

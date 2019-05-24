@@ -2,32 +2,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools" package="pe.com.redcups.juergapp_android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <application android:allowBackup="true"
-                 android:icon="@mipmap/ic_launcher"
-                 android:label="@string/app_name"
-                 android:roundIcon="@mipmap/ic_launcher_round"
-                 android:supportsRtl="true"
-                 android:theme="@style/AppTheme"
-                 tools:ignore="GoogleAppIndexingWarning">
-        <receiver android:name=".EventsWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-            </intent-filter>
+<uses-permission android:name="android.permission.INTERNET"/>
+<application android:allowBackup="true"
+             android:icon="@mipmap/ic_launcher"
+             android:label="@string/app_name"
+             android:roundIcon="@mipmap/ic_launcher_round"
+             android:supportsRtl="true"
+             android:theme="@style/AppTheme"
+             tools:ignore="GoogleAppIndexingWarning">
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/google_maps_key"/>
+    <receiver android:name=".EventsWidget">
+        <intent-filter>
+            <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+        </intent-filter>
+        <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/events_widget_info"/>
+    </receiver>
 
-            <meta-data
-                    android:name="android.appwidget.provider"
-                    android:resource="@xml/events_widget_info"/>
-        </receiver>
+    <activity android:name=".MainActivity">
+        <nav-graph android:value="@navigation/nav_graph"/>
+    </activity>
+    <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login">
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+    </intent-filter>
 
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-            <nav-graph android:value="@navigation/nav_graph" />
-        </activity>
-    </application>
+    </activity>
+</application>
 
 </manifest>

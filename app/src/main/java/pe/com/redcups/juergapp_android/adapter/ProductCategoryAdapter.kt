@@ -7,41 +7,36 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_product_category.view.*
 import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.ProductCategoryFragmentDirections
+import pe.com.redcups.juergapp_android.options
 
-class ProductCategoryAdapter(private val product_categories: Array<ProductCategory>, context: Context): RecyclerView.Adapter<ProductCategoryAdapter.ViewHolder>() {
+class ProductCategoryAdapter(context: Context): RecyclerView.Adapter<ProductCategoryAdapter.ViewHolder>() {
 
+    private var productCategories: List<ProductCategory> = emptyList()
     private var inflater: LayoutInflater = LayoutInflater.from(context)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductCategoryAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = inflater.inflate(R.layout.recycler_view_product_category, parent, false)
         return ViewHolder(view)
     }
 
-    override fun getItemCount() = product_categories.size
+    override fun getItemCount() = productCategories.size
 
-    override fun onBindViewHolder(holder: ProductCategoryAdapter.ViewHolder, position: Int) {
-        val options = navOptions {
-            anim {
-                enter = R.anim.slide_in_right
-                exit = R.anim.slide_out_left
-                popEnter = R.anim.slide_in_left
-                popExit = R.anim.slide_out_right
-            }
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with(holder){
+            var product_category = productCategories[position]
             product_categoriesImageView.setImageResource(R.mipmap.event_image_placeholder)
-            product_categories_nameTextView.text = product_categories[position].name.toString()
+            product_categories_nameTextView.text = product_category.name
+
             itemView.setOnClickListener{
                 // Le pasas el argumento del producto por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data
-                val action = ProductCategoryFragmentDirections.getProductListAction(product_categories[position].id, product_categories[position].name )
+                val action = ProductCategoryFragmentDirections.getProductListAction(product_category.id.toString(), product_category.name )
                 itemView.findNavController().navigate(action, options)
             }
             //}
@@ -52,5 +47,10 @@ class ProductCategoryAdapter(private val product_categories: Array<ProductCatego
         val product_categoriesImageView: ImageView = productCategoryView.product_category_image
         var product_categories_nameTextView: TextView = productCategoryView.product_category_name
 
+
+    }
+    fun setProductCategories(productCategories: List<ProductCategory>){
+        this.productCategories = productCategories
+        notifyDataSetChanged()
     }
 }
