@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:id="@+id/event_add_fragment"
-                                                   tools:context=".fragment.EventAddFragment">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/event_add_fragment"
+        tools:context=".fragment.EventAddFragment"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-            android:id="@+id/event_name"
+            android:id="@+id/event_name_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre del evento"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:labelFor="@+id/event_name_edit_text"
     />
     <EditText
-            android:id="@+id/event_name_edit"
+            android:id="@+id/event_name_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/event_name"
-    />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    />
+    <TextView
+            android:id="@+id/description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripcion del Evento"
+            android:labelFor="@+id/description_edit_text"/>
+    <EditText
+            android:id="@+id/description_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
