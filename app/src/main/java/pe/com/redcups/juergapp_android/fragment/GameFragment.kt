@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_game.*
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.games.GameViewModel
@@ -35,7 +37,7 @@ class GameFragment : Fragment() {
         adapter = GameAdapter(view.context)
 
         recycler_view_game.adapter = adapter
-        recycler_view_game.layoutManager = LinearLayoutManager(view.context)
+        recycler_view_game.layoutManager = GridLayoutManager(view.context, 3, RecyclerView.VERTICAL, false)
 
         viewModel.allGames.observe(this, Observer { games ->
             adapter.setGames(games)
