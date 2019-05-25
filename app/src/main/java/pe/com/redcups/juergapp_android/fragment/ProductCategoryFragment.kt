@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_product_category.*
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.juergapp_android.R
@@ -40,7 +42,7 @@ class ProductCategoryFragment : Fragment() {
         adapter = ProductCategoryAdapter(view.context)
 
         recycler_view_product_category.adapter = adapter
-        recycler_view_product_category.layoutManager = LinearLayoutManager(view.context)
+        recycler_view_product_category.layoutManager = GridLayoutManager(view.context, 2, RecyclerView.VERTICAL,false)
 
 
         viewModel.allProductCategories.observe(this, Observer { productCategories ->

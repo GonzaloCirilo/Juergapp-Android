@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import pe.com.redcups.core.network.TokenManager
 import pe.com.redcups.juergapp_android.MainActivity
 
 import pe.com.redcups.juergapp_android.R
@@ -71,6 +72,10 @@ class LoginActivity : AppCompatActivity() {
                 username.text.toString(),
                 password.text.toString()
             )
+        }
+        if (TokenManager(context = applicationContext).isLoggedIn()){
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+            finish()
         }
 
         password.apply {
