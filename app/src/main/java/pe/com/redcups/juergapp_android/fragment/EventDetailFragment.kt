@@ -23,8 +23,8 @@ import pe.com.redcups.juergapp_android.R
 
 class EventDetailFragment : Fragment(), OnMapReadyCallback {
 
-    var lat: Double = -34.0
-    var lon: Double = 151.0
+    private var lat: Double = -34.0
+    private var lon: Double = 151.0
 
 
     override fun onMapReady(gMap: GoogleMap) {
@@ -68,7 +68,5 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
                 mapFragment.getMapAsync(this)
             }
         })
-
-
     }
 }

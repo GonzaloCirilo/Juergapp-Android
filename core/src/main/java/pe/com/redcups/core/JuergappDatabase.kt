@@ -17,7 +17,7 @@ import pe.com.redcups.core.model.*
     ProductCategory::class,
     Product::class,
     Game::class],
-    version = 3)
+    version = 4)
 abstract class JuergappDatabase: RoomDatabase() {
 
     // Declare dao

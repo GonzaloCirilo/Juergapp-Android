@@ -10,7 +10,7 @@ import pe.com.redcups.core.model.Event
 import pe.com.redcups.core.network.JuergappAPI
 
 
-class EventRepository private constructor(private val eventDao: EventDao, private val context: Context): CoroutineScope by MainScope(){
+class EventRepository private constructor(private val eventDao: EventDao): CoroutineScope by MainScope(){
 
     fun getAllEvents(): LiveData<List<Event>> {
         fetchEvents()
@@ -19,7 +19,10 @@ class EventRepository private constructor(private val eventDao: EventDao, privat
     fun getEvent(id: String) = eventDao.getEvent(id)
 
     suspend fun insertEvent(event: Event){
-        eventDao.insert(event)
+        JuergappAPI.getInstance().postResource(event).also {
+            eventDao.insert(event)
+        }
+
     }
 
     companion object {
@@ -27,7 +30,10 @@ class EventRepository private constructor(private val eventDao: EventDao, privat
 
         fun getInstance(eventDao: EventDao, context: Context)=
                 instance ?: synchronized(this){
-                    instance ?: EventRepository(eventDao, context).also { instance = it }
+                    instance ?: EventRepository(eventDao).also {
+                        instance = it
+                        JuergappAPI.getInstance(context)
+                    }
                 }
     }
 
@@ -37,7 +43,7 @@ class EventRepository private constructor(private val eventDao: EventDao, privat
         //allEvents = eventDao.getAllEvents()
         //some logic to see if its been fetched recently
         // Fetch from datasource
-        for (event in JuergappAPI.getInstance(context).getResource(Array<Event>::class.java)){
+        for (event in JuergappAPI.getInstance().getResource(Array<Event>::class.java)){
             eventDao.insert(event)
         }
     }

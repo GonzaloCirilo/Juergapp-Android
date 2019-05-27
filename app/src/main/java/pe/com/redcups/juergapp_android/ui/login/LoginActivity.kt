@@ -17,7 +17,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import pe.com.redcups.core.network.TokenManager
 import pe.com.redcups.juergapp_android.MainActivity
-
 import pe.com.redcups.juergapp_android.R
 
 class LoginActivity : AppCompatActivity() {

@@ -29,6 +29,12 @@ class EventFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_event, container, false)
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.allEvents.observeForever{
+            adapter.setEvents(it)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
