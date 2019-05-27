@@ -1,6 +1,7 @@
 package pe.com.redcups.juergapp_android.adapter
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,11 @@ import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.ProductCategoryFragmentDirections
 import pe.com.redcups.juergapp_android.options
+import android.graphics.BitmapFactory
+import android.util.Base64
+import android.util.Log
+import pe.com.redcups.core.utilities.BitmapUtils
+
 
 class ProductCategoryAdapter(context: Context): RecyclerView.Adapter<ProductCategoryAdapter.ViewHolder>() {
 
@@ -30,7 +36,13 @@ class ProductCategoryAdapter(context: Context): RecyclerView.Adapter<ProductCate
 
         with(holder){
             var product_category = productCategories[position]
-            product_categoriesImageView.setImageResource(R.mipmap.event_image_placeholder)
+            //product_categoriesImageView.setImageResource(R.mipmap.event_image_placeholder)
+            Log.d("Ggot here", " I got after product categories")
+
+            if (product_category.picture_data != null){
+                product_categoriesImageView.setImageBitmap(BitmapUtils.stringToBitmap(product_category.picture_data!!))
+            }
+
             product_categories_nameTextView.text = product_category.name
 
             itemView.setOnClickListener{

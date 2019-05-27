@@ -7,6 +7,13 @@
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content">
+        <ImageView
+                android:id="@+id/game_detail_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/event_image_placeholder"
+        />
 
         <TextView
                 android:padding="@dimen/small_margin"
@@ -29,13 +36,6 @@
                 android:textSize="20dp"
                 android:layout_marginTop="34dp"/>
 
-        <ImageView
-                android:id="@+id/game_detail_image"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_margin="@dimen/medium_margin"
-                android:src="@mipmap/event_image_placeholder"
-        />
 
     </LinearLayout>
 </ScrollView>

@@ -12,6 +12,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_game.view.*
 import pe.com.redcups.core.model.Game
+import pe.com.redcups.core.utilities.BitmapUtils
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.GameFragmentDirections
 import pe.com.redcups.juergapp_android.options
@@ -29,13 +30,20 @@ class GameAdapter(context: Context): RecyclerView.Adapter<GameAdapter.ViewHolder
     override fun getItemCount() = games.size
 
     override fun onBindViewHolder(holder: GameAdapter.ViewHolder, position: Int) {
+
+        var game = games[position]
+
         with(holder){
+
             gameImageView.setImageResource(R.mipmap.event_image_placeholder)
-            gameTextView.text = games[position].name
+            if (game.picture_data != null){
+                gameImageView.setImageBitmap(BitmapUtils.stringToBitmap(game.picture_data!!))
+            }
+            gameTextView.text = game.name
             itemView.setOnClickListener{
                 // Le pasas el argumento del producto por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data
-                val action = GameFragmentDirections.getGameDetailAction(games[position].id.toString(), games[position].name )
+                val action = GameFragmentDirections.getGameDetailAction(game.id.toString(), game.name )
                 itemView.findNavController().navigate(action, options)
             }
             //}

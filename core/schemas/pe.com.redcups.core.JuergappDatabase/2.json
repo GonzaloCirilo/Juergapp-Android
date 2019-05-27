@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "6518b050f9031557a84377688a2aecd8",
+    "identityHash": "697c8b829e5272116acd235a5f2e7867",
     "entities": [
       {
         "tableName": "user_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `bio` TEXT NOT NULL, `picture` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `bio` TEXT NOT NULL, `picture` TEXT NOT NULL, `picture_data` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -31,6 +31,12 @@
             "columnName": "picture",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "picture_data",
+            "columnName": "picture_data",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -44,7 +50,7 @@
       },
       {
         "tableName": "event_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `user` INTEGER NOT NULL, `date` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `address` TEXT NOT NULL, `description` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `user` INTEGER NOT NULL, `date` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `address` TEXT NOT NULL, `picture_data` TEXT, `description` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -89,6 +95,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "picture_data",
+            "columnName": "picture_data",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
@@ -106,7 +118,7 @@
       },
       {
         "tableName": "product_category_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `picture_data` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -125,6 +137,12 @@
             "columnName": "description",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "picture_data",
+            "columnName": "picture_data",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -138,7 +156,7 @@
       },
       {
         "tableName": "product_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `volume_ml` TEXT NOT NULL, `picture` TEXT NOT NULL, `alcohol_percentage` REAL NOT NULL, `product_category_id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`product_category_id`) REFERENCES `product_category_table`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `volume_ml` TEXT NOT NULL, `picture` TEXT NOT NULL, `picture_data` TEXT, `alcohol_percentage` REAL NOT NULL, `product_category_id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`product_category_id`) REFERENCES `product_category_table`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -169,6 +187,12 @@
             "columnName": "picture",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "picture_data",
+            "columnName": "picture_data",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "alcohol_percentage",
@@ -206,7 +230,7 @@
       },
       {
         "tableName": "game_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `picture_data` TEXT, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -225,6 +249,12 @@
             "columnName": "description",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "picture_data",
+            "columnName": "picture_data",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "created_at",
@@ -252,7 +282,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"6518b050f9031557a84377688a2aecd8\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"697c8b829e5272116acd235a5f2e7867\")"
     ]
   }
 }

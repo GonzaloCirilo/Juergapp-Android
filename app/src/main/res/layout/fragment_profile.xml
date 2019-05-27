@@ -7,24 +7,23 @@
               android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <ImageView android:layout_width="match_parent"
+    <ImageView android:layout_width="150dp"
                android:layout_height="150dp"
                android:src="@mipmap/event_image_placeholder"
+               android:scaleType="centerCrop"
     />
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/medium_margin"
-            android:layout_margin="@dimen/medium_margin"
             android:textAlignment="center"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             android:text="Nombre Apellido"/>
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/medium_margin"
-            android:layout_margin="@dimen/medium_margin"
             android:textSize="20dp"
             android:textAlignment="center"
             android:textStyle="italic"

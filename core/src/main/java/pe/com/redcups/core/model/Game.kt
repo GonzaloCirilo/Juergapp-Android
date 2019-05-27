@@ -13,5 +13,6 @@ data class Game (
     var id: Int,
     var name: String,
     var description: String = "",
+    var picture_data: String? = null,
     var created_at: Date = Date(),
     var updated_at: Date = Date())

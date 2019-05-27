@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.products.ProductViewModel
@@ -43,7 +45,7 @@ class ProductListFragment : Fragment() {
         })
 
         recycler_view_product_list.adapter = adapter
-        recycler_view_product_list.layoutManager = LinearLayoutManager(view.context)
+        recycler_view_product_list.layoutManager = GridLayoutManager(view.context, 2, RecyclerView.VERTICAL,false)
     }
 
 }
