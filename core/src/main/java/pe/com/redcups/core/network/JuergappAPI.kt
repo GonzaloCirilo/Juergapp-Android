@@ -33,6 +33,7 @@ class JuergappAPI constructor(private val context: Context) {
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: JuergappAPI(ctx).also{
                     INSTANCE = it
+
                 }
             }
     }
