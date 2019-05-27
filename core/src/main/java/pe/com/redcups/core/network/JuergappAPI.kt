@@ -7,6 +7,8 @@ import android.widget.ImageView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.ImageRequest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.json.JSONObject
 import java.lang.Exception
@@ -34,6 +36,7 @@ class JuergappAPI  {
         fun getInstance() = INSTANCE!!
     }
 
+    @UseExperimental(InternalCoroutinesApi::class)
     private suspend fun <T> buildRequest(
         clazz: Class<T>,
         method: Int,
@@ -48,7 +51,8 @@ class JuergappAPI  {
                 continuation.resume(it)
             },
             Response.ErrorListener {
-                continuation.resumeWithException(Exception(it.cause))
+                continuation.tryResumeWithException(Exception(it))
+                //continuation.resumeWithException(Exception(it))
             },
             body
         )
