@@ -29,6 +29,11 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(gMap: GoogleMap) {
         val eventPos = LatLng(lat,lon)
+        gMap.isBuildingsEnabled = true
+        gMap.uiSettings.isZoomControlsEnabled = false
+        gMap.uiSettings.isZoomGesturesEnabled = false
+        gMap.uiSettings.isScrollGesturesEnabled = false
+        gMap.uiSettings.isRotateGesturesEnabled = false
         gMap.addMarker(MarkerOptions().position(eventPos).title(event_name_label.text.toString()))
         gMap.moveCamera(CameraUpdateFactory.newLatLng(eventPos))
         val cameraPosition = CameraPosition.Builder()
