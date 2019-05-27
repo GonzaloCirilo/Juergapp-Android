@@ -6,10 +6,11 @@
 <application android:allowBackup="true"
              android:icon="@mipmap/event_image_placeholder"
              android:label="@string/app_name"
-             android:roundIcon="@mipmap/ic_launcher_round"
+             android:roundIcon="@mipmap/event_image_placeholder"
              android:supportsRtl="true"
              android:theme="@style/AppTheme"
              tools:ignore="GoogleAppIndexingWarning">
+    l
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
                 android:value="@string/google_maps_key"/>
@@ -32,7 +33,6 @@
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
     </intent-filter>
-
 
     </activity>
 </application>

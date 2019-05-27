@@ -35,10 +35,10 @@ class GameAdapter(context: Context): RecyclerView.Adapter<GameAdapter.ViewHolder
 
         with(holder){
 
+            gameImageView.setImageResource(R.mipmap.event_image_placeholder)
             if (game.picture_data != null){
                 gameImageView.setImageBitmap(BitmapUtils.stringToBitmap(game.picture_data!!))
             }
-            gameImageView.setImageResource(R.mipmap.event_image_placeholder)
             gameTextView.text = game.name
             itemView.setOnClickListener{
                 // Le pasas el argumento del producto por Safe Args

@@ -14,6 +14,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_event.view.*
 import pe.com.redcups.core.model.Event
+import pe.com.redcups.core.utilities.BitmapUtils
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.EventFragmentDirections
 import pe.com.redcups.juergapp_android.options
@@ -36,8 +37,11 @@ class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHold
             var event  = events[position]
             eventTextView.text = event.name
             eventAddressTextView.text = event.address
-            eventImageView.setImageResource(R.mipmap.event_image_placeholder)
 
+            eventImageView.setImageResource(R.mipmap.event_image_placeholder)
+            if (event.picture_data != null){
+                eventImageView.setImageBitmap(BitmapUtils.stringToBitmap(event.picture_data!!))
+            }
             itemView.setOnClickListener{
                 // aca le pasas el argumento del evento por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data

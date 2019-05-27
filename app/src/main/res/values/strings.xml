@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Juergapp-Android</string>
+    <string name="app_name">Juergapp</string>
     <string name="events">Eventos</string>
     <string name="drinks">Tragos</string>
     <string name="games">Juegos</string>
