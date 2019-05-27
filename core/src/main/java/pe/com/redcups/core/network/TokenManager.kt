@@ -26,6 +26,8 @@ class TokenManager(context: Context) {
                     INSTANCE = it
                 }
             }
+
+        fun getInstance(): TokenManager = INSTANCE!!
     }
 
     fun isLoggedIn(): Boolean {
