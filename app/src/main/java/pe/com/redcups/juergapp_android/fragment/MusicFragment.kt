@@ -114,7 +114,6 @@ class MusicFragment : Fragment() {
 
                 override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
                     mSpotifyAppRemote = spotifyAppRemote
-                    Toast.makeText(context,"Connected!",Toast.LENGTH_SHORT).show()
                     connected()
                 }
             })

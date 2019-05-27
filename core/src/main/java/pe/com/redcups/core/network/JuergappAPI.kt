@@ -1,29 +1,23 @@
 package pe.com.redcups.core.network
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
-import androidx.annotation.WorkerThread
+import android.widget.ImageView
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import com.google.gson.JsonObject
+import com.android.volley.toolbox.ImageRequest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.json.JSONObject
 import java.lang.Exception
-import java.lang.reflect.ParameterizedType
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-import com.android.volley.AuthFailureError
-import org.json.JSONException
-import android.widget.Toast
-import android.R.attr.tag
-import com.android.volley.VolleyLog
-import com.android.volley.VolleyError
-import kotlin.coroutines.CoroutineContext
 
+class JuergappAPI  {
 
-class JuergappAPI constructor(private val context: Context) {
-
+    private var hasInternetAccess: Boolean = true
 
     companion object {
         @Volatile
@@ -31,13 +25,18 @@ class JuergappAPI constructor(private val context: Context) {
 
         fun getInstance(ctx: Context) =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: JuergappAPI(ctx).also{
+                INSTANCE ?: JuergappAPI().also{
                     INSTANCE = it
-
+                    INSTANCE!!.hasInternetAccess = Connection.hasInternetAccess(ctx)
+                    AppController.getInstance(ctx)
+                    TokenManager.getInstance(ctx)
                 }
             }
+
+        fun getInstance() = INSTANCE!!
     }
 
+    @UseExperimental(InternalCoroutinesApi::class)
     private suspend fun <T> buildRequest(
         clazz: Class<T>,
         method: Int,
@@ -47,18 +46,18 @@ class JuergappAPI constructor(private val context: Context) {
         val request = GsonRequest(
             Constants.map[clazz] + "/" + pathVariable,
             clazz,
-            context,
             method,
             Response.Listener {
                 continuation.resume(it)
             },
             Response.ErrorListener {
-                Log.d("Error", it.localizedMessage)
-                continuation.resumeWithException(Exception(it.cause))
+                continuation.tryResumeWithException(Exception(it))
+                //continuation.resumeWithException(Exception(it))
             },
             body
         )
-        AppController.getInstance(context).addRequest(request)
+        if(hasInternetAccess)
+            AppController.getInstance().addRequest(request)
 
         continuation.invokeOnCancellation {
             request.cancel()
@@ -80,13 +79,35 @@ class JuergappAPI constructor(private val context: Context) {
                 continuation.resumeWithException(Exception(error.cause))
             }
         )
-        AppController.getInstance().addRequest(request)
+        if(hasInternetAccess)
+            AppController.getInstance().addRequest(request)
 
         continuation.invokeOnCancellation {
             request.cancel()
         }
 
     }
+
+    suspend fun getImage(url: String, height: Int, width: Int): Bitmap =
+        suspendCancellableCoroutine { continuation ->
+            val imageRequest = ImageRequest(url, Response.Listener<Bitmap> { image ->
+                    continuation.resume(image)
+                },
+                height,
+                width,
+                ImageView.ScaleType.CENTER,
+                Bitmap.Config.ALPHA_8,
+                Response.ErrorListener{ error ->
+                    Log.d("VolleyError", error.toString())
+                })
+
+            if(hasInternetAccess)
+                AppController.getInstance().addRequest(imageRequest)
+
+            continuation.invokeOnCancellation {
+                imageRequest.cancel()
+            }
+        }
 
 
     suspend fun <T> getResource(clazz: Class<T>, pathVariable: String? = ""): T =
