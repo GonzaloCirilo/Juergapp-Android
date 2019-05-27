@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_event_detail.*
+import pe.com.redcups.core.utilities.BitmapUtils
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.events.EventDetailViewModel
 
@@ -71,6 +72,10 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
                 event_host.text = e.id.toString()
                 val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
                 mapFragment.getMapAsync(this)
+                e.picture_data?.also {image ->
+                    event_image.setImageBitmap(BitmapUtils.stringToBitmap(image))
+                }
+
             }
         })
     }
