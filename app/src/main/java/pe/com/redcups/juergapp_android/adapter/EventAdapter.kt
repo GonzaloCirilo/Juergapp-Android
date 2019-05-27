@@ -35,6 +35,7 @@ class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHold
         with (holder){
             var event  = events[position]
             eventTextView.text = event.name
+            eventAddressTextView.text = event.address
             eventImageView.setImageResource(R.mipmap.event_image_placeholder)
 
             itemView.setOnClickListener{
@@ -48,6 +49,7 @@ class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHold
 
     inner class ViewHolder(eventView: View): RecyclerView.ViewHolder(eventView) {
         val eventTextView: TextView = eventView.event_name
+        val eventAddressTextView: TextView = eventView.event_address
         val eventImageView: ImageView = eventView.event_image
     }
 

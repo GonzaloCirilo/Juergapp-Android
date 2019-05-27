@@ -37,7 +37,7 @@ class GameFragment : Fragment() {
         adapter = GameAdapter(view.context)
 
         recycler_view_game.adapter = adapter
-        recycler_view_game.layoutManager = GridLayoutManager(view.context, 3, RecyclerView.VERTICAL, false)
+        recycler_view_game.layoutManager = GridLayoutManager(view.context, 2, RecyclerView.VERTICAL, false)
 
         viewModel.allGames.observe(this, Observer { games ->
             adapter.setGames(games)
