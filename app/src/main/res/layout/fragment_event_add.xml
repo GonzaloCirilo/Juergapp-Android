@@ -15,50 +15,52 @@
             <LinearLayout
                     xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/event_add_fragment"
                     tools:context=".fragment.EventAddFragment"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="@dimen/medium_margin">
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombre del evento"
+                        android:layout_marginTop="@dimen/small_margin"
+                        android:layout_marginBottom="@dimen/small_margin"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <TextView
-                        android:id="@+id/event_name_text_view"
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@={viewmodel.event.name}"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nombre del evento"
-                        android:labelFor="@+id/event_name_edit_text"/>
-                <EditText
-                        android:id="@+id/event_name_edit_text"
+                        android:hint="Descripcion"
+                        android:layout_marginTop="@dimen/small_margin"
+                        android:layout_marginBottom="@dimen/small_margin"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@={viewmodel.event.description}"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:imeOptions="actionDone"
-                        android:text="@={viewmodel.event.name}"/>
-                <TextView
-                        android:id="@+id/description_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Descripcion del Evento"
-                        android:labelFor="@+id/description_edit_text"/>
-                <EditText
-                        android:id="@+id/description_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:text="@={viewmodel.event.description}"/>
-                <TextView
-                        android:id="@+id/address_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:labelFor="@+id/address_edit_text"
-                        android:text="Direccion"/>
-                <EditText
-                        android:id="@+id/address_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:text="@={viewmodel.event.address}"/>
+                        android:hint="Direccion"
+                        android:layout_marginTop="@dimen/small_margin"
+                        android:layout_marginBottom="@dimen/small_margin"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@={viewmodel.event.address}"/>
+                </com.google.android.material.textfield.TextInputLayout>
                 <TextView
                         android:id="@+id/date_text_view"
                         android:layout_width="match_parent"
