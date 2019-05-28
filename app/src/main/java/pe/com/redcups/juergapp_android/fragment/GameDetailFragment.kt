@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_game_detail.*
 import pe.com.redcups.core.model.Game
+import pe.com.redcups.core.utilities.BitmapUtils
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.games.GameDetailViewModel
 import pe.com.redcups.juergapp_android.R
@@ -32,6 +33,12 @@ class GameDetailFragment : Fragment() {
 
         viewModel.game.observe(this, Observer {
             game_detail_description.text = it.description
+            it.picture_data?.also { image ->
+                game_detail_image.setImageBitmap(
+                    BitmapUtils.stringToBitmap(image)
+                )
+            }
+
         })
     }
 }
