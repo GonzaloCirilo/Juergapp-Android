@@ -15,9 +15,6 @@ class EventViewModel internal constructor(eventRepository: EventRepository) : Vi
 
 
     fun insert(event: Event) = viewModelScope.launch(Dispatchers.IO) {
-        //for debugging
-        Log.d("Inserting", event.id.toString())
-        Log.d("Inserting", event.name)
         //eventRepository.insert(event)
     }
     fun setEvents(events: Array<Event>){

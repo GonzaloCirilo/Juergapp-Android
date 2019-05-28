@@ -36,8 +36,6 @@ class ProductCategoryAdapter(context: Context): RecyclerView.Adapter<ProductCate
 
         with(holder){
             var product_category = productCategories[position]
-            //product_categoriesImageView.setImageResource(R.mipmap.event_image_placeholder)
-            Log.d("Ggot here", " I got after product categories")
 
             if (product_category.picture_data != null){
                 product_categoriesImageView.setImageBitmap(BitmapUtils.stringToBitmap(product_category.picture_data!!))

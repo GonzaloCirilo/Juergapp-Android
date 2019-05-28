@@ -13,7 +13,6 @@ class ProgressBarAnimation(
 
     override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
         super.applyTransformation(interpolatedTime, t)
-        Log.d("Anim", (from + (to - from) * interpolatedTime).toString())
         progressBar.progress = (from + (to - from) * interpolatedTime).toInt()
     }
 }

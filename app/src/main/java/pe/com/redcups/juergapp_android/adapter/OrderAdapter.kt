@@ -38,6 +38,5 @@ class OrderAdapter(context: Context): RecyclerView.Adapter<OrderAdapter.ViewHold
     fun setOrders(orders: List<Order>){
         this.orders = orders
         this.notifyDataSetChanged()
-        Log.d("Set Orders", "Data Set Changed")
     }
 }
