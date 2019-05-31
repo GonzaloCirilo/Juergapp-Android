@@ -10,11 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_event.*
+import kotlinx.android.synthetic.main.fragment_event_detail.*
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.events.EventViewModel
 
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.EventAdapter
+import pe.com.redcups.juergapp_android.adapter.ParticipantAdapter
 import pe.com.redcups.juergapp_android.options
 
 class EventFragment : Fragment() {
@@ -43,6 +45,7 @@ class EventFragment : Fragment() {
 
         recycler_view_event.adapter = adapter
         recycler_view_event.layoutManager= LinearLayoutManager(view.context)
+
 
         //AppController.getInstance(view.context)
         viewModel.allEvents.observeForever{

@@ -10,6 +10,8 @@ import pe.com.redcups.core.dao.OrderDao
 import pe.com.redcups.core.model.Order
 import pe.com.redcups.core.network.JuergappAPI
 
+
+// TODO: Remove CoroutineScope
 class OrderRepository private constructor(private val orderDao: OrderDao): CoroutineScope by MainScope(){
 
     fun getAllOrders(): LiveData<List<Order>> {

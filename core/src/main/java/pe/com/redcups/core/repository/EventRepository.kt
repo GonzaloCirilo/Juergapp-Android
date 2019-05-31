@@ -8,6 +8,7 @@ import pe.com.redcups.core.model.Event
 import pe.com.redcups.core.network.JuergappAPI
 
 
+// TODO: Remove CoroutineScope
 class EventRepository private constructor(private val eventDao: EventDao): CoroutineScope by MainScope(){
 
     fun getAllEvents(): LiveData<List<Event>> {
