@@ -47,26 +47,34 @@ class EventAddFragment : Fragment(), DatePickerDialog.OnDateSetListener, OnMapRe
         return binding.root
     }
 
+    fun createDatePickerInstance(calendar: Calendar) {
+        calendar.time = viewModel.event.value!!.date
+        datePickerDialog = DatePickerDialog.newInstance(
+            this,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.minDate = Calendar.getInstance(TimeZone.getDefault())
+        datePickerDialog.show(fragmentManager!!,"DatePickerDialog")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val calendar = Calendar.getInstance(TimeZone.getDefault())
 
-        date_button.setOnClickListener {
-            calendar.time = viewModel.event.value!!.date
-            datePickerDialog = DatePickerDialog.newInstance(
-                this,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            )
-            datePickerDialog.minDate = Calendar.getInstance(TimeZone.getDefault())
-            datePickerDialog.show(fragmentManager!!,"DatePickerDialog")
+        date_text_input_layout.setEndIconOnClickListener {
+            createDatePickerInstance(calendar)
+        }
+        date_edit_text.setOnClickListener {
+            createDatePickerInstance(calendar)
         }
 
         viewModel.event.observe(this, Observer {
             // for date string
-            date_picker_text_view.text = DateUtil.toCustomString(calendar)
+            date_edit_text.setText(DateUtil.toCustomString(calendar))
             val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
             mapFragment.getMapAsync(this)
         })
@@ -78,8 +86,9 @@ class EventAddFragment : Fragment(), DatePickerDialog.OnDateSetListener, OnMapRe
     }
 
     override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-        date_picker_text_view.text = "$dayOfMonth-${(monthOfYear+1).toString().padStart(2,'0')}-$year"
+        date_edit_text.setText("$dayOfMonth-${(monthOfYear+1).toString().padStart(2,'0')}-$year")
         viewModel.event.value!!.date =  GregorianCalendar(year,monthOfYear,dayOfMonth).time
+        date_edit_text.requestFocus()
     }
 
     override fun onMapReady(gMap: GoogleMap) {

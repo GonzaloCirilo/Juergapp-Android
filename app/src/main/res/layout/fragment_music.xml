@@ -5,8 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".fragment.MusicFragment"
-        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
->
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <ImageView
                 android:id="@+id/artwork_image_view"
                 android:layout_width="match_parent"
@@ -24,8 +23,7 @@
                   android:layout_height="match_parent"
                   android:orientation="vertical"
                   android:gravity="center_horizontal"
-                  android:textAlignment="center"
-    >
+                  android:textAlignment="center">
 
         <TextView
                 android:id="@+id/song_text_view"
@@ -39,6 +37,12 @@
                 android:text="Canción 1"
                 android:textAlignment="center"
                 app:layout_constraintTop_toTopOf="parent"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit ="marquee_forever"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scrollHorizontally="true"
         />
         <TextView
                 android:id="@+id/artists_text_view"

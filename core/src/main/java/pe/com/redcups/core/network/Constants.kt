@@ -1,9 +1,6 @@
 package pe.com.redcups.core.network
 
-import pe.com.redcups.core.model.Event
-import pe.com.redcups.core.model.Game
-import pe.com.redcups.core.model.Product
-import pe.com.redcups.core.model.ProductCategory
+import pe.com.redcups.core.model.*
 
 object Constants{
     private const val baseURL = "https://wemake.pe/juergapp/api/v1"
@@ -28,6 +25,8 @@ object Constants{
     // List of Games
     var gamesURL = "$baseURL/games"
 
+    var orderURL = "$baseURL/orders"
+
     // Mapping endpoints to Classes
 
     val map: Map<Class<*>,String> = mapOf(
@@ -42,7 +41,10 @@ object Constants{
         Product::class.java to productsURL,
 
         Array<Game>::class.java to gamesURL,
-        Game::class.java to gamesURL
+        Game::class.java to gamesURL,
+
+        Array<Order>::class.java to orderURL,
+        Order::class.java to orderURL
 
     )
 }

@@ -59,7 +59,7 @@ class MusicFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        song_text_view.isSelected = true
 
         toggle_play_button.setOnClickListener {
             afterSpotifyApiCreated {

@@ -21,7 +21,7 @@
         <TextView
                 android:id="@+id/event_name_label"
                 android:padding="@dimen/medium_margin"
-                android:textSize="30dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:layout_width="match_parent"

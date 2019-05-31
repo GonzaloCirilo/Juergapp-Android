@@ -1,7 +1,6 @@
 package pe.com.redcups.juergapp_android.adapter
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,6 @@ import pe.com.redcups.core.model.ProductCategory
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.ProductCategoryFragmentDirections
 import pe.com.redcups.juergapp_android.options
-import android.graphics.BitmapFactory
-import android.util.Base64
 import android.util.Log
 import pe.com.redcups.core.utilities.BitmapUtils
 
@@ -35,18 +32,24 @@ class ProductCategoryAdapter(context: Context): RecyclerView.Adapter<ProductCate
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with(holder){
-            var product_category = productCategories[position]
 
-            if (product_category.picture_data != null){
-                product_categoriesImageView.setImageBitmap(BitmapUtils.stringToBitmap(product_category.picture_data!!))
+            val productCategory = productCategories[position]
+            //productCategoriesImageView.setImageResource(R.mipmap.event_image_placeholder)
+            Log.d("Ggot here", " I got after product categories")
+
+            if (productCategory.picture_data != null){
+                productCategoriesImageView.setImageBitmap(BitmapUtils.stringToBitmap(productCategory.picture_data!!))
             }
 
-            product_categories_nameTextView.text = product_category.name
+            with(productCategoriesNameTextView){
+                this.text = productCategory.name
+                //this.isSelected = true
+            }
 
             itemView.setOnClickListener{
                 // Le pasas el argumento del producto por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data
-                val action = ProductCategoryFragmentDirections.getProductListAction(product_category.id.toString(), product_category.name )
+                val action = ProductCategoryFragmentDirections.getProductListAction(productCategory.id.toString(), productCategory.name )
                 itemView.findNavController().navigate(action, options)
             }
             //}
@@ -54,8 +57,8 @@ class ProductCategoryAdapter(context: Context): RecyclerView.Adapter<ProductCate
     }
 
     inner class ViewHolder(productCategoryView: View): RecyclerView.ViewHolder(productCategoryView){
-        val product_categoriesImageView: ImageView = productCategoryView.product_category_image
-        var product_categories_nameTextView: TextView = productCategoryView.product_category_name
+        val productCategoriesImageView: ImageView = productCategoryView.product_category_image
+        var productCategoriesNameTextView: TextView = productCategoryView.product_category_name
 
 
     }
