@@ -6,7 +6,7 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                                                        android:layout_height="match_parent">
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -89,7 +89,8 @@
                         tools:context="pe.com.redcups.juergapp_android.fragments.EventAddFragment"/>
 
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/add_event_button"
                 android:layout_height="wrap_content"
