@@ -42,7 +42,7 @@ class ProductCategoryFragment : Fragment() {
         adapter = ProductCategoryAdapter(view.context)
 
         recycler_view_product_category.adapter = adapter
-        recycler_view_product_category.layoutManager = GridLayoutManager(view.context, 3, RecyclerView.VERTICAL,false)
+        recycler_view_product_category.layoutManager = GridLayoutManager(view.context, 2, RecyclerView.VERTICAL,false)
 
 
         viewModel.allProductCategories.observe(this, Observer { productCategories ->

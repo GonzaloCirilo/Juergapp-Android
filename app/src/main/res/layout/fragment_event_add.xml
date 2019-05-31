@@ -87,6 +87,13 @@
                         android:layout_weight="1"
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         tools:context="pe.com.redcups.juergapp_android.fragments.EventAddFragment"/>
+                <ImageView
+                        android:id="@+id/event_add_image"
+                        android:layout_width="match_parent"
+                           android:layout_height="200dp"
+                        android:src="@mipmap/add_image"
+                        android:layout_marginTop="24dp"
+                />
 
             </LinearLayout>
         </ScrollView>
