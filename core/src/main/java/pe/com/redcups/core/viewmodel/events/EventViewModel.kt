@@ -9,9 +9,13 @@ import kotlinx.coroutines.launch
 import pe.com.redcups.core.model.Event
 import pe.com.redcups.core.repository.EventRepository
 
-class EventViewModel internal constructor(eventRepository: EventRepository) : ViewModel(){
+class EventViewModel internal constructor(private val eventRepository: EventRepository) : ViewModel(){
 
     val allEvents: LiveData<List<Event>> = eventRepository.getAllEvents()
+
+    fun refresh(callback: ()->Unit){
+        eventRepository.refreshData(callback)
+    }
 
 
     fun insert(event: Event) = viewModelScope.launch(Dispatchers.IO) {

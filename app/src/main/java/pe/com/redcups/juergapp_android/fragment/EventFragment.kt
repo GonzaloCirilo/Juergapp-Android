@@ -50,7 +50,9 @@ class EventFragment : Fragment() {
         }
 
         swipe.setOnRefreshListener {
-           swipe.isRefreshing = false
+            viewModel.refresh {
+                swipe.isRefreshing = false
+            }
         }
 
         // adds click listener
