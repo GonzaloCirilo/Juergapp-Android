@@ -15,8 +15,11 @@ import pe.com.redcups.juergapp_android.R
 
 class ParticipantAdapter(context: Context): RecyclerView.Adapter<ParticipantAdapter.ViewHolder>(){
 
-    private var participants: List<User> = listOf(User(0, "Gonzalo Cirilo", "biografia", "url"),
-        User(0, "Otra Persona", "biografia", "url"))
+    private var participants: List<User> = listOf(
+        User(0, "Gonzalo Cirilo", "biografia", "url"),
+        User(1, "Franco Rivera", "biografia", "url"),
+        User(2, "Kevin Tito", "biografia", "url"),
+        User(3, "Otra Persona", "biografia", "url"))
     private var inflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
