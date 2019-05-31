@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavMenu(navController)
 
 
-
     }
 
     override fun onResumeFragments() {

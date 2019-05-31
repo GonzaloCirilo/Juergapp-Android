@@ -15,6 +15,7 @@
         <item name="colorPrimaryVariant">@color/colorPrimaryLight</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 
     <style name="DarkTheme" parent="Theme.MaterialComponents.NoActionBar.Bridge">
