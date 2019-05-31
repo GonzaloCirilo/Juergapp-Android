@@ -62,6 +62,5 @@ class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHold
     fun setEvents(events: List<Event>){
         this.events = events
         this.notifyDataSetChanged()
-        Log.d("Set Event", "Data Set Changed")
     }
 }

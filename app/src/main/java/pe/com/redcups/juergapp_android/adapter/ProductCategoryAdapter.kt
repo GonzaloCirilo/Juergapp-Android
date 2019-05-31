@@ -32,7 +32,8 @@ class ProductCategoryAdapter(context: Context): RecyclerView.Adapter<ProductCate
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with(holder){
-            var productCategory = productCategories[position]
+
+            val productCategory = productCategories[position]
             //productCategoriesImageView.setImageResource(R.mipmap.event_image_placeholder)
             Log.d("Ggot here", " I got after product categories")
 

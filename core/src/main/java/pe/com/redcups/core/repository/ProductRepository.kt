@@ -18,7 +18,6 @@ class ProductRepository private constructor(private val productDao: ProductDao, 
     }
     fun getAllProductsWithCategory(productCategoryId: String): LiveData<List<Product>>{
         fetchProducts()
-        Log.d("Category ID", productCategoryId)
         return productDao.getAllProductsWithCategory(productCategoryId)
     }
 

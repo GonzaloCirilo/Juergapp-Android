@@ -60,7 +60,6 @@ class GameAdapter(context: Context): RecyclerView.Adapter<GameAdapter.ViewHolder
     fun setGames(games: List<Game>){
         this.games = games
         this.notifyDataSetChanged()
-        Log.d("Set Games", "Data Set Changed")
     }
 
 }
