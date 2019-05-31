@@ -1,6 +1,7 @@
 package pe.com.redcups.juergapp_android.fragment
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -63,14 +64,12 @@ class MusicFragment : Fragment() {
 
         toggle_play_button.setOnClickListener {
             afterSpotifyApiCreated {
-                isPlaying = if(!isPlaying){
+                if(!isPlaying){
                     mSpotifyAppRemote.playerApi.resume()
                     toggle_play_button.setImageResource(R.drawable.ic_pause_black_24dp)
-                    !isPlaying
                 }else{
                     mSpotifyAppRemote.playerApi.pause()
                     toggle_play_button.setImageResource(R.drawable.ic_play_arrow_black_24dp)
-                    !isPlaying
                 }
             }
         }
@@ -121,7 +120,8 @@ class MusicFragment : Fragment() {
                 val track = playerState.track
                 val duration = milisToMMSS(track.duration)
                 track?.let {t ->
-                    song_text_view.text = t.name
+                    if(song_text_view.text != t.name)
+                        song_text_view.text = t.name
                     artists_text_view.text = t.artists.toCustomString()
                     setArtwork(t.imageUri)
                     track_length_text_view.text = duration
@@ -132,7 +132,12 @@ class MusicFragment : Fragment() {
                 canSkipPrev = playerState.playbackRestrictions.canSkipPrev
 
                 // Set Track Progress State
-                current_second.text = milisToMMSS(playerState.playbackPosition)
+                chronometer.base = SystemClock.elapsedRealtime() - playerState.playbackPosition
+                if (isPlaying)
+                    chronometer.start()
+                else
+                    chronometer.stop()
+                //current_second.text = milisToMMSS(playerState.playbackPosition)
                 track_progress.max = track.duration.toInt()
                 track_progress.progress = playerState.playbackPosition.toInt()
 
