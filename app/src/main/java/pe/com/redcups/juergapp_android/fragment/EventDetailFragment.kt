@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,11 +22,13 @@ import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.events.EventDetailViewModel
 
 import pe.com.redcups.juergapp_android.R
+import pe.com.redcups.juergapp_android.adapter.ParticipantAdapter
 
 class EventDetailFragment : Fragment(), OnMapReadyCallback {
 
     private var lat: Double = -34.0
     private var lon: Double = 151.0
+    private lateinit var participantAdapter: ParticipantAdapter
 
 
     override fun onMapReady(gMap: GoogleMap) {
@@ -62,6 +65,11 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
 
         retainInstance = true
+
+
+        participantAdapter = ParticipantAdapter(view.context)
+        recycler_view_participant_list.adapter = participantAdapter
+        recycler_view_participant_list.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
         viewModel.event.observe(this, Observer {
             it?.also { e ->

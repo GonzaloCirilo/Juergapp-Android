@@ -10,6 +10,7 @@ import pe.com.redcups.core.dao.ProductDao
 import pe.com.redcups.core.model.Product
 import pe.com.redcups.core.network.JuergappAPI
 
+// TODO: Remove CoroutineScope
 class ProductRepository private constructor(private val productDao: ProductDao, private val context: Context): CoroutineScope by MainScope(){
 
     fun getAllProducts(): LiveData<List<Product>> {

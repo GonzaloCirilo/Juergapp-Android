@@ -8,6 +8,8 @@ import pe.com.redcups.core.dao.GameDao
 import pe.com.redcups.core.model.Game
 import pe.com.redcups.core.network.JuergappAPI
 
+
+// TODO: Remove CoroutineScope
 class GameRepository private constructor(private val gameDao: GameDao, private val context: Context): CoroutineScope by MainScope(){
 
     fun getAllGames(): LiveData<List<Game>> {
