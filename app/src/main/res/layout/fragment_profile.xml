@@ -29,7 +29,9 @@
             android:textStyle="italic"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
 
-    <Button android:layout_width="match_parent"
+    <Button
+            android:id="@+id/logout_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cerrar Sesión"
             android:padding="@dimen/medium_margin"
