@@ -2,24 +2,30 @@ package pe.com.redcups.core.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import pe.com.redcups.core.dao.EventDao
 import pe.com.redcups.core.model.Event
 import pe.com.redcups.core.network.JuergappAPI
 
 
-class EventRepository private constructor(private val eventDao: EventDao, private val context: Context): CoroutineScope by MainScope(){
+// TODO: Remove CoroutineScope
+class EventRepository private constructor(private val eventDao: EventDao): CoroutineScope by MainScope(){
 
     fun getAllEvents(): LiveData<List<Event>> {
-        fetchEvents()
-      return eventDao.getAllEvents()
+        fetchEvents{}
+        return eventDao.getAllEvents()
+    }
+
+    fun refreshData(callback: () -> Unit){
+        fetchEvents(callback)
     }
     fun getEvent(id: String) = eventDao.getEvent(id)
 
     suspend fun insertEvent(event: Event){
-        eventDao.insert(event)
+        JuergappAPI.getInstance().postResource(event).also {
+            eventDao.insert(event)
+        }
+
     }
 
     companion object {
@@ -27,19 +33,24 @@ class EventRepository private constructor(private val eventDao: EventDao, privat
 
         fun getInstance(eventDao: EventDao, context: Context)=
                 instance ?: synchronized(this){
-                    instance ?: EventRepository(eventDao, context).also { instance = it }
+                    instance ?: EventRepository(eventDao).also {
+                        instance = it
+                        JuergappAPI.getInstance(context)
+                    }
                 }
     }
 
 
-    fun fetchEvents() = launch{
+    fun fetchEvents(callback: () -> Unit) = launch(Dispatchers.Main){
 
         //allEvents = eventDao.getAllEvents()
         //some logic to see if its been fetched recently
         // Fetch from datasource
-        for (event in JuergappAPI.getInstance(context).getResource(Array<Event>::class.java)){
+        val events = JuergappAPI.getInstance().getResource(Array<Event>::class.java)
+        for (event in events){
             eventDao.insert(event)
         }
+        callback.invoke()
     }
 
     fun fetchEventById(id: Int) = launch {

@@ -12,7 +12,6 @@ class TokenManager(context: Context) {
     private var mPrefs: SharedPreferences
     init {
         mPrefs = context.getSharedPreferences("JUERGAPP", Context.MODE_PRIVATE)
-        setToken("eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1NjU4ODc3MjR9.Ci-b0XQ2Pp-Yl9xQ7DK_W_Sb9cEIA1SsCQufyy-ubQw")
     }
     fun getAsMutableMap(): MutableMap<String,String>? = mapOf("Authorization" to "Bearer ${getToken()}", "Content-Type" to "application/json").toMutableMap()
 
@@ -26,6 +25,8 @@ class TokenManager(context: Context) {
                     INSTANCE = it
                 }
             }
+
+        fun getInstance(): TokenManager = INSTANCE!!
     }
 
     fun isLoggedIn(): Boolean {

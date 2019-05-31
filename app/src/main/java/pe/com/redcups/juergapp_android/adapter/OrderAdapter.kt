@@ -27,7 +27,7 @@ class OrderAdapter(context: Context): RecyclerView.Adapter<OrderAdapter.ViewHold
 
     override fun onBindViewHolder(holder: OrderAdapter.ViewHolder, position: Int) {
         holder.orderImageView.setImageResource(R.mipmap.event_image_placeholder)
-        holder.orderTextView.text = orders[position].price.toString()
+        holder.orderTextView.text = orders[position].totalPrice.toString()
     }
 
     inner class ViewHolder(orderView: View): RecyclerView.ViewHolder(orderView){
@@ -38,6 +38,5 @@ class OrderAdapter(context: Context): RecyclerView.Adapter<OrderAdapter.ViewHold
     fun setOrders(orders: List<Order>){
         this.orders = orders
         this.notifyDataSetChanged()
-        Log.d("Set Orders", "Data Set Changed")
     }
 }

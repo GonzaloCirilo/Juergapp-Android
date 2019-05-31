@@ -5,6 +5,7 @@ import pe.com.redcups.core.JuergappDatabase
 import pe.com.redcups.core.repository.*
 import pe.com.redcups.core.viewmodel.UserProfileViewModel
 import pe.com.redcups.core.viewmodel.UserProfileViewModelFactory
+import pe.com.redcups.core.viewmodel.events.EventAddViewModelFactory
 import pe.com.redcups.core.viewmodel.events.EventDetailViewModelFactory
 import pe.com.redcups.core.viewmodel.events.EventViewModelFactory
 import pe.com.redcups.core.viewmodel.games.GameDetailViewModelFactory
@@ -44,6 +45,10 @@ object InjectorUtils{
         )
     }
 
+    fun provideEventAddViewModelFactory(context: Context): EventAddViewModelFactory{
+        val repository = getEventRepository(context)
+        return EventAddViewModelFactory(repository)
+    }
 
     fun provideGameDetailViewModelFactory(
         context: Context,

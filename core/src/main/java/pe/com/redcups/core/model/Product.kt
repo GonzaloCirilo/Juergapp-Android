@@ -16,6 +16,7 @@ data class Product(
     var description: String =  "description",
     var volume_ml: String =  "volume_in_millileters",
     var picture: String =  "url to picture",
+    var picture_data: String? = null,
     var alcohol_percentage: Double  =  0.3,
     var product_category_id: Int = 0
 )

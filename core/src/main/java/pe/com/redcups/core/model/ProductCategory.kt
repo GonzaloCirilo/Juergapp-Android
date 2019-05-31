@@ -1,5 +1,6 @@
 package pe.com.redcups.core.model
 
+import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Ignore
@@ -12,6 +13,7 @@ data class ProductCategory (
     var id: Int = 0,
     var name: String = "Nombre de la Categoría",
     var description: String = "Breve descripción de Categoría",
+    var picture_data: String? = null,
     @Ignore
     var picture: String = "URL de la imagen"
 )

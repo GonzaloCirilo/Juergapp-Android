@@ -1,12 +1,13 @@
 package pe.com.redcups.juergapp_android.fragment
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.animation.LinearInterpolator
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 
@@ -46,7 +47,6 @@ class MusicFragment : Fragment() {
         if (::mSpotifyAppRemote.isInitialized){
             func()
         }else{
-            Toast.makeText(context,"Not connected yet",Toast.LENGTH_LONG).show()
         }
     }
 
@@ -60,17 +60,16 @@ class MusicFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        song_text_view.isSelected = true
 
         toggle_play_button.setOnClickListener {
             afterSpotifyApiCreated {
-                isPlaying = if(!isPlaying){
+                if(!isPlaying){
                     mSpotifyAppRemote.playerApi.resume()
                     toggle_play_button.setImageResource(R.drawable.ic_pause_black_24dp)
-                    !isPlaying
                 }else{
                     mSpotifyAppRemote.playerApi.pause()
                     toggle_play_button.setImageResource(R.drawable.ic_play_arrow_black_24dp)
-                    !isPlaying
                 }
             }
         }
@@ -79,8 +78,6 @@ class MusicFragment : Fragment() {
             afterSpotifyApiCreated {
                 if(canSkipPrev)
                     mSpotifyAppRemote.playerApi.skipPrevious()
-                else
-                    Toast.makeText(context,"No more skips for you",Toast.LENGTH_LONG).show()
             }
         }
 
@@ -88,8 +85,6 @@ class MusicFragment : Fragment() {
             afterSpotifyApiCreated {
                 if(canSkipNext)
                     mSpotifyAppRemote.playerApi.skipNext()
-                else
-                    Toast.makeText(context,"No more skips for you!",Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -105,13 +100,11 @@ class MusicFragment : Fragment() {
         SpotifyAppRemote.connect(context, connectionParams,
             object: Connector.ConnectionListener{
                 override fun onFailure(throwable: Throwable) {
-                    //Toast.makeText(context,"Error!",Toast.LENGTH_LONG).show()
                     Log.e("MyActivity", throwable.message, throwable)
                 }
 
                 override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
                     mSpotifyAppRemote = spotifyAppRemote
-                    Toast.makeText(context,"Connected!",Toast.LENGTH_SHORT).show()
                     connected()
                 }
             })
@@ -127,7 +120,8 @@ class MusicFragment : Fragment() {
                 val track = playerState.track
                 val duration = milisToMMSS(track.duration)
                 track?.let {t ->
-                    song_text_view.text = t.name
+                    if(song_text_view.text != t.name)
+                        song_text_view.text = t.name
                     artists_text_view.text = t.artists.toCustomString()
                     setArtwork(t.imageUri)
                     track_length_text_view.text = duration
@@ -138,14 +132,19 @@ class MusicFragment : Fragment() {
                 canSkipPrev = playerState.playbackRestrictions.canSkipPrev
 
                 // Set Track Progress State
-                current_second.text = milisToMMSS(playerState.playbackPosition)
+                chronometer.base = SystemClock.elapsedRealtime() - playerState.playbackPosition
+                if (isPlaying)
+                    chronometer.start()
+                else
+                    chronometer.stop()
+                //current_second.text = milisToMMSS(playerState.playbackPosition)
                 track_progress.max = track.duration.toInt()
                 track_progress.progress = playerState.playbackPosition.toInt()
-                Toast.makeText(context,playerState.playbackPosition.toString(),Toast.LENGTH_SHORT).show()
 
                 if(isPlaying){
                     val anim = ProgressBarAnimation(track_progress, track_progress.progress.toFloat(), track.duration.toFloat())
                     anim.duration = track.duration - playerState.playbackPosition
+                    anim.interpolator = LinearInterpolator()
                     track_progress.startAnimation(anim)
                     toggle_play_button.setImageResource(R.drawable.ic_pause_black_24dp)
                 }else{

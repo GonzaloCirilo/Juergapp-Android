@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,19 +17,27 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_event_detail.*
+import pe.com.redcups.core.utilities.BitmapUtils
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.events.EventDetailViewModel
 
 import pe.com.redcups.juergapp_android.R
+import pe.com.redcups.juergapp_android.adapter.ParticipantAdapter
 
 class EventDetailFragment : Fragment(), OnMapReadyCallback {
 
-    var lat: Double = -34.0
-    var lon: Double = 151.0
+    private var lat: Double = -34.0
+    private var lon: Double = 151.0
+    private lateinit var participantAdapter: ParticipantAdapter
 
 
     override fun onMapReady(gMap: GoogleMap) {
         val eventPos = LatLng(lat,lon)
+        gMap.isBuildingsEnabled = true
+        gMap.uiSettings.isZoomControlsEnabled = false
+        gMap.uiSettings.isZoomGesturesEnabled = false
+        gMap.uiSettings.isScrollGesturesEnabled = false
+        gMap.uiSettings.isRotateGesturesEnabled = false
         gMap.addMarker(MarkerOptions().position(eventPos).title(event_name_label.text.toString()))
         gMap.moveCamera(CameraUpdateFactory.newLatLng(eventPos))
         val cameraPosition = CameraPosition.Builder()
@@ -57,6 +66,11 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
 
         retainInstance = true
 
+
+        participantAdapter = ParticipantAdapter(view.context)
+        recycler_view_participant_list.adapter = participantAdapter
+        recycler_view_participant_list.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+
         viewModel.event.observe(this, Observer {
             it?.also { e ->
                 event_name_label.text = e.name
@@ -66,9 +80,11 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
                 event_host.text = e.id.toString()
                 val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
                 mapFragment.getMapAsync(this)
+                e.picture_data?.also {image ->
+                    event_image.setImageBitmap(BitmapUtils.stringToBitmap(image))
+                }
+
             }
         })
-
-
     }
 }

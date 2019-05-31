@@ -8,6 +8,7 @@ import kotlinx.coroutines.MainScope
 import pe.com.redcups.core.dao.UserDao
 import pe.com.redcups.core.model.User
 
+// TODO: Remove CoroutineScope
 class UserRepository(private val userDao: UserDao, private val context: Context): CoroutineScope by MainScope() {
 
     fun getAllUsers(): LiveData<List<User>> {

@@ -11,6 +11,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_product_list.view.*
 import pe.com.redcups.core.model.Product
+import pe.com.redcups.core.utilities.BitmapUtils
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.fragment.ProductListFragmentDirections
 import pe.com.redcups.juergapp_android.options
@@ -28,14 +29,18 @@ class ProductListAdapter(context: Context): RecyclerView.Adapter<ProductListAdap
     override fun getItemCount() = products.size
 
     override fun onBindViewHolder(holder: ProductListAdapter.ViewHolder, position: Int) {
+        var product = products[position]
 
         with(holder){
-            productImageView.setImageResource(R.mipmap.event_image_placeholder)
-            productNameTextView.text = products[position].name
+
+            if (product.picture_data != null){
+                productImageView.setImageBitmap(BitmapUtils.stringToBitmap(product.picture_data!!))
+            }
+            productNameTextView.text = product.name
             itemView.setOnClickListener{
                 // aca le pasas el argumento del evento por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data
-                val action = ProductListFragmentDirections.getProductAction(products[position].id.toString(), products[position].name)
+                val action = ProductListFragmentDirections.getProductAction(product.id.toString(), product.name)
                 holder.itemView.findNavController().navigate(action, options)
             }
         }

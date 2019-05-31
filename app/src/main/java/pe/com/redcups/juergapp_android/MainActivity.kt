@@ -2,6 +2,8 @@ package pe.com.redcups.juergapp_android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -35,7 +37,11 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavMenu(navController)
 
 
+    }
 
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        //setupActionBar(null);
     }
 
     private fun setupBottomNavMenu(navController: NavController) {

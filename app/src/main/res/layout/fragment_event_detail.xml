@@ -1,78 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_height="match_parent"
-              android:layout_width="match_parent"
-              xmlns:tools="http://schemas.android.com/tools"
-              tools:context=".fragment.EventDetailFragment"
-              android:orientation="vertical"
-              android:gravity="center_horizontal">
-    <TextView
-            android:id="@+id/event_name_label"
-            android:padding="@dimen/medium_margin"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Event Detail Fragment"/>
-    <fragment
-        android:id="@+id/map_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        tools:context="pe.com.redcups.juergapp_android.fragments.EventDetailFragment"/>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+                  android:layout_height="match_parent"
+                  android:layout_width="match_parent"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  tools:context=".fragment.EventDetailFragment"
+                  android:orientation="vertical"
+                  android:gravity="center_horizontal">
+
+        <ImageView
+                android:id="@+id/event_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:contentDescription="Image"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/event_image_placeholder"/>
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/small_margin"
-                android:layout_margin="@dimen/medium_margin"
-                android:textSize="20dp"
-                android:text="Organizador: "/>
-        <TextView
-                android:id="@+id/event_host"
+                android:id="@+id/event_name_label"
+                android:padding="@dimen/medium_margin"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                android:textStyle="bold"
+                android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/small_margin"
-                android:layout_margin="@dimen/medium_margin"
-                android:textSize="20dp"
-                android:text="Host"
-                android:layout_marginTop="24dp"/>
-    </LinearLayout>
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/small_margin"
-                android:layout_margin="@dimen/medium_margin"
-                android:textSize="20dp"
-                android:text="Direccion: "/>
-        <TextView
-                android:id="@+id/event_address"
-                android:padding="@dimen/small_margin"
-                android:layout_margin="@dimen/medium_margin"
+                android:text="Event Detail Fragment"/>
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="Address"
-                android:layout_marginTop="24dp"/>
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical"
+                android:gravity="left">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="15dp"
+                    android:text="ORGANIZADOR:"
+                    android:textStyle="bold"/>
+            <TextView
+                    android:id="@+id/event_host"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="20dp"
+                    android:text="host_label"
+            />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="15dp"
+                    android:text="DIRECCIÓN:"
+                    android:textStyle="bold"/>
+            <TextView
+                    android:id="@+id/event_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="20dp"
+                    android:text="addresss_label"
+            />
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="@dimen/medium_margin"
+                      android:text="Add Participants"
+            />
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_participant_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            >
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+        <fragment
+                android:id="@+id/map_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                tools:context="pe.com.redcups.juergapp_android.fragments.EventDetailFragment"/>
     </LinearLayout>
-
-    <Button
-            android:id="@+id/participants_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
-            android:textColor="@color/white"
-            android:text="Invitados"/>
-
-</LinearLayout>
+</ScrollView>
