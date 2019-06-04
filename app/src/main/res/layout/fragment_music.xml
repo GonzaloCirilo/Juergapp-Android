@@ -58,8 +58,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:padding="10dp"
-        >
+                android:padding="10dp">
             <Chronometer
                     android:id="@+id/chronometer"
                     android:textColor="@color/white"
@@ -116,52 +115,12 @@
                     android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
-
-    <View
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_music"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
+            android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@+id/artwork_image_view"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-        />
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_marginTop="20dp"
-                      android:layout_height="80dp"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      app:layout_constraintTop_toBottomOf="@+id/artwork_image_view"
-        >
-            <ImageView
-                    android:layout_marginStart="40dp"
-                    android:layout_width="80dp"
-                    android:layout_height="match_parent"
-                    android:src="@color/black"
-            />
-            <LinearLayout android:layout_width="wrap_content"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical"
-                          android:padding="10dp"
-                          android:paddingStart="20dp"
-            >
-                <TextView android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:textSize="25dp"
-                          android:text="sample"
-
-                />
-                <TextView android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:text="sample"
-
-                />
-            </LinearLayout>
-            <Button android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="50dp"
-                    android:text="votar"
-            />
-        </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
