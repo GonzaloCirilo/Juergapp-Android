@@ -7,15 +7,15 @@
 
     <fragment android:id="@+id/profile_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.UserProfileFragment"
-              android:label="Mi Perfil"
+              android:label="@string/profile"
               tools:layout="@layout/fragment_profile"/>
     <fragment android:id="@+id/music_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.MusicFragment"
-              android:label="Mi Música"
+              android:label="@string/music"
               tools:layout="@layout/fragment_music"/>
     <fragment android:id="@+id/orders_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.OrderFragment"
-              android:label="Mis Órdenes"
+              android:label="@string/drinks"
               tools:layout="@layout/fragment_order"/>
 
     <fragment android:id="@+id/event_detail_dest"
@@ -37,7 +37,7 @@
     </fragment>
     <fragment android:id="@+id/events_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.EventFragment"
-              android:label="Mis Eventos">
+              android:label="@string/events">
         <action android:id="@+id/get_details_action"
                 app:destination="@id/event_detail_dest">
         <argument
@@ -55,14 +55,14 @@
 
     <fragment android:id="@+id/event_add_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.EventAddFragment"
-              android:label="Crear un Evento"
+              android:label="@string/create_event"
               tools:layout="@layout/fragment_event_add"/>
 
     <!-- Products -->
 
     <fragment android:id="@+id/product_category_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.ProductCategoryFragment"
-              android:label="Selecciona un tipo de trago"
+              android:label="@string/select_a_drink"
               tools:layout="@layout/fragment_product_category">
 
         <action android:id="@+id/get_product_list_action"
@@ -120,7 +120,7 @@
     <!-- Games -->
     <fragment android:id="@+id/games_dest"
               android:name="pe.com.redcups.juergapp_android.fragment.GameFragment"
-              android:label="Juegos"
+              android:label="@string/games"
               tools:layout="@layout/fragment_game">
         <action android:id="@+id/get_game_detail_action" app:destination="@id/game_dest">
             <argument

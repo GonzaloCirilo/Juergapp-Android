@@ -6,20 +6,31 @@
              tools:context=".fragment.UserProfileFragment"
               android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ImageView android:layout_width="150dp"
-               android:layout_height="150dp"
-               android:src="@mipmap/event_image_placeholder"
-               android:scaleType="centerCrop"
-    />
-    <TextView
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/medium_margin"
-            android:textAlignment="center"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:text="Nombre Apellido"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+    >
+        <ImageView android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   android:src="@mipmap/event_image_placeholder"
+                   android:scaleType="centerCrop"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/medium_margin"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="@string/profile_name_lastname"/>
+        <Button
+                android:id="@+id/settings_button"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_label"/>
+    </LinearLayout>
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,12 +39,11 @@
             android:textAlignment="center"
             android:textStyle="italic"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
-
     <Button
             android:id="@+id/logout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cerrar Sesión"
+            android:text="@string/sign_out_label"
             android:padding="@dimen/medium_margin"
             android:layout_margin="@dimen/medium_margin"
             android:background="@color/colorAccent"
