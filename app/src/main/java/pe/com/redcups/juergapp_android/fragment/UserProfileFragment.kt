@@ -9,11 +9,9 @@ import android.view.ViewGroup
 
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.core.viewmodel.UserProfileViewModel
-import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_profile.*
 import pe.com.redcups.core.network.TokenManager
 import pe.com.redcups.juergapp_android.ui.login.LoginActivity
-
 
 class UserProfileFragment : Fragment() {
     private var viewModel: UserProfileViewModel? = null

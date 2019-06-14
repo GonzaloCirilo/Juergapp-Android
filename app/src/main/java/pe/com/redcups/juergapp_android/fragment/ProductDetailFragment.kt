@@ -1,6 +1,5 @@
 package pe.com.redcups.juergapp_android.fragment
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,8 +12,6 @@ import kotlinx.android.synthetic.main.fragment_product.*
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.products.ProductDetailViewModel
 import pe.com.redcups.juergapp_android.R
-
-
 
 class ProductDetailFragment : Fragment() {
 
