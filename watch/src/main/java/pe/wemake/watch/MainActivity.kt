@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.wear.ambient.AmbientModeSupport
+import androidx.wear.widget.WearableLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.events.EventViewModel
@@ -34,7 +35,8 @@ class MainActivity : FragmentActivity(), AmbientModeSupport.AmbientCallbackProvi
         adapter = EventAdapter(applicationContext)
 
         wearable_recycler_view.adapter = adapter
-        wearable_recycler_view.layoutManager= LinearLayoutManager(applicationContext)
+        wearable_recycler_view.layoutManager= WearableLinearLayoutManager(applicationContext)
+
 
         viewModel.events.observe(this, Observer {
             adapter.setEvents(it)
