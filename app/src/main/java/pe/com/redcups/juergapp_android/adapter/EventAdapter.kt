@@ -1,16 +1,12 @@
 package pe.com.redcups.juergapp_android.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.MainThread
 import androidx.navigation.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_event.view.*
 import pe.com.redcups.core.model.Event
@@ -34,7 +30,7 @@ class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHold
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with (holder){
-            var event  = events[position]
+            val event  = events[position]
             eventTextView.text = event.name
             eventAddressTextView.text = event.address
 

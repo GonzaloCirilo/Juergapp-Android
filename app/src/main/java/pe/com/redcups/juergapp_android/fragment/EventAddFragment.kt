@@ -35,10 +35,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_event_add.*
-import kotlinx.android.synthetic.main.fragment_event_detail.*
 import pe.com.redcups.core.VolleyMultipartRequest
 import pe.com.redcups.core.network.AppController
-import pe.com.redcups.core.network.JuergappAPI
 import pe.com.redcups.core.utilities.DateUtil
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.events.EventAddViewModel
