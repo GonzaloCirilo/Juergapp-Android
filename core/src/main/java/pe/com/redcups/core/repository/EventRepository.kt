@@ -7,25 +7,24 @@ import pe.com.redcups.core.dao.EventDao
 import pe.com.redcups.core.model.Event
 import pe.com.redcups.core.network.JuergappAPI
 
-
-// TODO: Remove CoroutineScope
-class EventRepository private constructor(private val eventDao: EventDao): CoroutineScope by MainScope(){
+class EventRepository private constructor(private val eventDao: EventDao){
 
     fun getAllEvents(): LiveData<List<Event>> {
-        fetchEvents{}
         return eventDao.getAllEvents()
     }
 
-    fun refreshData(callback: () -> Unit){
-        fetchEvents(callback)
+    suspend fun refreshData(){
+        fetchEvents{}
     }
+
     fun getEvent(id: String) = eventDao.getEvent(id)
 
     suspend fun insertEvent(event: Event){
         JuergappAPI.getInstance().postResource(event).also {
-            eventDao.insert(event)
+            withContext(Dispatchers.IO){
+                eventDao.insert(event)
+            }
         }
-
     }
 
     companion object {
@@ -40,24 +39,14 @@ class EventRepository private constructor(private val eventDao: EventDao): Corou
                 }
     }
 
-
-    fun fetchEvents(callback: () -> Unit) = launch(Dispatchers.Main){
-
-        //allEvents = eventDao.getAllEvents()
-        //some logic to see if its been fetched recently
-        // Fetch from datasource
-        val events = JuergappAPI.getInstance().getResource(Array<Event>::class.java)
+    suspend fun fetchEvents(callback: () -> Unit) {
+        val events = JuergappAPI.getInstance().getResource(Array<Event>::class.java,errorCallback = callback)
         for (event in events){
-            eventDao.insert(event)
+            withContext(Dispatchers.IO){
+                eventDao.insert(event)
+            }
         }
         callback.invoke()
     }
 
-    fun fetchEventById(id: Int) = launch {
-        //event.postValue(eventDao.getEvent(id.toString()).value)
-
-        //if (event.value == null){
-            ////event.value = JuergappAPI.getInstance(context).getResource(Event::class.java,id.toString())
-        //}
-    }
 }

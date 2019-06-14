@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 
@@ -16,6 +18,8 @@ import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.protocol.types.Artist
 import com.spotify.protocol.types.ImageUri
 import kotlinx.android.synthetic.main.fragment_music.*
+import pe.com.redcups.core.model.Track
+import pe.com.redcups.juergapp_android.adapter.MusicAdapter
 import pe.com.redcups.juergapp_android.animation.ProgressBarAnimation
 
 class MusicFragment : Fragment() {
@@ -50,11 +54,7 @@ class MusicFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_music, container, false)
     }
 
@@ -87,6 +87,16 @@ class MusicFragment : Fragment() {
                     mSpotifyAppRemote.playerApi.skipNext()
             }
         }
+
+        recycler_view_music.layoutManager = LinearLayoutManager(view!!.context)
+        recycler_view_music.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        val tr = mutableListOf(
+            Track("id", "Track 1", "Various Artists"),
+            Track("id", "Track 2", "Various Artists"),
+            Track("id", "Track 3", "Various Artists")
+        )
+        val adapter = MusicAdapter(tr, context!!)
+        recycler_view_music.adapter = adapter
     }
 
     override fun onStart() {

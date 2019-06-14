@@ -3,7 +3,6 @@ package pe.com.redcups.core.utilities
 import android.content.Context
 import pe.com.redcups.core.JuergappDatabase
 import pe.com.redcups.core.repository.*
-import pe.com.redcups.core.viewmodel.UserProfileViewModel
 import pe.com.redcups.core.viewmodel.UserProfileViewModelFactory
 import pe.com.redcups.core.viewmodel.events.EventAddViewModelFactory
 import pe.com.redcups.core.viewmodel.events.EventDetailViewModelFactory
