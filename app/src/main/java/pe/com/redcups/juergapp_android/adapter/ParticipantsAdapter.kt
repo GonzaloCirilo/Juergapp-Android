@@ -12,7 +12,6 @@ import pe.com.redcups.core.model.User
 import pe.com.redcups.core.utilities.BitmapUtils
 import pe.com.redcups.juergapp_android.R
 
-
 class ParticipantAdapter(context: Context): RecyclerView.Adapter<ParticipantAdapter.ViewHolder>(){
 
     private var participants: List<User> = listOf(

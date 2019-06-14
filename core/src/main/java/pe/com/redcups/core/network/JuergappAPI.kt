@@ -9,6 +9,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.ImageRequest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.channels.consumesAll
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.json.JSONObject
 import java.lang.Exception
@@ -41,7 +42,8 @@ class JuergappAPI  {
         clazz: Class<T>,
         method: Int,
         body: T? = null,
-        pathVariable: String? = ""
+        pathVariable: String? = "",
+        errorCallback: () -> Unit = {}
     ): T = suspendCancellableCoroutine {continuation ->
         val request = GsonRequest(
             Constants.map[clazz] + "/" + pathVariable,
@@ -51,8 +53,8 @@ class JuergappAPI  {
                 continuation.resume(it)
             },
             Response.ErrorListener {
+                errorCallback.invoke()
                 continuation.tryResumeWithException(Exception(it))
-                //continuation.resumeWithException(Exception(it))
             },
             body
         )
@@ -109,18 +111,17 @@ class JuergappAPI  {
             }
         }
 
+    suspend fun <T> getResource(clazz: Class<T>, pathVariable: String? = "", errorCallback: () -> Unit = {}): T =
+        buildRequest(clazz, Request.Method.GET, pathVariable = pathVariable, errorCallback = errorCallback)
 
-    suspend fun <T> getResource(clazz: Class<T>, pathVariable: String? = ""): T =
-        buildRequest(clazz, Request.Method.GET, pathVariable = pathVariable)
 
-
-    suspend fun <T: Any> postResource(body: T): T =
-        buildRequest((body::class.java) as Class<T>, Request.Method.POST, body)
+    suspend fun <T: Any> postResource(body: T, errorCallback: () -> Unit = {}): T =
+        buildRequest((body::class.java) as Class<T>, Request.Method.POST, body, errorCallback = errorCallback)
 
 
     suspend fun  <T> deleteResource(clazz: Class<T>, pathVariable: String = ""): JSONObject =
         buildDeleteRequest(clazz,pathVariable)
 
-    suspend fun <T: Any> putResource(body: T, pathVariable: String? = ""): T =
-        buildRequest((body::class.java) as Class<T>, Request.Method.PUT, body, pathVariable = pathVariable)
+    suspend fun <T: Any> putResource(body: T, pathVariable: String? = "", errorCallback: () -> Unit = {}): T =
+        buildRequest((body::class.java) as Class<T>, Request.Method.PUT, body, pathVariable = pathVariable, errorCallback = errorCallback)
 }

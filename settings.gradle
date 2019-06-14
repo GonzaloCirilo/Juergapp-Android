@@ -1,1 +1,1 @@
-include ':app', ':core', ':spotify-app-remote'
+include ':app', ':core', ':spotify-app-remote', ':watch'

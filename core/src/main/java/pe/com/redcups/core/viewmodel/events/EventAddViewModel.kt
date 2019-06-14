@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import pe.com.redcups.core.model.Event
 import pe.com.redcups.core.repository.EventRepository
@@ -17,7 +19,7 @@ class EventAddViewModel(private val repository: EventRepository): ViewModel() {
 
     var event: LiveData<Event> = _event
 
-    fun persistEvent() = viewModelScope.launch(Dispatchers.IO){
+    fun persistEvent() = viewModelScope.launch(Dispatchers.Main){
         repository.insertEvent(event.value!!)
     }
 }
