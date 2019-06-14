@@ -31,7 +31,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nombre del evento"
+                        android:hint="@string/event_name_label"
                         android:layout_marginTop="@dimen/small_margin"
                         android:layout_marginBottom="@dimen/small_margin"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -45,7 +45,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Descripcion"
+                        android:hint="@string/event_description_label"
                         android:layout_marginTop="@dimen/small_margin"
                         android:layout_marginBottom="@dimen/small_margin"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -58,7 +58,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Direccion"
+                        android:hint="@string/event_address_label"
                         android:layout_marginTop="@dimen/small_margin"
                         android:layout_marginBottom="@dimen/small_margin"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -72,7 +72,7 @@
                         android:id="@+id/date_text_input_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Fecha del Evento"
+                        android:hint="@string/event_date"
                         android:layout_marginTop="@dimen/small_margin"
                         android:layout_marginBottom="@dimen/small_margin"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
