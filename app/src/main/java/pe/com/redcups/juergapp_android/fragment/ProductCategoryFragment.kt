@@ -17,7 +17,6 @@ import pe.com.redcups.core.viewmodel.products.ProductCategoryViewModel
 
 class ProductCategoryFragment : Fragment() {
 
-
     private lateinit var adapter: ProductCategoryAdapter
     private val viewModel: ProductCategoryViewModel by viewModels {
         InjectorUtils.provideProductCategoryViewModelFactory(requireContext())
@@ -27,7 +26,6 @@ class ProductCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_product_category, container, false)
     }
 
@@ -39,12 +37,9 @@ class ProductCategoryFragment : Fragment() {
         recycler_view_product_category.adapter = adapter
         recycler_view_product_category.layoutManager = GridLayoutManager(view.context, 2, RecyclerView.VERTICAL,false)
 
-
         viewModel.allProductCategories.observe(this, Observer { productCategories ->
             adapter.setProductCategories(productCategories)
             adapter.notifyDataSetChanged()
         })
-
     }
-
 }
