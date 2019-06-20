@@ -28,14 +28,14 @@ class CartViewModel(private val repository: OrderTXRepository, private val order
 
     fun order() = viewModelScope.launch(Dispatchers.IO){
         runBlocking {
-            /*val orderToProcess = Order()
+            val orderToProcess = Order()
             orderToProcess.eventId = 2
             val list = mutableListOf<OrderDetail>()
             for(od in cartContent.value!!.orderDetails){
                 list.add(OrderDetail(productId = od.productId,qty = od.quantity, price = od.price, supplierId = 1, orderId = 0))
             }
             orderToProcess.orderLines = list.toTypedArray()
-            orderRepository.performOrder(orderToProcess)*/
+            orderRepository.performOrder(orderToProcess)
             repository.emptyCart()
         }
     }

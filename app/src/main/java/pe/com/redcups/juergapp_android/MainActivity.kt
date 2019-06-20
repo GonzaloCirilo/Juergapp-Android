@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -64,6 +67,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.cart_menu,menu)
+        var drawable = menu!!.findItem(R.id.cart_dest).icon
+        drawable = DrawableCompat.wrap(drawable)
+        DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.white))
+        menu!!.findItem(R.id.cart_dest).icon = drawable
         return super.onCreateOptionsMenu(menu)
     }
 

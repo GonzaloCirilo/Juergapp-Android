@@ -60,7 +60,7 @@ abstract class JuergappDatabase: RoomDatabase() {
                         WorkManager.getInstance(context).enqueue(request)*/
                     }
                 })
-                    // this is so that database migrations can work without harm
+                // this is so that database migrations can work without harm
                 .fallbackToDestructiveMigration()
                 // rebuild database
                 .build()
