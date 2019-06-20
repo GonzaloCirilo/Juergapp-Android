@@ -9,6 +9,9 @@ import pe.com.redcups.core.viewmodel.events.EventDetailViewModelFactory
 import pe.com.redcups.core.viewmodel.events.EventViewModelFactory
 import pe.com.redcups.core.viewmodel.games.GameDetailViewModelFactory
 import pe.com.redcups.core.viewmodel.games.GameViewModelFactory
+import pe.com.redcups.core.viewmodel.orders.CartViewModelFactory
+import pe.com.redcups.core.viewmodel.orders.OrderViewModel
+import pe.com.redcups.core.viewmodel.orders.OrderViewModelFactory
 import pe.com.redcups.core.viewmodel.products.ProductCategoryViewModelFactory
 import pe.com.redcups.core.viewmodel.products.ProductDetailViewModelFactory
 import pe.com.redcups.core.viewmodel.products.ProductViewModelFactory
@@ -42,6 +45,33 @@ object InjectorUtils{
         return UserRepository.getInstance(
             JuergappDatabase.getInstance(context.applicationContext).userDao(), context
         )
+    }
+
+    private fun getOrderTXRepository(context: Context): OrderTXRepository{
+        return OrderTXRepository.getInstance(
+            JuergappDatabase.getInstance(context.applicationContext).orderTXDao(),
+            JuergappDatabase.getInstance(context.applicationContext).orderDetailTXDao(),
+            context
+        )
+    }
+
+    private fun getOrderRepository(context: Context): OrderRepository{
+        return OrderRepository.getInstance(
+            JuergappDatabase.getInstance(context.applicationContext).orderDao(),
+            JuergappDatabase.getInstance(context.applicationContext).orderDetailDao(),
+            context
+        )
+    }
+
+    fun provideOrderViewModelFactory(context: Context): OrderViewModelFactory{
+        val repository = getOrderRepository(context)
+        return OrderViewModelFactory(repository)
+    }
+
+    fun provideCartViewModelFactory(context: Context): CartViewModelFactory{
+        val repository = getOrderTXRepository(context)
+        val orderRepository = getOrderRepository(context)
+        return CartViewModelFactory(repository, orderRepository)
     }
 
     fun provideEventAddViewModelFactory(context: Context): EventAddViewModelFactory{
