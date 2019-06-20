@@ -151,5 +151,7 @@
     </fragment>
     <fragment android:id="@+id/loginFragment" android:name="pe.com.redcups.juergapp_android.LoginFragment"
               android:label="fragment_login" tools:layout="@layout/fragment_login"/>
+    <fragment android:id="@+id/cart_dest" android:name="pe.com.redcups.juergapp_android.fragment.CartFragment"
+              android:label="@string/cart" tools:layout="@layout/fragment_cart"/>
 
 </navigation>
