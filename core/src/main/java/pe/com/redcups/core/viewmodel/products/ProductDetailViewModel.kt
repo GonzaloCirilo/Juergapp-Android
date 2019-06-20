@@ -10,7 +10,7 @@ import pe.com.redcups.core.repository.ProductRepository
 
 class ProductDetailViewModel internal constructor(productRepository: ProductRepository, productId: String): ViewModel(){
 
-    val product: LiveData<Product> = productRepository.getProduct(productId)
+    val product: LiveData<Product> = productRepository.getProduct(productId.toInt())
 
     @ExperimentalCoroutinesApi
     override fun onCleared() {
