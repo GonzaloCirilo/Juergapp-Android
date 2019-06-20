@@ -1,6 +1,7 @@
 package pe.com.redcups.core.repository
 
 import android.content.Context
+import kotlinx.coroutines.runBlocking
 import pe.com.redcups.core.dao.ProductDao
 import pe.com.redcups.core.model.Product
 import pe.com.redcups.core.network.JuergappAPI
@@ -12,7 +13,7 @@ class ProductRepository private constructor(private val productDao: ProductDao) 
     fun getAllProductsWithCategory(productCategoryId: String) =
         productDao.getAllProductsWithCategory(productCategoryId)
 
-    fun getProduct(id: String) = productDao.getProduct(id)
+    fun getProduct(id: Int) = productDao.getProduct(id)
 
     suspend fun insertProduct(product: Product){
         productDao.insert(product)
@@ -31,8 +32,16 @@ class ProductRepository private constructor(private val productDao: ProductDao) 
     }
 
     suspend fun fetchProducts(){
-        for (c in JuergappAPI.getInstance().getResource(Array<Product>::class.java)){
-            insertProduct(c)
+        val products = JuergappAPI.getInstance().getResource(Array<Product>::class.java)
+        for (c in products){
+            runBlocking {
+                val c2 = productDao.getProduct(c.id).value
+                if(c2==null){
+                    insertProduct(c)
+                }else{
+                    productDao.update(c)
+                }
+            }
         }
     }
 }
