@@ -14,13 +14,13 @@
 
 package pe.wemake.juergapptv
 
-import android.app.Activity
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
 
 /**
  * Loads [MainFragment].
  */
-class MainActivity : Activity() {
+class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

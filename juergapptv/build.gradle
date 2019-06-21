@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "pe.wemake.juergapptv"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -28,4 +28,11 @@ dependencies {
     implementation 'androidx.leanback:leanback:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
+
+
+    implementation "androidx.fragment:fragment-ktx:1.1.0-alpha09"
+
+    implementation project(':core')
 }
