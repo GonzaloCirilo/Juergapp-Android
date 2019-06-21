@@ -36,8 +36,8 @@ class ParticipantAdapter(context: Context): RecyclerView.Adapter<ParticipantAdap
             participantAddressTextView.text = participant.name
 
             participantImageView.setImageResource(R.mipmap.event_image_placeholder)
-            if (participant.picture_data != null){
-                participantImageView.setImageBitmap(BitmapUtils.stringToBitmap(participant.picture_data!!))
+            if (participant.pictureData != null){
+                participantImageView.setImageBitmap(BitmapUtils.stringToBitmap(participant.pictureData!!))
             }
             itemView.setOnClickListener{
                 //TODO: navigate to user profile

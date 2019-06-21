@@ -1,22 +1,21 @@
 package pe.com.redcups.core.viewmodel.games
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
-import pe.com.redcups.core.JuergappDatabase
+import kotlinx.coroutines.*
 import pe.com.redcups.core.model.Game
 import pe.com.redcups.core.repository.GameRepository
 
-class GameViewModel internal constructor(gameRepository: GameRepository) : ViewModel() {
+class GameViewModel internal constructor(private val gameRepository: GameRepository) : ViewModel() {
 
-    val allGames: LiveData<List<Game>> = gameRepository.getAllGames()
+    val allGames: LiveData<List<Game>> = gameRepository.getAllGames().also { refreshAllGames() }
+
+    fun refreshAllGames() = viewModelScope.launch(Dispatchers.IO) {
+        runBlocking {
+            gameRepository.fetchGames()
+        }
+    }
 
     @ExperimentalCoroutinesApi
     override fun onCleared() {

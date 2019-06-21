@@ -6,8 +6,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               xmlns:android="http://schemas.android.com/apk/res/android"
-              tools:context=".MainActivity"
->
+              tools:context=".MainActivity">
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -31,7 +30,6 @@
             android:background="@color/colorPrimary"
             app:itemIconTint="@drawable/bottom_navigation_colors"
             app:itemTextColor="@drawable/bottom_navigation_colors"
-            app:menu="@menu/navigation"
-    />
+            app:menu="@menu/navigation"/>
     </LinearLayout>
 

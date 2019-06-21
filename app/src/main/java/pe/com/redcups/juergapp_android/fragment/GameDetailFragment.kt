@@ -33,7 +33,7 @@ class GameDetailFragment : Fragment() {
 
         viewModel.game.observe(this, Observer {
             game_detail_description.text = it.description
-            it.picture_data?.also { image ->
+            it.pictureData?.also { image ->
                 game_detail_image.setImageBitmap(
                     BitmapUtils.stringToBitmap(image)
                 )

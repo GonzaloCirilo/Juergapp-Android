@@ -6,20 +6,24 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import pe.com.redcups.core.dao.*
 import pe.com.redcups.core.helper.DateConverter
 import pe.com.redcups.core.model.*
+import pe.com.redcups.core.model.tx.OrderDetailTX
+import pe.com.redcups.core.model.tx.OrderTX
 
 @Database(entities = [
     User::class,
     Event::class,
     ProductCategory::class,
     Product::class,
-    Game::class],
-    version = 10)
+    Game::class,
+    OrderTX::class,
+    OrderDetailTX::class,
+    Order::class,
+    OrderDetail::class,
+    Supplier::class],
+    version = 24)
 @TypeConverters(DateConverter::class)
 abstract class JuergappDatabase: RoomDatabase() {
 
@@ -29,6 +33,11 @@ abstract class JuergappDatabase: RoomDatabase() {
     abstract fun productCategoryDao(): ProductCategoryDao
     abstract fun productDao(): ProductDao
     abstract fun gameDao(): GameDao
+    abstract fun orderTXDao(): OrderTXDao
+    abstract fun orderDetailTXDao(): OrderDetailTXDao
+    abstract fun orderDao(): OrderDao
+    abstract fun orderDetailDao(): OrderDetailDao
+
 
     // singleton for database
     companion object {
@@ -51,7 +60,7 @@ abstract class JuergappDatabase: RoomDatabase() {
                         WorkManager.getInstance(context).enqueue(request)*/
                     }
                 })
-                    // this is so that database migrations can work without harm
+                // this is so that database migrations can work without harm
                 .fallbackToDestructiveMigration()
                 // rebuild database
                 .build()

@@ -7,6 +7,7 @@ import com.android.volley.ParseError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.HttpHeaderParser
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.io.ByteArrayInputStream
@@ -45,6 +46,9 @@ class GsonRequest<T>(
                 return JsonPrimitive(Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT))
             }
         })
+	builder
+	.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .create()
     }
 
 
