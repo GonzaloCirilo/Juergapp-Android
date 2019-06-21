@@ -28,7 +28,7 @@
     <string name="event_date">Event\'s Date</string>
     <string name="event_description_label">Description</string>
     <string name="event_name_label">Event\'s Name</string>
-    <string name="content_string">Content</string>
     <string name="cart">Cart</string>
     <string name="ordernar">Order</string>
+    <string name="content_string">You\'re buying..</string>
 </resources>

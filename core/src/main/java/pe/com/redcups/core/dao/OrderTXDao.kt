@@ -27,7 +27,7 @@ interface OrderTXDao {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM order_tx_table WHERE id LIKE :id")
-    fun getOneOrder(id: Int): OrderTX
+    fun getOneOrder(id: Int): OrderTX?
 
     @Update
     fun update(order: OrderTX)

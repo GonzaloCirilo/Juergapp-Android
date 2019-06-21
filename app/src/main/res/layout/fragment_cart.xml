@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            style="@style/TextAppearance.MaterialComponents.Headline3"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:text="@string/content_string"/>
 
     <androidx.recyclerview.widget.RecyclerView
