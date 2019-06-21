@@ -178,7 +178,7 @@ class EventAddFragment : Fragment(), DatePickerDialog.OnDateSetListener, OnMapRe
                 ImageDecode = cursor.getString(columnIndex)
                 cursor.close()
                 event_add_image.scaleType = ImageView.ScaleType.CENTER_CROP
-                //viewModel.event.value!!.picture =  BitmapFactory.decodeFile(ImageDecode)
+                viewModel.event.value!!.picture_ =  BitmapFactory.decodeFile(ImageDecode)
                 event_add_image.setImageBitmap(
                     BitmapFactory
                         .decodeFile(ImageDecode))

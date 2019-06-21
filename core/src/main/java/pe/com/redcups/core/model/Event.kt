@@ -15,7 +15,7 @@ data class Event(
     var latitude: Double = 0.0,
     var longitude: Double = 0.0,
     var address: String = "jr",
-    var picture_data: String? = null,
+    var pictureData: String? = null,
     var description: String = "yolo",
-    @Ignore var picture: Bitmap? = null
+    @Ignore var picture_: Bitmap? = null
 )
