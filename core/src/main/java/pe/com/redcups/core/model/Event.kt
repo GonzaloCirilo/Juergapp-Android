@@ -9,7 +9,7 @@ import java.util.Date
 data class Event(
     @PrimaryKey(autoGenerate = true)
      var id: Int? = null,
-     var name: String,
+     @Ignore var name: String,
      var user: Int = 0,
      var date: Date = Date(),
      var latitude: Double = 0.0,

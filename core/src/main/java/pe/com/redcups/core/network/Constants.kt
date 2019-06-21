@@ -3,7 +3,7 @@ package pe.com.redcups.core.network
 import pe.com.redcups.core.model.*
 
 object Constants{
-    private const val baseURL = "https://wemake.pe/juergapp/api/v1"
+    private const val baseURL = "https://juergapp.wemake.pe/juergapp/api/v1"
 
     // EndPoints
 

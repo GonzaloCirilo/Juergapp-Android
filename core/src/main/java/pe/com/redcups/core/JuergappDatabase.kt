@@ -19,7 +19,7 @@ import pe.com.redcups.core.model.*
     ProductCategory::class,
     Product::class,
     Game::class],
-    version = 6)
+    version = 10)
 @TypeConverters(DateConverter::class)
 abstract class JuergappDatabase: RoomDatabase() {
 
