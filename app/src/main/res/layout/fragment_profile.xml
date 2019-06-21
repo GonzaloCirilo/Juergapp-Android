@@ -31,14 +31,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/settings_label"/>
     </LinearLayout>
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/medium_margin"
-            android:textSize="20dp"
-            android:textAlignment="center"
-            android:textStyle="italic"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/order_recycler_view"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"/>
     <Button
             android:id="@+id/logout_button"
             android:layout_width="match_parent"

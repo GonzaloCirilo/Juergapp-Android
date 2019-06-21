@@ -1,9 +1,6 @@
 package pe.com.redcups.core.model
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 import java.util.*
 
 @Entity(tableName = "order_table",
@@ -20,14 +17,17 @@ import java.util.*
             childColumns = ["userId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
-)
-data class Order (
+    ],
+    indices = [
+        Index(value = ["eventId"]),
+        Index(value = ["userId"])
+    ])
+data class Order(
     @PrimaryKey var id: Int = 0,
-    var eventId: Int,
+    var eventId: Int? = null,
     var totalPrice: Double = 0.0,
     var date: Date = Date(),
-    var orderHash: String = "0x0",
-    var userId: Int = 0,
-    @Ignore var orderLines: Array<OrderDetail> = emptyArray())
-
+    var orderHash: String = "",
+    var userId: Int? = null,
+    @Ignore var orderLines: Array<OrderDetail> = emptyArray()
+)
