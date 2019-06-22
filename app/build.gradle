@@ -8,6 +8,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "pe.com.redcups.juergapp_android"

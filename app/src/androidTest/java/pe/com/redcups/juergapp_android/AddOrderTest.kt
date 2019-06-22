@@ -74,6 +74,10 @@ class AddOrderTest{
             ViewActions.typeText(ADDRESS_TO_BE_TYPED),
             ViewActions.closeSoftKeyboard())
 
+        onView(withId(R.id.event_add_image)).perform(ViewActions.click())
+
+        // need to add a picture
+
         // Save new Event
 
         onView(withId(R.id.add_event_button)).perform(ViewActions.click())

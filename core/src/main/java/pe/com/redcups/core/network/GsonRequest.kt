@@ -2,24 +2,21 @@ package pe.com.redcups.core.network
 
 import android.graphics.Bitmap
 import android.util.Base64
+import android.util.Log
 import com.android.volley.NetworkResponse
 import com.android.volley.ParseError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.HttpHeaderParser
-import com.google.gson.FieldNamingPolicy
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.google.gson.*
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.DataOutputStream
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 import java.util.Base64.getEncoder
-import com.google.gson.JsonPrimitive
-import com.google.gson.JsonSerializationContext
-import com.google.gson.JsonElement
-import com.google.gson.JsonSerializer
+import org.json.JSONObject
+import pe.com.redcups.core.model.Event
 import java.lang.reflect.Type
 
 
@@ -29,7 +26,8 @@ class GsonRequest<T>(
     method: Int,
     private val listener: Response.Listener<T>,
     errorListener: Response.ErrorListener,
-    var dataIn: T? = null
+    var dataIn: T? = null,
+    var fileIn: Map<String, ByteArray>? = null
 ): Request<T>(method,url,errorListener) {
 
     private val twoHyphens = "--"
@@ -46,19 +44,23 @@ class GsonRequest<T>(
                 return JsonPrimitive(Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT))
             }
         })
-	builder
-	.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .create()
+        builder
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create()
     }
 
 
     private val gson = builder.create()
 
-    override fun getHeaders(): MutableMap<String, String> = TokenManager.getInstance().getAsMutableMap() ?: super.getHeaders()
-
-    override fun getBodyContentType(): String {
-        return "multipart/form-data;boundary=$boundary"
+    override fun getHeaders(): MutableMap<String, String> {
+        var aux_headers = TokenManager.getInstance().getAsMutableMap() ?: super.getHeaders()
+        if(fileIn == null){
+            aux_headers.set("Content-Type", "application/json")
+        }
+        return aux_headers
     }
+
+    override fun getBodyContentType(): String { return "multipart/form-data;boundary=$boundary" }
 
     override fun deliverResponse(response: T) = listener.onResponse(response)
 
@@ -76,39 +78,66 @@ class GsonRequest<T>(
         }
     }
 
+    fun formDataForFiles(dos: DataOutputStream, file: Map.Entry<String, ByteArray>){
+        dos.writeBytes(twoHyphens + boundary + lineEnd);
+        dos.writeBytes("Content-Disposition: form-data; name=\""+ file.key+"\";filename=\"" + "upload_file.png" + "\"" + lineEnd);
+        dos.writeBytes("Content-Type: image/jpeg"  + lineEnd);
+        dos.writeBytes(lineEnd);
+
+        var fileInputStream = ByteArrayInputStream(file.value)
+        var bytesAvailable = fileInputStream.available()
+
+        var maxBufferSize = 1024 * 1024
+        var bufferSize = Math.min(bytesAvailable, maxBufferSize)
+        var buffer = ByteArray(bufferSize)
+
+        var bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+        while (bytesRead > 0) {
+            dos.write(buffer, 0, bufferSize);
+            bytesAvailable = fileInputStream.available();
+            bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+        }
+        dos.writeBytes(lineEnd);
+    }
     override fun getBody(): ByteArray {
         var bos =  ByteArrayOutputStream()
         var dos = DataOutputStream(bos)
         try {
-            dos.writeBytes(gson.toJson(dataIn!!))
-//            dos.writeBytes(twoHyphens + boundary + lineEnd);
-//            dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
-//                     + "ic_action_file_attachment_light.png" + "\"" + lineEnd);
-//            dos.writeBytes(lineEnd);
-//
-//            ByteArrayInputStream fileInputStream = new ByteArrayInputStream(bitmapData)
-//            bytesAvailable = fileInputStream.available();
-//            bufferSize = Math.min(bytesAvailable, maxBufferSize);
-//            buffer = new byte[bufferSize];
-////
-//            // read file and write it into form...
-//            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-////
-//            while (bytesRead > 0) {
-//                dos.write(buffer, 0, bufferSize);
-//                bytesAvailable = fileInputStream.available();
-//                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-//                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-//            }
-////
-//            // send multipart form data necesssary after file data...
-//            dos.writeBytes(lineEnd);
-//            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-//
-            return bos.toByteArray()
+            if  (fileIn != null) {
+                //iterate through Gson fields
+
+                var ob = JSONObject(gson.toJson(dataIn!!))
+
+                for (i in ob.keys()) {
+                    dos.run {
+                        writeBytes(twoHyphens + boundary + lineEnd)
+                        writeBytes("Content-Disposition: form-data; name=\"" + i.toString() + "\"" + lineEnd)
+                        writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
+                        writeBytes(lineEnd);
+                    };
+                    // convert String for utf 8
+                    val str = ob[i].toString()
+                    val bait = str.toByteArray(Charsets.UTF_8)
+                    dos.run {
+                        write(bait)
+                        writeBytes(lineEnd)
+                    }
+                }
+                fileIn?.also {
+                    fileIn!!.entries.forEach {
+                        formDataForFiles(dos, it)
+                    }
+                }
+                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+                return bos.toByteArray()
+            }
+            return gson.toJson(dataIn!!).toByteArray()
         }
         catch (e: Exception){
-            //handle edception
+            //handle exception
             return bos.toByteArray()
         }
     }

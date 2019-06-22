@@ -14,8 +14,8 @@ data class Event(
     var date: Date = Date(),
     var latitude: Double = 0.0,
     var longitude: Double = 0.0,
-    var address: String = "jr",
+    var address: String = "JR Los Helechos",
     var pictureData: String? = null,
-    var description: String = "yolo",
-    @Ignore var picture_: Bitmap? = null
+    var description: String = "El Mejor evento del año",
+    @Transient @Ignore var picture: ByteArray? = null
 )
