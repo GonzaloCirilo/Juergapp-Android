@@ -62,7 +62,7 @@ class CartFragment : Fragment() {
             }
 
         })
-        confirmation_button.setOnClickListener {
+        confirm_purchase_button.setOnClickListener {
             viewModel.order()
         }
     }

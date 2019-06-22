@@ -30,7 +30,7 @@ class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHold
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with (holder){
-            val event  = events[position]
+            val event  = events[events.count()-1 - position] // reversing order
             eventTextView.text = event.name
             eventAddressTextView.text = event.address
 
