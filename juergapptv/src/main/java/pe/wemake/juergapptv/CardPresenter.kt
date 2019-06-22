@@ -22,6 +22,7 @@ import android.util.Log
 import android.view.ViewGroup
 
 import com.bumptech.glide.Glide
+import pe.com.redcups.core.model.Event
 import kotlin.properties.Delegates
 
 /**
@@ -54,16 +55,16 @@ class CardPresenter : Presenter() {
     }
 
     override fun onBindViewHolder(viewHolder: Presenter.ViewHolder, item: Any) {
-        val movie = item as Movie
+        val event = item as Event
         val cardView = viewHolder.view as ImageCardView
-
+        event.pictureData = "https://avatars.dicebear.com/v2/gridy/${event.name}.svg"
         Log.d(TAG, "onBindViewHolder")
-        if (movie.cardImageUrl != null) {
-            cardView.titleText = movie.title
-            cardView.contentText = movie.studio
+        if (event.pictureData != null) {
+            cardView.titleText = event.name
+            cardView.contentText = event.description
             cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
             Glide.with(viewHolder.view.context)
-                .load(movie.cardImageUrl)
+                .load("https://avatars.dicebear.com/v2/gridy/${event.name}.svg")
                 .centerCrop()
                 .error(mDefaultCardImage)
                 .into(cardView.mainImageView)

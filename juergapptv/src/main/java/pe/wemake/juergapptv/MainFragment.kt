@@ -82,11 +82,7 @@ class MainFragment : BrowseSupportFragment() {
 
         setupEventListeners()
 
-        viewModel.events.observe(this, Observer {
-            for (e in it){
-                Toast.makeText(requireContext(),e.description,Toast.LENGTH_SHORT).show()
-            }
-        })
+
     }
 
     override fun onDestroy() {
@@ -117,33 +113,33 @@ class MainFragment : BrowseSupportFragment() {
     }
 
     private fun loadRows() {
-        val list = MovieList.list
-
-        val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
         val cardPresenter = CardPresenter()
+        val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
+        viewModel.events.observe(this, Observer {
+            for (i in 0 until NUM_ROWS) {
+                if (i != 0) {
+                    Collections.shuffle(it)
+                }
+                val listRowAdapter = ArrayObjectAdapter(cardPresenter)
+                for (j in 0 until NUM_COLS) {
+                    listRowAdapter.add(it[j % 5])
+                }
+                val header = HeaderItem(i.toLong(), MovieList.MOVIE_CATEGORY[i])
+                rowsAdapter.add(ListRow(header, listRowAdapter))
 
-        for (i in 0 until NUM_ROWS) {
-            if (i != 0) {
-                Collections.shuffle(list)
             }
-            val listRowAdapter = ArrayObjectAdapter(cardPresenter)
-            for (j in 0 until NUM_COLS) {
-                listRowAdapter.add(list[j % 5])
-            }
-            val header = HeaderItem(i.toLong(), MovieList.MOVIE_CATEGORY[i])
-            rowsAdapter.add(ListRow(header, listRowAdapter))
-        }
+            val gridHeader = HeaderItem(NUM_ROWS.toLong(), "PREFERENCES")
 
-        val gridHeader = HeaderItem(NUM_ROWS.toLong(), "PREFERENCES")
+            val mGridPresenter = GridItemPresenter()
+            val gridRowAdapter = ArrayObjectAdapter(mGridPresenter)
+            gridRowAdapter.add(resources.getString(R.string.grid_view))
+            gridRowAdapter.add(getString(R.string.error_fragment))
+            gridRowAdapter.add(resources.getString(R.string.personal_settings))
+            rowsAdapter.add(ListRow(gridHeader, gridRowAdapter))
 
-        val mGridPresenter = GridItemPresenter()
-        val gridRowAdapter = ArrayObjectAdapter(mGridPresenter)
-        gridRowAdapter.add(resources.getString(R.string.grid_view))
-        gridRowAdapter.add(getString(R.string.error_fragment))
-        gridRowAdapter.add(resources.getString(R.string.personal_settings))
-        rowsAdapter.add(ListRow(gridHeader, gridRowAdapter))
+            adapter = rowsAdapter
+        })
 
-        adapter = rowsAdapter
     }
 
     private fun setupEventListeners() {
