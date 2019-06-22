@@ -80,7 +80,7 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
                 event_host.text = e.id.toString()
                 val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
                 mapFragment.getMapAsync(this)
-                e.picture_data?.also {image ->
+                e.pictureData?.also {image ->
                     event_image.setImageBitmap(BitmapUtils.stringToBitmap(image))
                 }
 

@@ -32,8 +32,8 @@ class ProductListAdapter(context: Context): RecyclerView.Adapter<ProductListAdap
 
         with(holder){
 
-            if (product.picture_data != null){
-                productImageView.setImageBitmap(BitmapUtils.stringToBitmap(product.picture_data!!))
+            if (product.pictureData != null){
+                productImageView.setImageBitmap(BitmapUtils.stringToBitmap(product.pictureData!!))
             }
             productNameTextView.text = product.name
             itemView.setOnClickListener{

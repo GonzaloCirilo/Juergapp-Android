@@ -35,8 +35,8 @@ class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHold
             eventAddressTextView.text = event.address
 
             eventImageView.setImageResource(R.mipmap.event_image_placeholder)
-            if (event.picture_data != null){
-                eventImageView.setImageBitmap(BitmapUtils.stringToBitmap(event.picture_data!!))
+            if (event.pictureData != null){
+                eventImageView.setImageBitmap(BitmapUtils.stringToBitmap(event.pictureData!!))
             }
             itemView.setOnClickListener{
                 // aca le pasas el argumento del evento por Safe Args

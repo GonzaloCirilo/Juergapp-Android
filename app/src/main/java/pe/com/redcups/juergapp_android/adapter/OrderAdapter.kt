@@ -8,12 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_order.view.*
-import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.core.model.Order
+import pe.com.redcups.juergapp_android.R
+import pe.com.redcups.core.model.tx.OrderTX
 
 class OrderAdapter(context: Context): RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
 
-    private var orders: List<Order> = emptyList();
+    private var orders: List<Order> = emptyList()
 
     private var inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -24,14 +25,14 @@ class OrderAdapter(context: Context): RecyclerView.Adapter<OrderAdapter.ViewHold
 
     override fun getItemCount() = orders.size
 
-    override fun onBindViewHolder(holder: OrderAdapter.ViewHolder, position: Int) {
-        holder.orderImageView.setImageResource(R.mipmap.event_image_placeholder)
-        holder.orderTextView.text = orders[position].totalPrice.toString()
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.hashTextView.text = "Order ${orders[position].orderHash}"
+        holder.totalPriceTextView.text = "Precio total: ${orders[position].totalPrice.toString()}"
     }
 
     inner class ViewHolder(orderView: View): RecyclerView.ViewHolder(orderView){
-        val orderImageView: ImageView = orderView.order_image
-        var orderTextView: TextView = orderView.order_name
+        val hashTextView: TextView = orderView.order_hash
+        var totalPriceTextView: TextView = orderView.total_price
     }
     // updates Orders Array
     fun setOrders(orders: List<Order>){

@@ -5,14 +5,15 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.OnConflictStrategy.REPLACE
 import pe.com.redcups.core.model.Order
+import androidx.room.OnConflictStrategy.REPLACE
 
 @Dao
 interface OrderDao {
 
-    @Query("SELECT * FROM order_table ORDER BY id ASC")
+    @Query("SELECT * FROM order_table")
     fun getAllOrders(): LiveData<List<Order>>
+
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(order: Order)

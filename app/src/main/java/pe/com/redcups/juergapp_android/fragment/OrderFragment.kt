@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_order.*
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.OrderAdapter
-import pe.com.redcups.core.model.Order
+import pe.com.redcups.core.model.tx.OrderTX
 
 class OrderFragment : Fragment() {
 
-    private var orders = ArrayList<Order>()
+    private var orders = ArrayList<OrderTX>()
     private lateinit var orderAdapter: OrderAdapter
 
     override fun onCreateView(
@@ -30,7 +30,7 @@ class OrderFragment : Fragment() {
         orderAdapter = OrderAdapter(view.context)
         recycler_view_order.apply {
             adapter = orderAdapter
-            layoutManager = LinearLayoutManager(view.context )
+            layoutManager = LinearLayoutManager(view.context)
         }
     }
 }

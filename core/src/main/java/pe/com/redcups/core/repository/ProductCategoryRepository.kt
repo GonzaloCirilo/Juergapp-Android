@@ -30,7 +30,12 @@ class ProductCategoryRepository private constructor(private val productCategoryD
 
     suspend fun fetchProductCategories() {
         for (pc in JuergappAPI.getInstance().getResource(Array<ProductCategory>::class.java)){
-            productCategoryDao.insert(pc)
+            val pc2 = productCategoryDao.getProductCategory(pc.id)
+            if(pc2==null){
+                productCategoryDao.insert(pc)
+            }else{
+                productCategoryDao.update(pc)
+            }
         }
     }
 }

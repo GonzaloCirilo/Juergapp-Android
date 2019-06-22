@@ -6,7 +6,9 @@ import com.android.volley.ParseError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.HttpHeaderParser
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 
@@ -20,7 +22,9 @@ class GsonRequest<T>(
     var dataIn: T? = null
 ): Request<T>(method,url,errorListener) {
 
-    private val gson = Gson()
+    private val gson = GsonBuilder()
+        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .create()
 
     override fun getHeaders(): MutableMap<String, String> = TokenManager.getInstance().getAsMutableMap() ?: super.getHeaders()
 

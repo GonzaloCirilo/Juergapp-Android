@@ -30,10 +30,9 @@ class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHold
             eventTextView.text = event.name
             eventAddressTextView.text = event.address
 
-            if (event.picture_data != null){
-                eventImageView.setImageBitmap(BitmapUtils.stringToBitmap(event.picture_data!!))
+            if (event.pictureData != null){
+                eventImageView.setImageBitmap(BitmapUtils.stringToBitmap(event.pictureData!!))
             }
-
         }
     }
 

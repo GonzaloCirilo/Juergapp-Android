@@ -2,13 +2,15 @@ package pe.com.redcups.juergapp_android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -62,4 +64,19 @@ class MainActivity : AppCompatActivity() {
         // show the up arrow or drawer menu icon
         setupActionBarWithNavController(navController, appBarConfig)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.cart_menu,menu)
+        var drawable = menu!!.findItem(R.id.cart_dest).icon
+        drawable = DrawableCompat.wrap(drawable)
+        DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.white))
+        menu!!.findItem(R.id.cart_dest).icon = drawable
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
+                || super.onOptionsItemSelected(item)
+    }
+
 }

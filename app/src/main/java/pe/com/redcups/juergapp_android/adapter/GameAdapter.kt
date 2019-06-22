@@ -34,8 +34,8 @@ class GameAdapter(context: Context): RecyclerView.Adapter<GameAdapter.ViewHolder
         with(holder){
 
             gameImageView.setImageResource(R.mipmap.event_image_placeholder)
-            if (game.picture_data != null){
-                gameImageView.setImageBitmap(BitmapUtils.stringToBitmap(game.picture_data!!))
+            if (game.pictureData != null){
+                gameImageView.setImageBitmap(BitmapUtils.stringToBitmap(game.pictureData!!))
             }
             gameTextView.text = game.name
             itemView.setOnClickListener{
