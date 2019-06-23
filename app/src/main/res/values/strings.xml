@@ -32,4 +32,5 @@
     <string name="cart">Carrito</string>
     <string name="content_string">Contenido</string>
     <string name="ordernar">Ordernar</string>
+    <string name="no_intrent_label">No tienes internet :(</string>
 </resources>
