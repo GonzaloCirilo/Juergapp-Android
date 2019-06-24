@@ -7,13 +7,14 @@
         android:layout_height="match_parent"
         tools:context=".NextEventActivity">
     <ImageView
-            android:id="@+id/image"
+            android:id="@+id/next_event_image"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/watch_linear_layout"
+            android:src="@color/red"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="200dp"/>
     <LinearLayout
             android:id="@+id/watch_linear_layout"
             android:background="@color/dark_blue"
@@ -25,7 +26,7 @@
     >
 
         <TextView
-                android:id="@+id/event_name"
+                android:id="@+id/next_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -33,7 +34,7 @@
                 android:text="EventoPlaceholder"
                 android:padding="8dp"/>
         <TextView
-                android:id="@+id/event_address"
+                android:id="@+id/next_event_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
