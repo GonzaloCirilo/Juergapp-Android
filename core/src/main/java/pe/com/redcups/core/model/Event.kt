@@ -19,4 +19,4 @@ data class Event(
     var pictureData: String? = null,
     var description: String = "El Mejor evento del año",
     @Transient @Ignore var picture: ByteArray? = null
-)
+): Serializable
