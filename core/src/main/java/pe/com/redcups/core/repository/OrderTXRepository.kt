@@ -22,7 +22,6 @@ class OrderTXRepository private constructor(
         orderDetail.orderId = 1
         orderDetail.supplierId = null
         orderDetailDao.insert(orderDetail)
-
     }
 
     suspend fun emptyCart(){

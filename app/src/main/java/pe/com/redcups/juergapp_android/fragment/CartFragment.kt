@@ -53,9 +53,6 @@ class CartFragment : Fragment() {
         cart_content_recycler_view.layoutManager = LinearLayoutManager(view.context)
         cart_content_recycler_view.addItemDecoration(DividerItemDecoration(context, 1))
         viewModel.cartContent.observe(this, Observer {order ->
-            if(order==null){
-                viewModel.initCart()
-            }
             order?.also {
                 orderDetailsAdapter.setOrderDetails(it.orderDetails)
                 orderDetailsAdapter.notifyDataSetChanged()

@@ -15,16 +15,14 @@ import pe.com.redcups.core.repository.OrderTXRepository
 class CartViewModel(private val repository: OrderTXRepository, private val orderRepository: OrderRepository) : ViewModel(){
     val cartContent = repository.getCartInstance()
 
-    fun persist(orderDetail: OrderDetailTX)= viewModelScope.launch{
-        runBlocking {
-            initCart()
-            repository.addToCart(orderDetail)
-        }
+    fun persist(orderDetail: OrderDetailTX)= viewModelScope.launch(Dispatchers.IO){
+        repository.insertOrderInRoom(OrderTX(id = 1))
+        repository.addToCart(orderDetail)
     }
 
-    fun initCart()= viewModelScope.launch(Dispatchers.IO){
+/*    fun initCart()= viewModelScope.launch(Dispatchers.IO){
         repository.insertOrderInRoom(OrderTX(id = 1))
-    }
+    }*/
 
     fun order() = viewModelScope.launch(Dispatchers.IO){
         runBlocking {

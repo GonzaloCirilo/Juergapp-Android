@@ -30,7 +30,7 @@
     <string name="event_address_label">Direccion</string>
     <string name="event_date">Fecha del Evento</string>
     <string name="cart">Carrito</string>
-    <string name="content_string">Contenido</string>
+    <string name="content_string">Estas comprando</string>
     <string name="ordernar">Ordernar</string>
     <string name="no_intrent_label">No tienes internet :(</string>
     <string name="invite_contacts_title">Invitar a...</string>
