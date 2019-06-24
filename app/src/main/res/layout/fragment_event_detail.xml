@@ -39,6 +39,39 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="5dp"
                     android:textSize="15dp"
+                    android:text="DESCRIPCION:"
+                    android:textStyle="bold"/>
+            <TextView
+                    android:id="@+id/event_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="20dp"
+                    android:text="host_label"
+            />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="15dp"
+                    android:text="FECHA:"
+                    android:textStyle="bold"/>
+            <TextView
+                    android:id="@+id/event_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="20dp"
+                    android:text="host_label"
+            />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="15dp"
                     android:text="ORGANIZADOR:"
                     android:textStyle="bold"/>
             <TextView
@@ -66,10 +99,22 @@
                     android:textSize="20dp"
                     android:text="addresss_label"
             />
+
+
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_margin="@dimen/medium_margin"
-                      android:text="Add Participants"
+                      android:text="PARTICIPANTS"
+            />
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/invite_friends_button"
+                    android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                   android:text="Invitar Amigos"
+                    android:textColor="@color/white"
             />
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_participant_list"
@@ -83,6 +128,7 @@
                 android:id="@+id/map_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:layout_margin="@dimen/medium_margin"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 tools:context="pe.com.redcups.juergapp_android.fragments.EventDetailFragment"/>
     </LinearLayout>
