@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
-// Add foreign keys to product
 @Entity(tableName = "product_category_table")
 data class ProductCategory (
     @PrimaryKey

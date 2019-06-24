@@ -14,7 +14,7 @@ class TokenManager(context: Context) {
         mPrefs = context.getSharedPreferences("JUERGAPP", Context.MODE_PRIVATE)
         setToken("eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1Njk1OTc4NDF9.Y3fZVQbXbfMavQid-ddIzocVOxJGHDcR2rYWHs17db8")
     }
-    fun getAsMutableMap(): MutableMap<String,String>? = mapOf("Authorization" to "Bearer ${getToken()}", "Content-Type" to "application/json").toMutableMap()
+    fun getAsMutableMap(): MutableMap<String,String>? = mapOf("Authorization" to "Bearer ${getToken()}" ).toMutableMap()
 
     companion object {
         @Volatile

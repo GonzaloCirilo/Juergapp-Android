@@ -20,7 +20,7 @@ class EventRepository private constructor(private val eventDao: EventDao){
     fun getEvent(id: String) = eventDao.getEvent(id)
 
     suspend fun insertEvent(event: Event){
-        JuergappAPI.getInstance().postResource(event).also {
+        JuergappAPI.getInstance().postResource(event, mapOf("picture" to event.picture!!)).also {
             withContext(Dispatchers.IO){
                 eventDao.insert(event)
             }

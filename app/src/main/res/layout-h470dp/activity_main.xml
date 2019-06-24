@@ -13,7 +13,16 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />
-
+    <TextView
+            android:id="@+id/no_internet_alert"
+            android:layout_width="match_parent"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:text="@string/no_intrent_label"
+    />
         <fragment
                 android:id="@+id/nav_host_fragment"
                 android:name="androidx.navigation.fragment.NavHostFragment"

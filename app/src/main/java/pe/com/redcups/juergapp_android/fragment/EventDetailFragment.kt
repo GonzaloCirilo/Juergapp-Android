@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -66,7 +67,6 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
 
         retainInstance = true
 
-
         participantAdapter = ParticipantAdapter(view.context)
         recycler_view_participant_list.adapter = participantAdapter
         recycler_view_participant_list.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
@@ -75,6 +75,8 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
             it?.also { e ->
                 event_name_label.text = e.name
                 event_address.text = e.address
+                event_description.text = e.description
+                event_date.text = e.date.toString()
                 lat = e.latitude
                 lon = e.longitude
                 event_host.text = e.id.toString()
@@ -86,5 +88,9 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
 
             }
         })
+        invite_friends_button.setOnClickListener{
+            findNavController().navigate(R.id.contacts_dest)
+
+        }
     }
 }

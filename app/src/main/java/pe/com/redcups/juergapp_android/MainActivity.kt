@@ -1,17 +1,23 @@
 package pe.com.redcups.juergapp_android
 
+import android.content.Context
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.net.ConnectivityManager.CONNECTIVITY_ACTION
+import android.net.Network
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import kotlinx.android.synthetic.main.activity_main.*
+import pe.com.redcups.core.network.Connection
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration : AppBarConfiguration
@@ -35,6 +41,31 @@ class MainActivity : AppCompatActivity() {
         setupActionBar(navController, appBarConfiguration)
         setupNavigationMenu(navController)
         setupBottomNavMenu(navController)
+
+        // check if user has internet access show no internet access
+
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        connectivityManager?.let {
+            it.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    //take action when network connection is gained
+                    runOnUiThread {
+                        if(Connection.hasInternetAccess(this@MainActivity)){
+                            no_internet_alert.visibility =  View.GONE
+                        }
+                    }
+                }
+                override fun onLost(network: Network?) {
+                    //take action when network connection is lost
+                    runOnUiThread {
+                        if(!Connection.hasInternetAccess(this@MainActivity)){
+                            no_internet_alert.visibility =  View.VISIBLE
+                        }
+                    }
+                }
+            })
+        }
+
 
 
     }

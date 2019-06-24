@@ -154,4 +154,8 @@
     <fragment android:id="@+id/cart_dest" android:name="pe.com.redcups.juergapp_android.fragment.CartFragment"
               android:label="@string/cart" tools:layout="@layout/fragment_cart"/>
 
+    <fragment android:id="@+id/contacts_dest" android:name="pe.com.redcups.juergapp_android.fragment.Contacts"
+              android:label="@string/invite_contacts_title"
+              tools:layout="@layout/fragment_contacts"/>
+
 </navigation>
