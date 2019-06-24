@@ -52,6 +52,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/event_description_text_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@={viewmodel.event.description}"/>
@@ -65,6 +66,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/event_address_text_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@={viewmodel.event.address}"/>

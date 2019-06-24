@@ -89,7 +89,7 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
             // populate data byte payload
             Map<String, DataPart> data = getByteData();
             if (data != null && data.size() > 0) {
-                dataParse(dos, data);
+            //    dataParse(dos, data);
             }
 
             // close multipart form data after text and file data
@@ -189,6 +189,7 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
      * @throws IOException
      */
     private void buildDataPart(DataOutputStream dataOutputStream, DataPart dataFile, String inputName) throws IOException {
+
         dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
         dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" +
                 inputName + "\"; filename=\"" + dataFile.getFileName() + "\"" + lineEnd);

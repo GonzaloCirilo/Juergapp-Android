@@ -8,6 +8,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "pe.com.redcups.juergapp_android"
@@ -95,5 +96,6 @@ dependencies {
 
     // Testing fragmens
     androidTestImplementation 'androidx.fragment:fragment-testing:1.1.0-alpha04'
+    implementation 'androidx.cursoradapter:cursoradapter:1.0.0'
 
 }

@@ -42,6 +42,7 @@ class JuergappAPI  {
         clazz: Class<T>,
         method: Int,
         body: T? = null,
+        files: Map<String, ByteArray>? = null,
         pathVariable: String? = "",
         errorCallback: () -> Unit = {}
     ): T = suspendCancellableCoroutine {continuation ->
@@ -56,7 +57,8 @@ class JuergappAPI  {
                 errorCallback.invoke()
                 continuation.tryResumeWithException(Exception(it))
             },
-            body
+            body,
+            files
         )
         if(hasInternetAccess)
             AppController.getInstance().addRequest(request)
@@ -115,9 +117,8 @@ class JuergappAPI  {
         buildRequest(clazz, Request.Method.GET, pathVariable = pathVariable, errorCallback = errorCallback)
 
 
-    suspend fun <T: Any> postResource(body: T, errorCallback: () -> Unit = {}): T =
-        buildRequest((body::class.java) as Class<T>, Request.Method.POST, body, errorCallback = errorCallback)
-
+    suspend fun <T: Any> postResource(body: T, files: Map<String, ByteArray>? = null, errorCallback: () -> Unit = {}): T =
+        buildRequest((body::class.java) as Class<T>, Request.Method.POST, body, files = files, errorCallback = errorCallback)
 
     suspend fun  <T> deleteResource(clazz: Class<T>, pathVariable: String = ""): JSONObject =
         buildDeleteRequest(clazz,pathVariable)

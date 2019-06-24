@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            style="@style/TextAppearance.MaterialComponents.Headline3"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:text="@string/content_string"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -23,7 +23,7 @@
             android:layout_height="0dp"/>
     <com.google.android.material.button.MaterialButton
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:id="@+id/confirmation_button"
+            android:id="@+id/confirm_purchase_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ordernar"/>
