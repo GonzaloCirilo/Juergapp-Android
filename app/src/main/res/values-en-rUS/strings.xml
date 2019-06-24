@@ -32,4 +32,5 @@
     <string name="cart">Cart</string>
     <string name="ordernar">Order</string>
     <string name="no_intrent_label">No internet connection.. :(</string>
+    <string name="invite_contacts_title">Invite...</string>
 </resources>
