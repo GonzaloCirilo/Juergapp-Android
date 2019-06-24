@@ -2,6 +2,7 @@ package pe.com.redcups.core.model
 import android.graphics.Bitmap
 import androidx.room.*
 import pe.com.redcups.core.helper.DateConverter
+import java.io.Serializable
 import java.util.Date
 
 @Entity(tableName = "event_table")
@@ -18,4 +19,4 @@ data class Event(
     var pictureData: String? = null,
     var description: String = "yolo",
     @Ignore var picture_: Bitmap? = null
-)
+): Serializable
