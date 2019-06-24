@@ -1,5 +1,7 @@
 package pe.com.redcups.juergapp_android.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,6 +26,8 @@ import pe.com.redcups.core.viewmodel.events.EventDetailViewModel
 
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.ParticipantAdapter
+
+
 
 class EventDetailFragment : Fragment(), OnMapReadyCallback {
 
@@ -90,6 +94,12 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
         })
         invite_friends_button.setOnClickListener{
             findNavController().navigate(R.id.contacts_dest)
+
+        }
+        whatsapp_group_dest.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setData(Uri.parse("https://chat.whatsapp.com/E2ZQ51cH0UOAKRcW2crueY"))
+            startActivity(intent)
 
         }
     }

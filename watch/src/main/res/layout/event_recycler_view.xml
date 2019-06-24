@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:gravity="center">
     <ImageView
             android:id="@+id/image"
-            android:layout_width="100dp"
-            android:layout_height="70dp"/>
-    <TextView
-            android:id="@+id/event_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@color/white"
-            android:text="sssssssss"
-            android:padding="8dp"/>
-    <TextView
-            android:id="@+id/event_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@color/white"
-            android:padding="8dp"/>
-</LinearLayout>
+            android:layout_height="match_parent"/>
+        <LinearLayout
+                android:background="@color/dark_blue"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <TextView
+                android:id="@+id/event_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:text="EventoPlaceholder"
+                android:padding="8dp"/>
+        <TextView
+                android:id="@+id/event_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:padding="8dp"/>
+        </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

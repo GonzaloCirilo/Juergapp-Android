@@ -28,12 +28,14 @@ class ContactsAdapter(context: Context): RecyclerView.Adapter<ContactsAdapter.Vi
             val contact = contacts[position]
             contactNameTextView.text = contact.name
             contactPhoneTextView.text = contact.phone
-            contactInviteButton.text = if (contact.invited) "Invitado!" else "Invitar"
+            contactInviteButton.text = if (contact.invited) "¡Invitado!" else "Invitar"
 
             contactInviteButton.setOnClickListener{
                 // invitar
                 contact.invited = !contact.invited
-                contactInviteButton.text = if (contact.invited) "Invitado!" else "Invitar"
+                contactInviteButton.text = if (contact.invited) "¡Invitado!" else "Invitar"
+                contactInviteButton.background.setTint(itemView.resources.getColor(R.color.background_material_light))
+                contactInviteButton.setTextColor(itemView.resources.getColor(R.color.primary_dark_material_dark))
                 // invitar con backend ps mascota
             }
         }
