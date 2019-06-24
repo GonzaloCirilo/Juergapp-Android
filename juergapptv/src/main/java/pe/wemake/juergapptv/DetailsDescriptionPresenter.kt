@@ -15,17 +15,18 @@
 package pe.wemake.juergapptv
 
 import androidx.leanback.widget.AbstractDetailsDescriptionPresenter
+import pe.com.redcups.core.model.Event
 
 class DetailsDescriptionPresenter : AbstractDetailsDescriptionPresenter() {
 
     override fun onBindDescription(
-        viewHolder: AbstractDetailsDescriptionPresenter.ViewHolder,
+        viewHolder: ViewHolder,
         item: Any
     ) {
-        val movie = item as Movie
+        val movie = item as Event
 
-        viewHolder.title.text = movie.title
-        viewHolder.subtitle.text = movie.studio
-        viewHolder.body.text = movie.description
+        viewHolder.title.text = movie.name
+        viewHolder.subtitle.text = movie.description
+        viewHolder.body.text = movie.address
     }
 }

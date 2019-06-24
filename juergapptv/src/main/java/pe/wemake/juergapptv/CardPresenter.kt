@@ -23,6 +23,7 @@ import android.view.ViewGroup
 
 import com.bumptech.glide.Glide
 import pe.com.redcups.core.model.Event
+import pe.com.redcups.core.utilities.BitmapUtils
 import kotlin.properties.Delegates
 
 /**
@@ -34,7 +35,7 @@ class CardPresenter : Presenter() {
     private var sSelectedBackgroundColor: Int by Delegates.notNull()
     private var sDefaultBackgroundColor: Int by Delegates.notNull()
 
-    override fun onCreateViewHolder(parent: ViewGroup): Presenter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
         Log.d(TAG, "onCreateViewHolder")
 
         sDefaultBackgroundColor = ContextCompat.getColor(parent.context, R.color.default_background)
@@ -51,24 +52,24 @@ class CardPresenter : Presenter() {
         cardView.isFocusable = true
         cardView.isFocusableInTouchMode = true
         updateCardBackgroundColor(cardView, false)
-        return Presenter.ViewHolder(cardView)
+        return ViewHolder(cardView)
     }
 
     override fun onBindViewHolder(viewHolder: Presenter.ViewHolder, item: Any) {
         val event = item as Event
         val cardView = viewHolder.view as ImageCardView
-        event.pictureData = "https://avatars.dicebear.com/v2/gridy/${event.name}.svg"
-        Log.d(TAG, "onBindViewHolder")
-        if (event.pictureData != null) {
-            cardView.titleText = event.name
-            cardView.contentText = event.description
-            cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
-            Glide.with(viewHolder.view.context)
-                .load("https://avatars.dicebear.com/v2/gridy/${event.name}.svg")
-                .centerCrop()
-                .error(mDefaultCardImage)
-                .into(cardView.mainImageView)
+        try{
+            if (event.pictureData != null) {
+                cardView.titleText = event.name
+                cardView.contentText = event.description
+                cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
+                cardView.mainImageView.setImageBitmap(BitmapUtils.stringToBitmap(event.pictureData!!))
+            }
+        }catch (e: Exception){
+
         }
+        Log.d(TAG, "onBindViewHolder")
+
     }
 
     override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder) {

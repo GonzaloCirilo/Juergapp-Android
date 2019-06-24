@@ -52,6 +52,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import pe.com.redcups.core.model.Event
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.events.EventViewModel
 
@@ -115,27 +116,26 @@ class MainFragment : BrowseSupportFragment() {
     private fun loadRows() {
         val cardPresenter = CardPresenter()
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
+
         viewModel.events.observe(this, Observer {
+            rowsAdapter.clear()
             for (i in 0 until NUM_ROWS) {
                 if (i != 0) {
                     Collections.shuffle(it)
                 }
                 val listRowAdapter = ArrayObjectAdapter(cardPresenter)
-                for (j in 0 until NUM_COLS) {
-                    listRowAdapter.add(it[j % 5])
+                for (j in 0 until it.size) {
+                    listRowAdapter.add(it[j % 3])
                 }
                 val header = HeaderItem(i.toLong(), MovieList.MOVIE_CATEGORY[i])
                 rowsAdapter.add(ListRow(header, listRowAdapter))
 
             }
-            val gridHeader = HeaderItem(NUM_ROWS.toLong(), "PREFERENCES")
-
             val mGridPresenter = GridItemPresenter()
             val gridRowAdapter = ArrayObjectAdapter(mGridPresenter)
             gridRowAdapter.add(resources.getString(R.string.grid_view))
             gridRowAdapter.add(getString(R.string.error_fragment))
             gridRowAdapter.add(resources.getString(R.string.personal_settings))
-            rowsAdapter.add(ListRow(gridHeader, gridRowAdapter))
 
             adapter = rowsAdapter
         })
@@ -160,7 +160,7 @@ class MainFragment : BrowseSupportFragment() {
             row: Row
         ) {
 
-            if (item is Movie) {
+            if (item is Event) {
                 Log.d(TAG, "Item: " + item.toString())
                 val intent = Intent(activity, DetailsActivity::class.java)
                 intent.putExtra(DetailsActivity.MOVIE, item)
@@ -251,7 +251,7 @@ class MainFragment : BrowseSupportFragment() {
         private val BACKGROUND_UPDATE_DELAY = 300
         private val GRID_ITEM_WIDTH = 200
         private val GRID_ITEM_HEIGHT = 200
-        private val NUM_ROWS = 6
+        private val NUM_ROWS = 3
         private val NUM_COLS = 15
     }
 }

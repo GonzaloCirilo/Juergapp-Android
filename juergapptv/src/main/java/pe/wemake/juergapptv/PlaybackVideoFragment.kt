@@ -21,6 +21,7 @@ import androidx.leanback.app.VideoSupportFragmentGlueHost
 import androidx.leanback.media.MediaPlayerAdapter
 import androidx.leanback.media.PlaybackTransportControlGlue
 import androidx.leanback.widget.PlaybackControlsRow
+import pe.com.redcups.core.model.Event
 
 /** Handles video playback with media controls. */
 class PlaybackVideoFragment : VideoSupportFragment() {
@@ -30,8 +31,8 @@ class PlaybackVideoFragment : VideoSupportFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val (_, title, description, _, _, videoUrl) =
-            activity?.intent?.getSerializableExtra(DetailsActivity.MOVIE) as Movie
+        val (_, name, _, _, _, _,_,_,description) =
+            activity?.intent?.getSerializableExtra(DetailsActivity.MOVIE) as Event
 
         val glueHost = VideoSupportFragmentGlueHost(this@PlaybackVideoFragment)
         val playerAdapter = MediaPlayerAdapter(activity)
@@ -39,11 +40,11 @@ class PlaybackVideoFragment : VideoSupportFragment() {
 
         mTransportControlGlue = PlaybackTransportControlGlue(getActivity(), playerAdapter)
         mTransportControlGlue.host = glueHost
-        mTransportControlGlue.title = title
+        mTransportControlGlue.title = name
         mTransportControlGlue.subtitle = description
         mTransportControlGlue.playWhenPrepared()
 
-        playerAdapter.setDataSource(Uri.parse(videoUrl))
+        playerAdapter.setDataSource(Uri.parse("http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review.mp4"))
     }
 
     override fun onPause() {

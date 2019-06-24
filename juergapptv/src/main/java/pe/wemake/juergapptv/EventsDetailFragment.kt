@@ -44,6 +44,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import pe.com.redcups.core.model.Event
+import pe.com.redcups.core.utilities.BitmapUtils
 
 import java.util.Collections
 
@@ -53,7 +55,7 @@ import java.util.Collections
  */
 class EventsDetailFragment : DetailsFragment() {
 
-    private var mSelectedMovie: Movie? = null
+    private var mSelectedEvent: Event? = null
 
     private lateinit var mDetailsBackground: DetailsFragmentBackgroundController
     private lateinit var mPresenterSelector: ClassPresenterSelector
@@ -65,15 +67,15 @@ class EventsDetailFragment : DetailsFragment() {
 
         mDetailsBackground = DetailsFragmentBackgroundController(this)
 
-        mSelectedMovie = activity.intent.getSerializableExtra(DetailsActivity.MOVIE) as Movie
-        if (mSelectedMovie != null) {
+        mSelectedEvent = activity.intent.getSerializableExtra(DetailsActivity.MOVIE) as Event
+        if (mSelectedEvent != null) {
             mPresenterSelector = ClassPresenterSelector()
             mAdapter = ArrayObjectAdapter(mPresenterSelector)
             setupDetailsOverviewRow()
             setupDetailsOverviewRowPresenter()
             setupRelatedMovieListRow()
             adapter = mAdapter
-            initializeBackground(mSelectedMovie)
+            initializeBackground(mSelectedEvent)
             onItemViewClickedListener = ItemViewClickedListener()
         } else {
             val intent = Intent(activity, MainActivity::class.java)
@@ -81,66 +83,31 @@ class EventsDetailFragment : DetailsFragment() {
         }
     }
 
-    private fun initializeBackground(movie: Movie?) {
+    private fun initializeBackground(event: Event?) {
         mDetailsBackground.enableParallax()
-        Glide.with(activity)
-            .load(movie?.backgroundImageUrl)
-            .asBitmap()
-            .centerCrop()
-            .error(R.drawable.default_background)
-            .into<SimpleTarget<Bitmap>>(object : SimpleTarget<Bitmap>() {
-                override fun onResourceReady(
-                    bitmap: Bitmap,
-                    glideAnimation: GlideAnimation<in Bitmap>
-                ) {
-                    mDetailsBackground.coverBitmap = bitmap
-                    mAdapter.notifyArrayItemRangeChanged(0, mAdapter.size())
-                }
-            })
+        mDetailsBackground.coverBitmap = BitmapUtils.stringToBitmap(event!!.pictureData!!)
     }
 
     private fun setupDetailsOverviewRow() {
-        Log.d(TAG, "doInBackground: " + mSelectedMovie?.toString())
-        val row = DetailsOverviewRow(mSelectedMovie)
+        Log.d(TAG, "doInBackground: " + mSelectedEvent?.toString())
+        val row = DetailsOverviewRow(mSelectedEvent)
         row.imageDrawable = ContextCompat.getDrawable(activity, R.drawable.default_background)
         val width = convertDpToPixel(activity, DETAIL_THUMB_WIDTH)
         val height = convertDpToPixel(activity, DETAIL_THUMB_HEIGHT)
-        Glide.with(activity)
-            .load(mSelectedMovie?.cardImageUrl)
-            .centerCrop()
-            .error(R.drawable.default_background)
-            .into<SimpleTarget<GlideDrawable>>(object : SimpleTarget<GlideDrawable>(width, height) {
-                override fun onResourceReady(
-                    resource: GlideDrawable,
-                    glideAnimation: GlideAnimation<in GlideDrawable>
-                ) {
-                    Log.d(TAG, "details overview card image url ready: " + resource)
-                    row.imageDrawable = resource
-                    mAdapter.notifyArrayItemRangeChanged(0, mAdapter.size())
-                }
-            })
+        row.setImageBitmap(context,BitmapUtils.stringToBitmap(mSelectedEvent!!.pictureData!!))
 
         val actionAdapter = ArrayObjectAdapter()
 
         actionAdapter.add(
             Action(
                 ACTION_WATCH_TRAILER,
-                resources.getString(R.string.watch_trailer_1),
-                resources.getString(R.string.watch_trailer_2)
-            )
-        )
-        actionAdapter.add(
-            Action(
-                ACTION_RENT,
-                resources.getString(R.string.rent_1),
-                resources.getString(R.string.rent_2)
+                "Previos"
             )
         )
         actionAdapter.add(
             Action(
                 ACTION_BUY,
-                resources.getString(R.string.buy_1),
-                resources.getString(R.string.buy_2)
+                "Asistire"
             )
         )
         row.actionsAdapter = actionAdapter
@@ -165,7 +132,7 @@ class EventsDetailFragment : DetailsFragment() {
         detailsPresenter.onActionClickedListener = OnActionClickedListener { action ->
             if (action.id == ACTION_WATCH_TRAILER) {
                 val intent = Intent(activity, PlaybackActivity::class.java)
-                intent.putExtra(DetailsActivity.MOVIE, mSelectedMovie)
+                intent.putExtra(DetailsActivity.MOVIE, mSelectedEvent)
                 startActivity(intent)
             } else {
                 Toast.makeText(activity, action.toString(), Toast.LENGTH_SHORT).show()
@@ -204,7 +171,7 @@ class EventsDetailFragment : DetailsFragment() {
             if (item is Movie) {
                 Log.d(TAG, "Item: " + item.toString())
                 val intent = Intent(activity, DetailsActivity::class.java)
-                intent.putExtra(resources.getString(R.string.movie), mSelectedMovie)
+                intent.putExtra(resources.getString(R.string.movie), mSelectedEvent)
 
                 val bundle =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(
