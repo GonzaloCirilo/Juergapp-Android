@@ -1,41 +1,22 @@
 package pe.com.redcups.juergapp_android
 
-import android.app.Activity
 import android.view.View
-import androidx.fragment.app.testing.launchFragment
-import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.core.app.launchActivity
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAction
-import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.BoundedMatcher
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.activityScenarioRule
-import kotlinx.android.synthetic.main.fragment_cart.view.*
 
 import org.junit.Rule
 import org.junit.Test
-import pe.com.redcups.juergapp_android.fragment.EventAddFragment
-import pe.com.redcups.juergapp_android.adapter.EventAdapter
 import pe.com.redcups.juergapp_android.adapter.OrderDetailsAdapter
 import pe.com.redcups.juergapp_android.adapter.ProductCategoryAdapter
 import pe.com.redcups.juergapp_android.adapter.ProductListAdapter
 import java.util.*
-import java.util.regex.Matcher
-
-
 
 import android.content.res.Resources
-import android.util.Log
-import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert
@@ -90,6 +71,7 @@ class AddOrderTest{
 
     @Test
     fun buyProduct() {
+        Thread.sleep(2000)
 
         // NAVIGATE - Setup
         onView(withId(R.id.product_category_dest)).perform(ViewActions.click())
@@ -125,7 +107,7 @@ class AddOrderTest{
         //cart should now be empty
 
         Assert.assertEquals(0, getRVcount())
-        }
+    }
 
     fun withRecyclerView(recyclerViewId: Int): RecyclerViewMatcher {
 

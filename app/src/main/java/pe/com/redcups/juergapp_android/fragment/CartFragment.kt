@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.fragment_cart.*
 import pe.com.redcups.core.model.tx.OrderDetailTX
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.orders.CartViewModel
-
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.OrderDetailsAdapter
 
@@ -55,9 +54,8 @@ class CartFragment : Fragment() {
         viewModel.cartContent.observe(this, Observer {order ->
             order?.also {
                 orderDetailsAdapter.setOrderDetails(it.orderDetails)
-                orderDetailsAdapter.notifyDataSetChanged()
             }
-
+            orderDetailsAdapter.notifyDataSetChanged()
         })
         confirm_purchase_button.setOnClickListener {
             viewModel.order()
