@@ -38,6 +38,7 @@ class EventAdapter(context: Context): RecyclerView.Adapter<EventAdapter.ViewHold
             if (event.pictureData != null){
                 eventImageView.setImageBitmap(BitmapUtils.stringToBitmap(event.pictureData!!))
             }
+            eventImageView.contentDescription = event.name + " picture"
             itemView.setOnClickListener{
                 // aca le pasas el argumento del evento por Safe Args
                 //https://developer.android.com/guide/navigation/navigation-pass-data
