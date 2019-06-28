@@ -39,6 +39,7 @@ class ProductCategoryAdapter(context: Context): RecyclerView.Adapter<ProductCate
 
             if (productCategory.pictureData != null){
                 productCategoriesImageView.setImageBitmap(BitmapUtils.stringToBitmap(productCategory.pictureData!!))
+                productCategoriesImageView.contentDescription = productCategory.name + " picture"
             }
 
             with(productCategoriesNameTextView){
