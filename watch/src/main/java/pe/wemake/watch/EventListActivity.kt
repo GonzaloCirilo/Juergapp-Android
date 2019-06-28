@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import pe.com.redcups.core.utilities.InjectorUtils
 import pe.com.redcups.core.viewmodel.events.EventViewModel
 
-class MainActivity : FragmentActivity(), AmbientModeSupport.AmbientCallbackProvider {
+class EventListActivity : FragmentActivity(), AmbientModeSupport.AmbientCallbackProvider {
 
 
     override fun getAmbientCallback(): AmbientModeSupport.AmbientCallback = AmbientCallback()

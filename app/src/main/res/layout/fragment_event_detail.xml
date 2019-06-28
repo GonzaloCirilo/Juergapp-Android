@@ -99,7 +99,17 @@
                     android:textSize="20dp"
                     android:text="addresss_label"
             />
-
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/whatsapp_group_dest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:text="Grupo de Whatsapp"
+                    android:backgroundTint="#4ec85b"
+                    android:textColor="@color/white"
+            />
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"

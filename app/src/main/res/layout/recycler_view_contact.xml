@@ -31,6 +31,7 @@
             android:id="@+id/contact_invite_button"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
            android:text="Invitar"
            android:padding="10dp"
            android:paddingStart="40dp"
