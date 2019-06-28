@@ -37,6 +37,7 @@
             android:layout_gravity="center"
             android:scaleType="fitCenter"/>
     <Button
+            android:id="@+id/add_to_cart_button"
             android:layout_margin="@dimen/medium_margin"
             android:layout_width="match_parent"
             android:background="@color/colorPrimary"

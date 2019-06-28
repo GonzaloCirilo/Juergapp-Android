@@ -1,5 +1,7 @@
 package pe.com.redcups.juergapp_android.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -23,6 +26,8 @@ import pe.com.redcups.core.viewmodel.events.EventDetailViewModel
 
 import pe.com.redcups.juergapp_android.R
 import pe.com.redcups.juergapp_android.adapter.ParticipantAdapter
+
+
 
 class EventDetailFragment : Fragment(), OnMapReadyCallback {
 
@@ -66,7 +71,6 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
 
         retainInstance = true
 
-
         participantAdapter = ParticipantAdapter(view.context)
         recycler_view_participant_list.adapter = participantAdapter
         recycler_view_participant_list.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
@@ -75,16 +79,28 @@ class EventDetailFragment : Fragment(), OnMapReadyCallback {
             it?.also { e ->
                 event_name_label.text = e.name
                 event_address.text = e.address
+                event_description.text = e.description
+                event_date.text = e.date.toString()
                 lat = e.latitude
                 lon = e.longitude
                 event_host.text = e.id.toString()
                 val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
                 mapFragment.getMapAsync(this)
-                e.picture_data?.also {image ->
+                e.pictureData?.also {image ->
                     event_image.setImageBitmap(BitmapUtils.stringToBitmap(image))
                 }
 
             }
         })
+        invite_friends_button.setOnClickListener{
+            findNavController().navigate(R.id.contacts_dest)
+
+        }
+        whatsapp_group_dest.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setData(Uri.parse("https://chat.whatsapp.com/E2ZQ51cH0UOAKRcW2crueY"))
+            startActivity(intent)
+
+        }
     }
 }

@@ -105,8 +105,13 @@ class EventAddFragment : Fragment(), DatePickerDialog.OnDateSetListener, OnMapRe
         })
 
         add_event_button.setOnClickListener {
-            viewModel.persistEvent()
-            findNavController().navigateUp()
+            if (viewModel.event.value!!.picture != null) {
+                viewModel.persistEvent()
+                findNavController().navigateUp()
+            }
+            else{
+                Toast.makeText(this.context, "Necesitas subir una foto", Toast.LENGTH_SHORT).show()
+            }
         }
         event_add_image.setOnClickListener {
 
@@ -178,48 +183,12 @@ class EventAddFragment : Fragment(), DatePickerDialog.OnDateSetListener, OnMapRe
                 ImageDecode = cursor.getString(columnIndex)
                 cursor.close()
                 event_add_image.scaleType = ImageView.ScaleType.CENTER_CROP
+                viewModel.event.value!!.picture =
+                    context!!.contentResolver.openInputStream(URI)?.buffered()?.use { it.readBytes() }
+
                 event_add_image.setImageBitmap(
                     BitmapFactory
                         .decodeFile(ImageDecode))
-
-
-                // send data to API
-
-                val url = "https://juergapp.wemake.pe/upload_event/"
-                val multipartRequest = object :
-                    VolleyMultipartRequest(Request.Method.POST, url, object : Response.Listener<NetworkResponse> {
-                        override fun onResponse(response: NetworkResponse) {
-                            val resultResponse = String(response.data)
-                            // parse success output
-                        }
-                    }, object : Response.ErrorListener {
-                        override fun onErrorResponse(error: VolleyError) {
-                            error.printStackTrace()
-                        }
-                    }) {
-                    override fun getParams():HashMap<String, String> {
-                        return hashMapOf("id" to "3")
-                    }
-                    // file name could found file base or direct access from real path
-                    // for now just get bitmap data from ImageView
-
-                    override fun getByteData(): Map<String, DataPart>{
-                        val params = HashMap<String, DataPart>()
-                        event_add_image.let {
-                            params.put(
-                                "file", DataPart(
-                                    "event_image.jpg",
-                                    readBytes(this@EventAddFragment.context!!, URI),
-                                    "image/jpeg"
-                                )
-                            )
-
-                        }
-                        return params
-                    }
-                }
-                AppController.getInstance().addRequest(multipartRequest);
-
             }
         }
         catch (e:Exception) {

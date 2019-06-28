@@ -1,6 +1,8 @@
 package pe.com.redcups.core.repository
 
 import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import pe.com.redcups.core.dao.GameDao
 import pe.com.redcups.core.model.Game
 import pe.com.redcups.core.network.JuergappAPI
@@ -28,8 +30,11 @@ class GameRepository private constructor(private val gameDao: GameDao){
     }
 
     suspend fun fetchGames() {
-        for (game in  JuergappAPI.getInstance().getResource(Array<Game>::class.java)){
-            gameDao.insert(game)
+        val games = JuergappAPI.getInstance().getResource(Array<Game>::class.java)
+        for (game in  games){
+            withContext(Dispatchers.IO){
+                gameDao.insert(game)
+            }
         }
     }
 }

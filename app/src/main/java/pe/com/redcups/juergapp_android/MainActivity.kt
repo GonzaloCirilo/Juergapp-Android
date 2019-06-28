@@ -1,15 +1,23 @@
 package pe.com.redcups.juergapp_android
 
+import android.content.Context
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.net.ConnectivityManager.CONNECTIVITY_ACTION
+import android.net.Network
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import kotlinx.android.synthetic.main.activity_main.*
+import pe.com.redcups.core.network.Connection
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration : AppBarConfiguration
@@ -33,6 +41,31 @@ class MainActivity : AppCompatActivity() {
         setupActionBar(navController, appBarConfiguration)
         setupNavigationMenu(navController)
         setupBottomNavMenu(navController)
+
+        // check if user has internet access show no internet access
+
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        connectivityManager?.let {
+            it.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    //take action when network connection is gained
+                    runOnUiThread {
+                        if(Connection.hasInternetAccess(this@MainActivity)){
+                            no_internet_alert.visibility =  View.GONE
+                        }
+                    }
+                }
+                override fun onLost(network: Network?) {
+                    //take action when network connection is lost
+                    runOnUiThread {
+                        if(!Connection.hasInternetAccess(this@MainActivity)){
+                            no_internet_alert.visibility =  View.VISIBLE
+                        }
+                    }
+                }
+            })
+        }
+
 
 
     }
@@ -62,4 +95,19 @@ class MainActivity : AppCompatActivity() {
         // show the up arrow or drawer menu icon
         setupActionBarWithNavController(navController, appBarConfig)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.cart_menu,menu)
+        var drawable = menu!!.findItem(R.id.cart_dest).icon
+        drawable = DrawableCompat.wrap(drawable)
+        DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.white))
+        menu!!.findItem(R.id.cart_dest).icon = drawable
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
+                || super.onOptionsItemSelected(item)
+    }
+
 }

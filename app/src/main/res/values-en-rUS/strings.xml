@@ -6,7 +6,7 @@
     <string name="add_widget">Add Widget</string>
     <string name="appwidget_text">Example</string>
     <string name="drinks">Drinks</string>
-    <string name="events">Events</string>
+    <string name="events">My Events</string>
     <string name="games">Games</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="invalid_password">Password must be >5 characters</string>
@@ -21,11 +21,16 @@
     <string name="welcome">Welcome!</string>
     <string name="mock_name_text">mock_name</string>
     <string name="create_event">New Event</string>
-    <string name="select_a_drink">Select a Drink Type</string>
+    <string name="select_a_drink">Purchase</string>
     <string name="settings_label">Settings</string>
     <string name="sign_out_label">Sign Out</string>
     <string name="event_address_label">Address</string>
     <string name="event_date">Event\'s Date</string>
     <string name="event_description_label">Description</string>
     <string name="event_name_label">Event\'s Name</string>
+    <string name="cart">Cart</string>
+    <string name="ordernar">Order</string>
+    <string name="no_intrent_label">No internet connection.. :(</string>
+    <string name="invite_contacts_title">Invite...</string>
+    <string name="content_string">You\'re buying..</string>
 </resources>

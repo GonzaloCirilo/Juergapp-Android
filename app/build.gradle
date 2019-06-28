@@ -8,6 +8,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "pe.com.redcups.juergapp_android"
@@ -31,6 +32,13 @@ android {
 
     dataBinding {
         enabled true
+    }
+}
+
+// Add JVM 1.8 (for testing)
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -63,7 +71,7 @@ dependencies {
     // Architecture components
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 
-    //courutines
+    //couroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
 
     // Spotify App Remote
@@ -75,8 +83,19 @@ dependencies {
     // MaterialDatePicker
     implementation 'com.wdullaer:materialdatetimepicker:4.2.0'
 
+    // Tests
     testImplementation 'junit:junit:4.13-beta-2'
-    androidTestImplementation 'androidx.test:runner:1.2.0-beta01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-beta01'
+
+    // UI Tests
+    androidTestImplementation 'androidx.test:core-ktx:' + "1.2.1-alpha01"
+    androidTestImplementation 'androidx.test:runner:1.3.0-alpha01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0-alpha01'
+
+    androidTestImplementation 'androidx.test.ext:junit-ktx:' + "1.1.2-alpha01"
+
+    // Testing fragmens
+    androidTestImplementation 'androidx.fragment:fragment-testing:1.1.0-alpha04'
+    implementation 'androidx.cursoradapter:cursoradapter:1.0.0'
 
 }

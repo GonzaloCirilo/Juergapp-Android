@@ -1,9 +1,10 @@
 package pe.com.redcups.core.network
 
 import pe.com.redcups.core.model.*
+import pe.com.redcups.core.model.tx.OrderTX
 
 object Constants{
-    private const val baseURL = "https://wemake.pe/juergapp/api/v1"
+    private const val baseURL = "https://juergapp.wemake.pe/juergapp/api/v1"
 
     // EndPoints
 

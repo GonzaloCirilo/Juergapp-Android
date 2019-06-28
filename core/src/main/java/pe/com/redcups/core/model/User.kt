@@ -9,7 +9,7 @@ data class User (
     var name: String = "Nombre de la Categoría",
     var bio: String = "Breve descripción de Categoría",
     var picture: String = "URL de la imagen",
-    var picture_data: String? = null
+    var pictureData: String? = null
 )
 
 
